@@ -1,0 +1,38 @@
+@import '../partials/colors';
+@import '../partials/font-size';
+
+
+// .dashboard-sidebar .logo{
+//   width: 100px;
+//   height: 47px;
+//   padding: 20px;
+// }
+
+.sidebar {
+  width: 100%;
+  min-height: 800px;
+  height: 100%;
+  padding: 63px 0 0;
+
+  span {
+    padding: 0 10px;
+  }
+
+  a {
+    margin: 10px 0;
+    padding: 14px 10px;
+    font-size: 16px;
+    color: #717ba0;
+    font-weight: 300;
+    text-decoration: none !important;
+  }
+
+  a:hover {
+    color: $base-color;
+    text-decoration: none;
+  }
+
+  .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    border-radius: 0;
+  }
+}

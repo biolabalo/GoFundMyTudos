@@ -1,0 +1,233 @@
+.payment-view-dashboard {
+ 
+    #controlled-tab-example-tab-home, #controlled-tab-example-tab-profile{
+        background: none !important;
+        border: none !important;
+        font-size: 12px !important;
+        font-weight: 500;
+        color: rgb(176, 174, 179) !important;
+    }
+    .add-new-bank-box{
+        color: #7792FB;
+        width: 345px;
+        height: 200px;
+        border-radius: 5px;
+        background-color: #e3e7ff;
+        position: relative
+    }
+    .shadow {
+        .plus-symbol-add-card{
+            font-size: 35px;
+            color: white;
+        }
+
+        .dot {
+            height: 60px;
+            width: 60px;
+            background-color: #BCC8FE;
+            border-radius: 50%;
+            display: inline-block;
+            vertical-align: middle;
+            margin-top: 45px;
+            margin-bottom: 2rem!important;
+            cursor: pointer;
+          }
+      }
+
+}
+
+.swal-add-card-title{
+    color: #7792fb !important;
+    text-align: left;
+}
+
+.kjxnfv{
+    font-weight: 100;
+    font-size: 12px;
+    padding-bottom: 30px;
+}
+
+.cancel-btn-swal{
+    border: 0;
+    background: initial;
+    background-color: transparent !important;
+    color: #471F6E !important;
+    font-size: 14px !important;
+    margin-left: 45% !important;
+}
+
+.DisplayLogoIcon{
+    width: 20\px
+}
+
+.cancel-btn-swal:focus{
+box-shadow: none !important;
+}
+.cancel-btn-swal:hover {
+    background: none !important;
+}
+
+.confirm-btn-swal{
+    box-shadow: none !important;
+    outline: none;
+}
+.swal2-styled {
+    font-weight: 100 !important;
+}
+
+.swal2-footer {
+    border-top:none !important;
+}
+.banking-details{
+    font-weight: 100 !important;
+}
+
+.swal2-input[type=number] {
+ max-width: 100% !important;
+}
+
+
+.styles_overlay__CLSq-{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.styles_modal__gNwvD{
+     width: 600px !important;
+     border-bottom-left-radius:.2125em;
+     border-bottom-right-radius:.2125em;
+    -webkit-animation: swal2-show .3s;
+    animation: swal2-show .3s;
+    padding: 0px  0px 0px 0px;
+}
+.swal2-container.swal2-backdrop-show {
+    background: rgba(0, 0, 0, 0.75) !important;
+}
+
+.styles_closeButton__20ID4{
+    display: none;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+}
+
+.MuiLinearProgress-barColorPrimary {
+    background-color: #7594fb !important;;
+}
+
+.paystack-container.paystack-embed .paystack-box {
+    margin-top: 40px !important;
+}
+
+.payment-wallet-image{
+    position:fixed;
+    right: -205px;
+    bottom: -155px ;
+    width: 362.3px;
+    height: 300px
+}
+
+.payment-view-dashboard .nav-item  a{
+height: 40px;
+width: 110px;
+text-align: center;
+}
+
+.user-bank-card{
+height: 245px;
+width: 400px;
+}
+
+
+.card-divs{
+    height: 250px;
+    width: 380px;
+    padding: 50px;
+    color: white;
+    text-align: left;
+    font-weight: 100;
+    position: absolute;
+    background-image: url("../../../images/bankCard.png");
+    background-position: center; 
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.card-divs-bank{
+    height: 250px;
+    width: 380px;
+    padding: 50px;
+    color: white;
+    text-align: left;
+    font-weight: 100;
+    position: absolute;
+    background-image: url("../../../images/greenCard.png");
+    background-position: center; 
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.flex-container-payment-tab{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap; 
+}
+
+.flex-item-payment-tab{
+    width: 345px;
+    height: 200px;
+    border-radius: 5px;
+    color: white;
+    text-align: left;
+    font-weight: 100;
+    cursor: pointer;
+    background-image: url("../../../images/bankCard.png");
+    background-position: center; 
+    background-repeat: no-repeat;
+    margin-bottom: 50px;
+    margin-right: 50px;
+}
+
+.flex-item-bank-payment-tab{
+    width: 345px;
+    height: 200px;
+    border-radius: 5px;
+    color: white;
+    text-align: left;
+    font-weight: 100;
+    cursor: pointer;
+    background-image: url("../../../images/greenCard.png");
+    background-position: center; 
+    background-repeat: no-repeat;
+    margin-bottom: 50px;
+    margin-right: 50px;
+}
+
+.add-bank-flex-item-payment-tab{
+    width: 345px;
+    height: 200px;
+    border-radius: 5px;
+    font-weight: 100;
+    margin-bottom: 50px;
+    margin-right: 50px;
+}
+
+.delete-bank-accnt{
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 60px ;
+}
+
+.delete-bank-accnt:hover{
+color: bisque
+}
+

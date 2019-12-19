@@ -1,0 +1,201 @@
+.login-signup-main-container{
+	max-width: 1304px;
+    margin: 0px auto;
+    width: 100%;
+}
+
+.pincode-input-text{
+	margin-right: 20px !important;
+	box-shadow:12px 15px 20px rgba(0, 0, 0, 0.1) !important;
+}
+
+.title-underscore{
+	border-top: 3px solid #866FFF;
+	width: 8%;
+}
+
+.in-just-few{
+	color: #707070;
+	font-weight: 600px !important;
+}
+.login-image{
+  width: 90%;
+  float: right; 
+}
+.create-account{
+	color:#7594FB
+}
+.got-invite-code{
+	cursor: pointer;
+	color: #7594FB
+}
+
+.got-invite-code a{
+text-decoration: none !important;
+}
+.form-login{
+ width : 80%;
+
+.form-control{
+	border: 0.5px solid #C1C1C1;
+	border-radius: .15rem;
+	height: calc(2.5em + .75rem + 2px);
+}
+
+
+::-webkit-input-placeholder { /* Edge */
+	color: #C7C7C7;
+	font-size: 10px;
+	font-weight: 100;
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+	color: #C7C7C7;
+	font-size: 10px;
+	font-weight: 100;
+  }
+  
+   .firstname_placeholder::placeholder,
+   .lastname_placeholder::placeholder,
+   .phone_number::placeholder,
+   .email::placeholder,
+   .password::placeholder,
+   .referral_code::placeholder {
+	color: #C7C7C7;
+	font-size: 10px;
+	font-weight: 100;
+	padding-top: 5px;
+  }
+
+}
+
+.left-side-main-container {
+	float: left;
+}
+
+.right-side-main-container, .right-side-verify-main-container {
+	float: right;
+
+}
+.left-side-main-container {
+	width: 50%;
+	padding-right: 30px;
+}
+.right-side-main-container , .right-side-verify-main-container {
+	width: 50%;
+	padding: 30px;
+}
+
+img {
+	max-width: 100%;
+	height: auto;
+}
+.group:after {
+	content:"";
+	display: table;
+	clear: both;
+}
+@media screen and (max-width: 900px) {
+	.left-side-main-container, .right-side-main-container, .right-side-verify-main-container {
+		float: none;
+		width: auto;
+	}
+	.form-login{
+		width : 100%;
+	}
+
+	.login-image{
+		width: 100%;
+		float: none;
+	  }
+	  .login-signup-main-container{
+		margin: 0px auto;
+		width: 80%;
+	}
+	.right-side-verify-main-container{
+		margin: 0px auto;
+		width: 80%;
+	}
+
+	.pincode-input-text{
+		margin-right: 13px !important;
+	}
+}
+
+.login-footer-parent {
+  display: flex;
+  margin: 1em 0;
+  align-items: center;
+}
+
+.margin-right-auto {
+  margin-right: auto;
+}
+.sc-bwzfXH:active{
+	border: none;
+}
+
+
+#swal2-content > p{
+	font-size: small !important;
+}
+#swal2-title{
+	color: #7594FB !important;
+}
+
+#root > div.group.login-signup-main-container > div.right-side-main-container.mt-5 > form > p > a{
+	text-decoration: none !important;
+	font-size: 12px !important;
+}
+
+
+.swal2-confirm.swal2-styled{
+	color: #ffffff;
+    background: #7594FB;
+    width: 150px;
+    height: 45px;
+    opacity: 1;
+    border-color: #7594FB;
+	outline: none !important;
+	font-weight: 400;
+line-height: 1.5;
+text-align: center;
+list-style: none;
+box-sizing: border-box;
+text-decoration: none;
+padding: 8px 10px;
+border: 1px solid #7594fb;
+border-radius: 0 !important;
+font-size: 12px !important;
+box-shadow: 0 5px 10px 0 rgba(165, 186, 255, 0.48);
+}
+
+.resend-code{
+    cursor: pointer;
+	text-decoration: none;
+	color: #7594FB;
+  }
+
+button.swal2-cancel.swal2-styled{
+	color: #ffffff;
+	background-color: rgb(221, 51, 51);
+	border-color:rgb(221, 51, 51);
+	outline: none !important;
+	font-weight: 400;
+	width: 150px;
+    height: 45px;
+    opacity: 1;
+line-height: 1.5;
+text-align: center;
+list-style: none;
+box-sizing: border-box;
+text-decoration: none;
+padding: 8px 10px;
+border-radius: 0;
+font-size: 12px;
+}
+
+.swal2-styled:focus {
+    outline: 0;
+    box-shadow: none !important;
+}

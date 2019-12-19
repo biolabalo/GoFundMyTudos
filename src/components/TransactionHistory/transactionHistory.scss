@@ -1,0 +1,56 @@
+$base-color:  #7792fb;
+
+.dashboard-tab {
+
+  .tab-content {
+    min-height: 400px;
+    padding: 30px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+}
+
+a.dashboard-tab-savings.nav-item.nav-link,
+a.dashboard-tab-withdrawals.nav-item.nav-link,
+a.dashboard-tab-all.nav-item.nav-link{
+  border: none;
+  background: none !important;
+  font-weight: lighter;
+}
+
+.no-transaction-component{
+  max-width: 100%;
+  width: 400px;
+  margin: 0 auto;
+  margin-top: 10%;
+}
+
+.no-transaction-component svg{
+width: 80px;
+text-align: center;
+display: block;
+margin: auto;
+}
+.no-transaction-component small{
+font-weight: 200;
+  }
+
+.any-transactions-yet{
+  text-align: center;
+}
+
+@media screen and (max-width: 526px) {
+  .any-transactions-yet{
+    text-align: left;
+  }
+ }
+ .history-body-content, .profile-body-content{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 750px;
+  padding: 40px 40px 40px 70px;
+ }

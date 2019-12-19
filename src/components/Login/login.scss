@@ -1,0 +1,29 @@
+.forgot-password:hover{
+    text-decoration: none;
+}
+.addon-with-errors{
+    background: none !important;
+    cursor: pointer !important;
+    border: 1px solid rgb(220, 53, 69) !important;
+}
+.addon-without-errors{
+    background: none !important;
+    cursor: pointer !important;
+    border: 1px solid #C1C1C1 !important;
+}
+@-moz-document url-prefix() {
+    .addon-with-errors{
+        background: none !important;
+        cursor: pointer !important;
+        border: 0.3px solid rgb(220, 53, 69) !important;
+   }
+    .addon-without-errors{
+        background: none !important;
+        cursor: pointer !important;
+        border: 0.03em solid #C1C1C1 !important;
+   }
+}
+
+.form-control.is-invalid{
+    border-color: #dc3545 !important;
+}

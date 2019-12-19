@@ -1,0 +1,404 @@
+@import '../../partials/colors';
+@import '../../partials/font-size';
+
+.new-tudu {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+
+  &-modal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 400px;
+
+    &-image {
+      position: absolute;
+      top: -70px;
+      left: 320px;
+      width: 165px;
+    }
+
+    &-image img {
+      width: 100%;
+      border-radius: 100%;
+    }
+
+    &-body {
+      margin: 130px 0 0;
+      text-align: center;
+    }
+
+    &-body h3 {
+      color: $base-color;
+    }
+
+    &-body p {
+      max-width: 450px;
+      width: 100%;
+      margin: 20px auto;
+      font-size: 14px;
+      font-weight: 300;
+      color: #717BA0;
+    }
+
+    &-body span {
+      font-size: 18px;
+      font-weight: 300;
+      color: $base-color;
+    }
+    
+    &-body button {
+      display: block;
+      width: 140px;
+      height: 40px;
+      margin: 0 auto;
+      padding: 8px 0;
+      background-color: $base-color;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 5px;
+      border-color: $base-color;
+    }
+
+    &-body a:hover {
+      text-decoration: none;
+      color: #ffffff;
+      background-color: #95aeff;
+    }
+
+    &-body-spinner {
+      width: 50px;
+      height: 50px;
+      margin: 100px auto;
+    }
+  }
+
+  &-image {
+    position: absolute;
+    top: 280px;
+    right: 0;
+    width: 50px;
+  }
+
+  &-sidebar {
+    width: 170px;
+    height: 100%;
+  }
+
+  &-body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    &-content {
+      width: 100%;
+      min-height: 750px;
+      padding: 40px 40px 40px 70px;
+      background-color: #ffffff;
+    }
+
+    &-content-row {
+      display: flex;
+      flex-direction: column;
+      max-width: 1300px;
+      width: 100%;
+    }
+
+    &-content-header {
+      display: flex;
+      flex-direction: row;
+      margin: 10px 0 30px;
+    }
+
+    &-content-header-back {
+      cursor: pointer;
+    }
+
+    &-content-header i {
+      width: 30px;
+      height: 30px;
+      padding: 10px;
+      font-size: 10px;
+      background-color: $base-color;
+      color: #ffffff;
+      border-radius: 5px;
+    }
+
+    &-content-header h3 {
+      margin: 0 0 0 20px;
+      font-size: 27px;
+      color: #9c9c9c;
+      font-weight: 300;
+    }
+
+    &-content-progress {
+      margin: 5px 0 30px;
+      padding: 0;
+    }
+
+    &-content-progress h3 {
+      font-size: 30px;
+      color: #717ba0;
+    }
+
+    &-content-progress p {
+      width: 455px;
+      margin: 10px 0;
+      color: #aeb2c4;
+      line-height: 1.9;
+    }
+
+    .progress {
+      height: 0.5rem;
+      border-radius: 0;
+    }
+
+    &-content-progress .progress-bar {
+      background-color: $base-color !important;
+    }
+
+    &-content-todos .btn-outline-secondary {
+      margin: 0 14px 30px 0;
+      color: $base-color;
+      border-color: $base-color;
+    }
+
+    &-content-todos .btn-outline-secondary:hover {
+      color: #ffffff;
+      background-color: #95aeff;
+      border-color: #95aeff;
+    }
+
+    &-content-todos .active {
+      background-color: $base-color !important;
+      color: #ffffff;
+      border-color: $base-color !important;
+    }
+
+    &-content-todos .active:hover {
+      color: $base-color !important;
+      background-color: #95aeff !important;
+      border-color: #ffffff !important;
+    }
+
+    &-content-todos-others-none {
+      display: none;
+    }
+
+    &-content-todos-others {
+      width: 310px;
+    }
+
+    &-content-todos-others button {
+      color: #ffffff;
+      background-color: $base-color;
+      border-color: $base-color;
+    }
+
+    &-content-todos-others button:hover {
+      color: #ffffff;
+      background-color: #95aeff !important;
+      border-color: #95aeff !important;
+    }
+
+    &-content-form label {
+      height: 20px;
+      margin: 10px 0;
+      font-size: smaller;
+      color: #717ba0;
+      font-weight: 500;
+    }
+
+    &-content-form-group {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    &-content-form-group-input {
+      max-width: 300px;
+      width: 100%;
+    }
+
+    &-content-form-group-input .text-muted {
+      color: #c2c4cb !important;
+    }
+
+    &-content-summary-card {
+      width: 100%;
+      min-height: 200px;
+      border: 1px solid #e8e9f5;
+      border-radius: 10px;
+    }
+
+    &-content-summary-card-header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      height: 40px;
+      padding: 7px 35px;
+      background-color: #f6f7ff;
+      border: 1px solid #f6f7ff;
+      border-top-right-radius: 10px;
+      border-top-left-radius: 10px;
+    }
+
+    &-content-summary-card-header h5 {
+      margin: 0;
+      font-size: 16px;
+      color: $base-color;
+    }
+
+    &-content-summary-card-body {
+      display: flex;
+      flex-direction: column;
+      padding: 40px 35px 7px 4px;
+    }
+
+    &-content-summary-card-body-row {
+      display: flex;
+      flex-direction: row;
+      margin: 0 0 35px;
+    }
+
+    &-content-summary-card-body-row-check {
+      width: 15px;
+      height: 15px;
+      margin: 4px 10px 0;
+      background-color: #e3e9ff;
+    }
+
+    &-content-summary-card-body-row-data {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 100%;
+      border-bottom: 1px dashed #e3e9ff;
+    }
+
+    &-content-summary-card-body-row-data p {
+      margin: 0;
+      color: #717ba0;
+    }
+
+    &-content-summary-card-body-row-data span {
+      color: $base-color;
+    }
+
+    &-content-form-group-input-error {
+      color: red !important;
+    }
+
+    &-content-continue {
+      margin: 130px 0 0;
+    }
+
+    &-content-continue button {
+      width: 120px;
+      background-color: $base-color;
+      border: 1px solid $base-color;
+    }
+
+    &-content-continue button:hover {
+      background-color: #95aeff;
+      border: 1px solid #95aeff;
+    }
+
+    &-content-continue button:disabled {
+      background-color: #95aeff;
+      border: 1px solid #95aeff;
+    }
+
+    &-content-duration {
+      width: 100%;
+    }
+
+    &-content-duration-list {
+      display: flex;
+      flex-direction: row;
+      margin: 0 0 50px;
+    }
+
+    &-content-duration-list-label {
+      width: 40%;
+    }
+
+    &-content-duration-list-label p {
+      margin: 7px 0;
+      color: #717BA0;
+    }
+
+    &-content-duration-list-buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 60%;
+    }
+
+    &-content-duration-list-buttons .btn-outline-secondary {
+      margin: 0 14px 30px 0;
+      color: $base-color;
+      border-color: $base-color;
+    }
+
+    &-content-duration-list-buttons .btn-outline-secondary:hover {
+      color: #ffffff;
+      background-color: #95aeff;
+      border-color: #95aeff;
+    }
+
+    &-content-duration-list-buttons .active {
+      background-color: $base-color !important;
+      color: #ffffff;
+      border-color: $base-color !important;
+    }
+
+    &-content-duration-list-buttons .active:hover {
+      color: $base-color !important;
+      background-color: #95aeff !important;
+      border-color: #ffffff !important;
+    }
+
+    &-content-image {
+      width: 450px;
+      height: 450px;
+      margin: 50px 0 0;
+      padding: 185px 0 0 70px;
+      background-image: url(https://res.cloudinary.com/xerdetech/image/upload/v1576673934/Webp.net-compress-image_lomzxk.jpg);
+      background-repeat: no-repeat;
+      background-size: 100%;
+    }
+
+    &-content-image-list {
+      width: 90%;
+      height: 225px;
+    }
+
+    &-content-image-list-item {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      height: 40px;
+      margin: 10px 0 25px;
+    }
+
+    &-content-image-list-item p {
+      width: 75%;
+      margin: 0 10px;
+      padding: 5px 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: #391111;
+      border-bottom: 3px dashed #391111;
+    }
+
+    &-content-image-list-item-check {
+      width: 40px;
+      height: 40px;
+      border: 2px solid #391111;
+    }
+  }
+}

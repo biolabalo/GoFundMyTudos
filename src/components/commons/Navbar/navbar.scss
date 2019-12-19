@@ -1,0 +1,38 @@
+.navbar{
+    .navbar-brand::after {
+        display: none;
+    }
+    margin: 30px 0 0;
+    .nav-link{
+        color: #0B0547!important;
+        letter-spacing: 0.6px;
+        opacity: 1;
+        font-size: 15px;
+
+        a {
+            margin: 10px 0;
+        }
+    }
+  .logo {
+      max-width: 70px;
+      width: 100%;
+
+      img {
+        width: 100%;
+      }
+  }
+
+.sign-up-btn-landing{
+margin-top: 0.8rem !important;
+}
+
+}
+
+.nav-paragraphs{
+    font-size: smaller;
+    font-weight: 600;
+}
+
+.nav-a-tag {
+    margin: 10px 20px;
+}

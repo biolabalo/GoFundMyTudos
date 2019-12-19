@@ -1,0 +1,3 @@
+export const FETCH_BANK_CARDS = "FETCH_BANK_CARDS";
+export const FLIP_BANK_CARD = "FLIP_BANK_CARD";
+export const UNFLIP_BANK_CARD = "UNFLIP_BANK_CARD";

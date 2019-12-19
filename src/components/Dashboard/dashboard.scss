@@ -1,0 +1,293 @@
+@import '../partials/colors';
+@import '../partials/font-size';
+
+.dashboard {
+  display: flex;
+  flex-direction: row;
+
+  &-sidebar {
+    width: 170px;
+    height: 100%;
+  }
+
+  &-body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    &-content {
+      width: 100%;
+      padding: 40px 40px 40px 70px;
+    }
+
+    &-content-image {
+      position: absolute;
+      top: 240px;
+      right: 0;
+    }
+
+    &-content-row {
+      max-width: 1300px;
+      width: 100%;
+    }
+
+    h5 {
+      margin-bottom: 10px;
+      color: $grey;
+    }
+
+    h5 span {
+      color: #aeb2c4;
+    }
+
+    p {
+      font-size: 15px;
+      font-weight: 300;
+    }
+
+    &-content-sect1-welcome {
+      width: 100%;
+      margin: 0 35px 0 0;
+      padding: 40px 15px;
+      background-color: $base-color;
+      background-image: url(https://res.cloudinary.com/xerdetech/image/upload/v1574800814/dashboard-welcome_ssoxcv.png);
+      background-repeat: no-repeat;
+      background-size: 100% 160px;
+      border-radius: 5px;
+      h2 {
+        margin: 0 0 30px;
+        font-size: 25px;
+        font-weight: 700;
+        color: #ffffff;
+      }
+
+      p {
+        margin: 0;
+        font-size: small;
+        color: #ffffff;
+      }
+    }
+
+    &-content-sect1-savings-header {
+      display: flex;
+      flex-direction: row;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    &-content-sect1-friends {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      padding: 0;
+    }
+
+    &-content-sect1-friends-card {
+      width: 320px;
+      height: 320px;
+      margin: 0;
+      padding: 15px;
+      border: 1px solid #e3e9ff;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    &-content-sect1-friends-card-header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 0 0 10px;
+      border-bottom: 1px solid #dee2e6;
+    }
+
+    &-content-sect1-friends-card-header h5 {
+      height: 20px;
+      margin: 5px 0;
+      font-size: 18px;
+      color: #717ba0;
+    }
+
+    &-content-sect1-friends-card-header button {
+      width: 60px;
+      height: 25px;
+      background-color: $base-color;
+      border: none;
+      padding: 0 5px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 300;
+      color: #ffffff;
+    }
+
+    &-content-sect1-friends-card-body {
+      text-align: center;
+    }
+
+    &-content-sect1-friends-card-body-empty p {
+      width: 180px;
+      margin: 120px auto 0;
+      font-size: 12px;
+      color: #9e9e9e;
+    }
+
+    &-content-sect1-savings {
+      display: flex;
+      flex-direction: column;
+      padding: 40px 0 0;
+    }
+
+    &-content-sect1-savings-cards {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      width: 95%;
+      padding: 10px 0;
+    }
+
+    &-content-sect1-savings-cards a h5, &-content-sect1-savings-cards a p, &-content-sect1-savings-cards a i {
+      color: #ffffff;
+    }
+
+    &-content-sect1-savings-cards a:hover {
+      text-decoration: none;
+    }
+
+    &-content-sect1-tudo-card, &-content-sect1-savings-card {
+      display: flex;
+      flex-direction: row;
+      max-width: 360px;
+      width: 100%;
+      height: 200px;
+      margin: 0;
+      padding: 10px 20px;
+      background-image: url(https://res.cloudinary.com/xerdetech/image/upload/v1575992659/Banners_2_dgfqwu.png);
+      background-repeat: no-repeat;
+      background-size: 100% 200px;
+      border-radius: 10px;
+    }
+
+    &-content-sect1-savings-card {
+      background-image: url(https://res.cloudinary.com/xerdetech/image/upload/v1575992772/Banners_3_ktl5n7.png);
+    }
+
+    &-content-sect1-tudo-card h5, &-content-sect1-savings-card h5 {
+      margin: 0;
+    }
+
+    &-content-sect1-tudo-card p, &-content-sect1-savings-card p {
+      width: 245px;
+      padding: 0;
+      font-size: small;
+    }
+
+    &-content-sect1-tudo-card-text, &-content-sect1-savings-card-text {
+      padding: 80px 0 0;
+    }
+
+    &-content-sect1-tudo-card-icon, &-content-sect1-savings-card-icon {
+      width: 55px;
+      padding: 80px 0 0;
+      text-align: right;
+    }
+
+    &-content-sect2 {
+      padding: 35px 0;
+    }
+
+    &-content-sect2-header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    &-content-sect2-header a {
+      color: $base-color;
+    }
+
+    &-content-sect2-header a:hover {
+      color: $base-color;
+      text-decoration: underline;
+    }
+
+    &-content-sect2-tudufeed {
+      padding: 20px 0 0;
+    }
+
+    &-content-sect2-emptyfeed {
+      display: flex;
+      flex-direction: column;
+      padding: 30px 20px;
+      background-color: rgba(119, 146, 251, 0.2);
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    &-content-sect2-emptyfeed p {
+      max-width: 330px;
+      width: 100%;
+      margin: 0 auto;
+      font-size: 13px;
+      color: #aeb2c4;
+      line-height: 2.3;
+    }
+
+    &-content-sect2-emptyfeed-link {
+      width: 130px;
+      padding: 7px 10px;
+      margin: 25px auto 0;
+      background-color: $base-color;
+      border: 1px solid $base-color;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 14px;
+      color: #ffffff;
+    }
+
+    &-content-sect2-emptyfeed-link:hover {
+      background-color: $base-color;
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    &-content-sect2-transactions-nav {
+      padding: 40px 30px 0 20px;
+    }
+
+    &-content-sect2-transactions {
+      position: relative;
+      width: 100%;
+      margin: 35px 0 0;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px 0 rgba(0,0,0,0.20);
+    }
+
+    &-content-sect2-transactions-header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      
+    }
+
+    &-content-sect2-transactions-all {
+      position: absolute;
+      top: 35px;
+      right: 30px;
+    }
+  }
+}
+
+
+.suspense-spinner{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background: rgb(117, 148, 251) !important;
+  width: 20rem !important;
+  height: 20rem !important;
+  margin-top: 1% !important;
+}

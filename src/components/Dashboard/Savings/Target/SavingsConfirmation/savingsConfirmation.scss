@@ -1,0 +1,70 @@
+@import '../../../../partials/colors';
+@import '../../../../partials/font-size';
+
+.confirmation {
+  margin: 20px 0;
+  
+  h1 {
+    font-size: 29px;
+    color: #9c9c9c;
+    font-weight: 400;
+  }
+
+  &-summary {
+    padding: 0 0 0 120px;
+
+    &-card {
+      width: 400px;
+      min-height: 400px;
+      padding: 40px 20px;
+      border-radius: 5px;
+      background-color: #ffffff;
+      box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0);
+    }
+
+    &-card h5 {
+      margin-bottom: 0;
+      font-size: 15px;
+      color: #9c9c9c;
+      font-weight: 200;
+    }
+
+    &-card p {
+      margin-bottom: 0;
+      color: $base-color !important;
+    }
+
+    &-card-header {
+      padding: 0 0 25px;
+      border-bottom: 1px solid #ececec;
+    }
+
+    &-card-body span {
+      color: $base-color;
+    }
+
+    &-card-body-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      margin: 35px 0;
+    }
+  }
+
+  &-continue {
+    margin: 80px 0;
+    padding: 0 0 0 120px;
+
+    button {
+      color: #fff;
+      background-color: $base-color;
+      border-color: $base-color;
+      text-transform: uppercase;
+    }
+
+    button:hover {
+      background-color: $base-color;
+      border-color: $base-color;
+    }
+  }
+}

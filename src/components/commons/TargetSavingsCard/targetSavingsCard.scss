@@ -1,0 +1,61 @@
+$base-color: #C227B9;
+
+.targetSavings {
+
+  h3 {
+    margin-bottom: 0;
+    font-size: 15px;
+    color: #9c9c9c !important;
+    font-weight: 200;
+  }
+
+  p {
+    margin-bottom: 0;
+    font-size: 11px;
+    color: $base-color !important;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+  
+  &-card {
+    display: flex;
+    flex-direction: row;
+    width: 400px;
+    height: 200px;
+    margin: 0 0 0 40px;
+    padding: 30px 20px;
+    background-color: #ffffff;
+    box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.0);
+    border-radius: 10px;
+    text-align: left;
+
+    &-left {
+      width: 270px;
+      padding: 0 10px 0 0;
+      border-right: 1px solid $base-color;
+    }
+    
+    &-left-top {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    &-left-bottom {
+      padding: 60px 0 0;
+    }
+
+    &-left-bottom span {
+      font-size: 18px;
+      color: $base-color;
+      font-weight: 400;
+    }
+
+    &-right {
+      width: 115px;
+      padding: 100px 0 0 15px;
+    }
+  }
+}

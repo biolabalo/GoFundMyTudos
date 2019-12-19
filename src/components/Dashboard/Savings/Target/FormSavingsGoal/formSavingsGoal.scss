@@ -1,0 +1,75 @@
+@import '../../../../partials/colors';
+@import '../../../../partials/font-size';
+
+.goal {
+  margin: 20px 0;
+  
+  h1 {
+    font-size: 29px;
+    color: #9c9c9c;
+    font-weight: 400;
+  }
+  
+  .form-control {
+    padding: 1.8rem .75rem;
+  }
+
+  .btn-outline-secondary {
+    background-color: #ffffff;
+  }
+
+  .btn-outline-secondary:hover {
+    color: #fff;
+    background-color: $base-color;
+    border-color: $base-color;
+  }
+
+  .active {
+    background-color: $base-color !important;
+    color: #ffffff;
+    border-color: $base-color !important;
+  }
+
+  &-name {
+    padding: 0 0 0 120px;
+
+    &-label {
+      padding: 0 0 0 30px;
+    }
+  }
+
+  &-frequency {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 500px;
+    width: 100%;
+    margin: 100px 0;
+    padding: 0 0 0 120px;
+  }
+
+  &-frequency-label {
+    margin: 100px 0;
+  }
+
+  &-continue {
+    margin: 10px 0;
+    padding: 0 0 0 120px;
+
+    button {
+      color: #fff;
+      background-color: $base-color;
+      border-color: $base-color;
+    }
+
+    button:disabled {
+      background-color: $base-color;
+      border-color: $base-color;
+    }
+
+    button:hover {
+      background-color: $base-color;
+      border-color: $base-color;
+    }
+  }
+}
