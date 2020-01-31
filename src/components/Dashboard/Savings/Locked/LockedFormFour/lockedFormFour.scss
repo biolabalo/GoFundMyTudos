@@ -1,0 +1,79 @@
+@import "../../../../partials/colors";
+@import '../../../../partials/font-size';
+
+.form-four {
+  p {
+    font-size: 18px !important;
+  }
+
+  &-summary {
+    width: 400px;
+    min-height: 300px;
+    margin: 0 0 50px;
+    padding: 20px 20px 40px;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.6);
+    border: 1px solid #E3E9FF;
+
+    h5, h6 {
+      color: $base-color;
+      font-weight: 300;
+    }
+
+    h6 {
+      font-size: 14px;
+      margin: 0;
+    }
+
+    p {
+      font-size: 14px !important;
+      color: #000D3799 !important;
+    }
+
+    &-header {
+      border-bottom: 1px solid #AEB2C4;
+    }
+
+    &-body {
+      width: 100%;
+      padding: 30px 0 0;
+    }
+
+    &-body-row {
+      display: flex;
+      flex-direction: row;
+      margin: 0 0 20px;
+    }
+
+    &-body-row-left {
+      width: 50%;
+    }
+
+    &-body-row-right {
+      width: 50%;
+      text-align: right;
+    }
+  }
+
+  &-agree {
+    width: 100%;
+    margin: 0 0 20px;
+  }
+}
+
+@media only screen and (max-width: 414px) {
+  .form-four {
+    &-summary {
+      width: 100%;
+      padding: 20px;
+    }
+
+    &-continue {
+      margin: 40px 0 30px;
+    }
+
+    &-agree {
+      margin: 20px 0 50px;
+    }
+  }
+}

@@ -2,12 +2,15 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Spinner } from "react-bootstrap";
 import { toast } from "react-toastify";
+import moment from "moment";
+
 import checkTokenValidityAndLogout from "../../../checkTokenValidityAndLogout";
 import { logout } from "../../../redux/auth/authAction";
 import axios from "../../../axios-instance";
 import AuthNavBar from "../../commons/AuthNavBar";
 import { connect } from "react-redux";
 import Sidebar from "../../Sidebar";
+import Bottombar from "../../Bottombar";
 import SingleTudoCard from "./SingleTudoCard";
 
 import "./singleTudo.scss";
@@ -70,17 +73,35 @@ export class SingleTudo extends Component {
     this.props.history.push(`/dashboard/tudo/share/${shareCode}`);
   };
 
+  redirect = route => {
+    this.props.history.push(`/dashboard/tudo/${route}/${this.state.tudo.id}`);
+  };
+
   render() {
     const history = window;
 
     const { tudo, isLoading, error } = this.state;
 
-    this.getDays(tudo.start_date);
+    const tudoAmount = (tudo.amount / 100).toFixed(2);
+
+    const generatedAmount =
+      tudo.amount_generated / 100 > 0
+        ? (tudo.amount_generated / 100).toFixed(2)
+        : 0;
+    const accruedInterest =
+      tudo.accrued_interest === 0
+        ? tudo.accrued_interest
+        : tudo.accrued_interest / 100;
+
+    const transactions = tudo.transactions ? tudo.transactions : [];
 
     return (
       <div className="single-tudo">
         <div className="single-tudo-sidebar">
           <Sidebar path={history} />
+        </div>
+        <div className="single-tudo-bottombar">
+          <Bottombar path={history} />
         </div>
         <div className="single-tudo-body">
           <AuthNavBar />
@@ -114,14 +135,14 @@ export class SingleTudo extends Component {
                     <div className="col-md-12">
                       <h2>{tudo.goal_name}</h2>
                     </div>
-                    <div className="col-md-8">
+                    <div className="col-md-12 col-lg-12 col-xl-8">
                       <div className="single-tudo-body-content-left">
                         <div className="single-tudo-body-content-left-amount">
                           <div className="single-tudo-body-content-left-amount-column">
                             <p>Goal amount</p>
                             <h4>
                               <sup>N </sup>
-                              {tudo.amount / 100}
+                              {new Intl.NumberFormat().format(tudoAmount)}
                             </h4>
                           </div>
                           <div className="single-tudo-body-content-left-amount-column">
@@ -129,7 +150,9 @@ export class SingleTudo extends Component {
                               <p>Amount Raised</p>
                               <h4>
                                 <sup>N </sup>
-                                {tudo.amount_generated}
+                                {new Intl.NumberFormat().format(
+                                  generatedAmount
+                                )}
                               </h4>
                             </div>
                           </div>
@@ -137,7 +160,7 @@ export class SingleTudo extends Component {
                             <p>Interest Earned</p>
                             <h4>
                               <sup>N </sup>
-                              {tudo.accrued_interest}
+                              {new Intl.NumberFormat().format(accruedInterest)}
                             </h4>
                           </div>
                         </div>
@@ -151,23 +174,33 @@ export class SingleTudo extends Component {
                             </div>
                             <p>Share</p>
                           </button>
-                          <Link to="#">
+                          <button
+                            className="single-tudo-body-content-left-actions-item"
+                            onClick={() => {
+                              this.redirect("withdraw");
+                            }}
+                          >
                             <div className="single-tudo-body-content-left-actions-item">
                               <div className="single-tudo-body-content-left-actions-item-icon">
                                 <i className="material-icons">get_app</i>
                               </div>
                               <p>Withdraw</p>
                             </div>
-                          </Link>
-                          <Link to="#">
+                          </button>
+                          <button
+                            className="single-tudo-body-content-left-actions-item"
+                            onClick={() => {
+                              this.redirect("topup");
+                            }}
+                          >
                             <div className="single-tudo-body-content-left-actions-item">
                               <div className="single-tudo-body-content-left-actions-item-icon">
                                 <i className="material-icons">flash_on</i>
                               </div>
                               <p>Top Up</p>
                             </div>
-                          </Link>
-                          <Link to="#">
+                          </button>
+                          <Link to={`${window.location.pathname}/edit`}>
                             <div className="single-tudo-body-content-left-actions-item">
                               <div className="single-tudo-body-content-left-actions-item-icon">
                                 <i className="material-icons">edit</i>
@@ -183,26 +216,71 @@ export class SingleTudo extends Component {
                             tudo={tudo}
                             days={this.getDays(tudo.start_date)}
                           />
-                          <SingleTudoCard interest={true} />
-                          <SingleTudoCard privacy={true} />
+                          <SingleTudoCard
+                            privacy={true}
+                            visibility={tudo.is_visible}
+                          />
                         </div>
                         <div className="single-tudo-body-content-left-transaction">
                           <div className="single-tudo-body-content-left-transaction-header">
                             <h4>Transactions</h4>
                           </div>
-                          <div className="single-tudo-body-content-left-transaction-empty">
-                            <div className="single-tudo-body-content-left-transaction-empty-image">
-                              <img
-                                src="https://res.cloudinary.com/xerdetech/image/upload/v1576151221/empty_n6bdux.svg"
-                                alt=""
-                              />
+                          {transactions.length > 0 ? (
+                            transactions.map((transact, index) => {
+                              return (
+                                <div
+                                  className="single-tudo-body-content-left-transaction-row"
+                                  key={index}
+                                >
+                                  <div className="row">
+                                    <div className="col-md-1">
+                                      <div className="single-tudo-body-content-left-transaction-row-icon">
+                                        <i className="material-icons">
+                                          arrow_upward
+                                        </i>
+                                      </div>
+                                    </div>
+                                    <div className="col-md-8">
+                                      <div className="single-tudo-body-content-left-transaction-row-mid">
+                                        <p>Credit</p>
+                                        <p className="single-tudo-body-content-left-transaction-row-date">
+                                          {moment(
+                                            transact.contributed_at
+                                          ).format("Do MMM YYYY")}
+                                        </p>
+                                      </div>
+                                    </div>
+                                    <div className="col-md-3">
+                                      <div className="single-tudo-body-content-left-transaction-row-amount">
+                                        <p>
+                                          N{" "}
+                                          {new Intl.NumberFormat().format(
+                                            transact.amount / 100
+                                          )}
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            })
+                          ) : (
+                            <div className="single-tudo-body-content-left-transaction-empty">
+                              <div className="single-tudo-body-content-left-transaction-empty-image">
+                                <img
+                                  src="https://res.cloudinary.com/xerdetech/image/upload/v1576151221/empty_n6bdux.svg"
+                                  alt=""
+                                />
+                              </div>
+                              <p>
+                                You haven’t carried out any transactions yet
+                              </p>
                             </div>
-                            <p>You haven’t carried out any transactions yet</p>
-                          </div>
+                          )}
                         </div>
                       </div>
                     </div>
-                    <div className="col-md-4">
+                    <div className="col-md-12 col-lg-12 col-xl-4">
                       <div className="single-tudo-body-content-right">
                         <div className="single-tudo-body-content-right-overview">
                           <div className="single-tudo-body-content-right-overview-card">

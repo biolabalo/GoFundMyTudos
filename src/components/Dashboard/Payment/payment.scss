@@ -231,3 +231,15 @@ width: 400px;
 color: bisque
 }
 
+@media only screen and (max-width: 414px) {
+    .card-divs-bank {
+        height: 200px;
+        width: 335px;
+    }
+
+    .card-divs {
+        height: 200px;
+        width: 335px;
+        padding: 30px;
+    }
+}

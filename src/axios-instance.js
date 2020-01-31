@@ -1,7 +1,10 @@
 import axios from "axios";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const instance = axios.create({
-  baseURL: "https://xerde-staging.tk/api/v1/"
+  baseURL: process.env.REACT_APP_BASE_URL
 });
 
 export default instance;

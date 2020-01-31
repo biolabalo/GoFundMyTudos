@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import "./footer.scss";
 
@@ -16,24 +17,35 @@ const Footer = () => {
         <div className="row">
           <div className="col-md-8 col-sm-12">
             <div className="footer-container-left">
-              {/* <div className="footer-container-left-logo">
-                <h2>
-                  <span>Tudu.</span>
-                </h2>
-              </div> */}
+              <div className="footer-container-left-logo">
+                <img
+                  src="https://res.cloudinary.com/xerdetech/image/upload/v1577547782/e16efrtxkc0ukhspc3yq.png"
+                  alt=""
+                />
+              </div>
               <p>
-                Cras gravida bibendum dolor eu varius. Morbi fermentum velit
-                nisl, eget vehicula lorem sodales eget. Donec quis volutpat
-                orci. Sed ipsum felis, tristique id egestas et, convallis ac
-                velit.
+                Tudo is a social financial platform that enables users to
+                achieve their goals by increasing their savings with the help of
+                family and friends
               </p>
+              <div className="footer-container-left-links">
+                <Link to="#">Contact Support</Link>
+                <Link to="#">Legal</Link>
+                <Link to="/policy">Privacy policy</Link>
+              </div>
             </div>
           </div>
           <div className="col-md-4 col-sm-12">
             <div className="footer-container-right">
               <div className="footer-container-right-download">
                 <div>
-                  <img src={google} alt="" />
+                  <a
+                    href="https://play.google.com/store/apps/details?id=com.tudo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <img src={google} alt="" />
+                  </a>
                 </div>
                 <div>
                   <img src={apple} alt="" />
@@ -55,6 +67,10 @@ const Footer = () => {
               </div>
               <div className="footer-container-right-contact">
                 <p>(409)388-4384 | (977)778-3805</p>
+                <p>
+                  Prince Samuel Adedoyin Close by Mercedes Benz, Ikate, Lekki
+                  Lagos, Nigeria.
+                </p>
               </div>
             </div>
           </div>

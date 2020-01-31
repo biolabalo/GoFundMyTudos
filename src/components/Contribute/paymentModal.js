@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Form, Spinner } from "react-bootstrap";
+import { Form, Spinner, InputGroup, FormControl } from "react-bootstrap";
 import axios from "../../axios-instance";
 import { withRouter } from "react-router-dom";
 import Modal from "react-responsive-modal";
@@ -29,24 +29,21 @@ const PayModal = ({ showPaymentModal, setPaymentModal, todoID, history }) => {
 
   const [isLoading, setisLoading] = useState(false);
 
-  const [isShowPaystackModal, setIsShowPaystackModal] = useState({
-    showPaystackModal: false,
-    payStackUrl: ""
-  });
-
-  const { showPaystackModal, payStackUrl } = isShowPaystackModal;
-
   const { amount, contributor_email, contributor_name } = formData;
 
   const classes = useStyles();
 
   const dispatch = useDispatch();
 
-  const changeKoboToNaira = () => {
-    setFormData({
-      ...formData,
-      amount: parseFloat(formData.amount).toFixed(2)
-    });
+  const handleAmountChange = e => {
+    const {
+      target: { name, value }
+    } = e;
+
+    // attaches ","
+    const formatNumber = parseInt(value.replace(/,/g, "")).toLocaleString();
+    // validates against other inputs apart from  numbers
+    setFormData({ ...formData, [name]:  value ? formatNumber.replace(/[^0-9 \,]/, '') : value });
   };
 
   const onChange = e =>
@@ -57,15 +54,34 @@ const PayModal = ({ showPaymentModal, setPaymentModal, todoID, history }) => {
     e.preventDefault();
     setisLoading(true);
 
-    if (formData.contributor_email === "" || formData.contributor_name === "") {
-      newData = { amount: formData.amount * 100, tudo_code: todoID };
-    } else {
-      newData = {
-        ...formData,
-        amount: formData.amount * 100,
-        tudo_code: todoID
-      };
+    
+    if (formData.contributor_email === "" && formData.contributor_name === "") {
+      newData = { amount: parseInt(amount.replace( /,/g, "" )) * 100, tudo_code: todoID };
     }
+    
+    if (formData.contributor_email !== "" && formData.contributor_name !== "") {
+        newData = {
+        ...formData,
+        amount: parseInt(amount.replace( /,/g, "" )) * 100,
+        tudo_code: todoID
+      }; 
+    } 
+
+    if (formData.contributor_email !== "" && formData.contributor_name === "") {
+      newData = {
+      contributor_email,
+      amount: parseInt(amount.replace( /,/g, "" )) * 100,
+      tudo_code: todoID
+    }; 
+  } 
+
+  if (formData.contributor_email === "" && formData.contributor_name !== "") {
+    newData = {
+    contributor_name,
+    amount: parseInt(amount.replace( /,/g, "" )) * 100,
+    tudo_code: todoID
+  }; 
+} 
 
     try {
       const res = await axios.post("/tudo/contribute", newData);
@@ -76,13 +92,21 @@ const PayModal = ({ showPaymentModal, setPaymentModal, todoID, history }) => {
       if (message === "Authorization URL generated" && status === 201) {
         setisLoading(false);
         setPaymentModal(false);
-        setIsShowPaystackModal({
-          showPaystackModal: true,
-          payStackUrl: res.data.data.authorization_url
-        });
+        window.location = res.data.data.authorization_url;
       }
     } catch (err) {
-      setisLoading(false);
+       setisLoading(false);
+
+
+      if(err.response.data.error.tudo_code){
+        return toast.error(err.response.data.error.tudo_code[0])
+       }
+
+     if(err.response.status === 400 && 
+      err.response.data.error.amount){
+      return toast.error(err.response.data.error.amount[0])
+     }
+
       err.response.status === 403 &&
       err.response.data.error === "Authentication Failed"
         ? checkTokenValidityAndLogout(logout, history, dispatch)
@@ -107,26 +131,28 @@ const PayModal = ({ showPaymentModal, setPaymentModal, todoID, history }) => {
 
         <Form className="m-3" onSubmit={handleSubmit}>
           <h4 className="swal-add-card-title">Contribute To This Goal</h4>
-
-          <Form.Group controlId="" className="mt-3 mb-3">
-            <Form.Label>
-              <small>How much do you want to contribute?</small>
-            </Form.Label>
-            <Form.Control
-              type="number"
+          <Form.Label>
+            <small>How much do you want to contribute?</small>
+          </Form.Label>
+          <InputGroup className="mb-3">
+            <InputGroup.Prepend>
+              <InputGroup.Text id="basic-addon1">₦</InputGroup.Text>
+            </InputGroup.Prepend>
+            <FormControl
+              type="text"
               placeholder="0.00"
-              required
+                 onChange={handleAmountChange}
+              aria-label="Username"
               name="amount"
               value={amount}
-              onChange={e => onChange(e)}
-              onBlur={changeKoboToNaira}
+              aria-describedby="basic-addon1"
               onKeyDown={e =>
                 e.keyCode > 32 &&
                 (e.keyCode < 48 || e.keyCode > 57) &&
                 e.preventDefault()
               }
             />
-          </Form.Group>
+          </InputGroup>
 
           <Form.Group controlId="" className="mt-4 mb-4">
             <Form.Label>
@@ -159,7 +185,7 @@ const PayModal = ({ showPaymentModal, setPaymentModal, todoID, history }) => {
                 backgroundColor="#7594fb"
                 borderColor="transparent"
                 boxShadow="none"
-                width="550px"
+                width="100%"
                 borderRadius="5px"
                 Height="45px"
                 disabled={isLoading ? true : false}
@@ -170,21 +196,6 @@ const PayModal = ({ showPaymentModal, setPaymentModal, todoID, history }) => {
           </div>
         </Form>
       </Modal>
-      {showPaystackModal ? (
-        <div
-          className="paystack-contribute-modal"
-          style={showPaystackModal ? { display: "block" } : { display: "none" }}
-          open={showPaystackModal}
-          onClose={() => setPaymentModal(false)}
-          onOverlayClick={() => setPaymentModal(false)}
-        >
-          <div className="paystack-contribute-modal-content">
-            <iframe src={payStackUrl} height="500" width="500"></iframe>
-          </div>
-        </div>
-      ) : (
-        <></>
-      )}
     </div>
   );
 };

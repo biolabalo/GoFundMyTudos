@@ -47,6 +47,7 @@ const Profile = ({ history }) => {
               />
             </div>
             <Tabs
+            className="edit-profile-nav"
               onSelect={() => setActiveTab({ tab_one_Active: !tab_one_Active })}
             >
               <Tab
@@ -80,6 +81,8 @@ const Profile = ({ history }) => {
             </Tabs>
           </div>
         </div>
+
+
       </div>
     </>
   );

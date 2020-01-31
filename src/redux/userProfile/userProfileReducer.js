@@ -22,6 +22,16 @@ export default function(state = initialState, action) {
         isUserProfileEmpty: false,
         isFetchUserProfileError: false
       };
+    case "UPDATE_PERSONAL_INFO":
+      return {
+        ...state,
+        userProfile: {
+          ...state.userProfile,
+          ...payload
+        },
+        isUserProfileEmpty: false,
+        isFetchUserProfileError: false
+      };
     default:
       return state;
   }

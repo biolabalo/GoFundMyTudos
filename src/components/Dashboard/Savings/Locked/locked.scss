@@ -1,0 +1,166 @@
+@import '../../../partials/colors';
+@import '../../../partials/font-size';
+
+.locked {
+  display: flex;
+  flex-direction: row;
+
+  &-sidebar {
+    width: 170px;
+    height: 100%;
+  }
+
+  &-bottombar {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    margin: 0;
+    background-color: #ffffff;
+    z-index: 1;
+    display: none;
+  }
+
+  &-modal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 0 20px;
+
+    &-body {
+      margin: 110px 0 0;
+      text-align: center;
+    }
+
+    &-image {
+      position: absolute;
+      top: -70px;
+      left: 320px;
+      width: 165px;
+    }
+
+    &-image img {
+      max-width: 100%;
+      height: 160px;
+      border-radius: 50%;
+    }
+  }
+  
+  &-body {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    h3 {
+      margin-bottom: 0;
+      font-size: 20px;
+      color: $base-color;
+    }
+
+    p {
+      font-size: 12px;
+      color: #9e9e9e;
+      font-weight: 300;
+    }
+
+    &-image {
+      position: absolute;
+      top: 440px;
+      right: 0;
+      width: 120px;
+      z-index: 1;
+    }
+
+    &-content {
+      position: relative;
+      width: 100%;
+      min-height: 750px;
+      padding: 40px 40px 40px 70px;
+      background-color: #ffffff;
+    }
+
+    &-content-header {
+      display: flex;
+      flex-direction: row;
+      margin: 10px 0;
+    }
+
+    &-content-header-back {
+      cursor: pointer;
+    }
+
+    &-content-header i {
+      width: 30px;
+      height: 30px;
+      padding: 10px;
+      font-size: 10px;
+      background-color: $base-color;
+      color: #ffffff;
+      border-radius: 5px;
+    }
+
+    &-content-header h3 {
+      margin: 0;
+      font-size: 27px;
+      color: #000D37B5;
+      font-weight: 500;
+    }
+
+    &-content-progress {
+      max-width: 550px;
+      width: 100%;
+      margin: 20px 0 30px;
+      padding: 0;
+    }
+
+    .progress {
+      height: 0.5rem;
+      border-radius: 0;
+    }
+
+    &-content-progress .progress-bar {
+      background-color: $base-color !important;
+    }
+
+    &-content-right {
+      display: block;
+      margin: 75px 0 0;
+    }
+
+    &-content-right img {
+      width: 100%;
+    }
+  }
+}
+@media only screen and (max-width: 736px) {
+  .locked {
+    &-body-content-right {
+      display: none;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .locked {
+    &-sidebar {
+      display: none;
+    }
+
+    &-bottombar {
+      display: flex;
+      flex-direction: row;
+    }
+    
+    &-body-content {
+      min-height: 620px;
+      padding: 20px 20px 40px;
+    }
+
+    &-body-content-right {
+      display: none;
+    }
+  }
+}

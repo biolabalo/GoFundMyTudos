@@ -45,11 +45,11 @@ const addCard = async refrence => {
   }
 };
 
-const payWithPaystack = () => {
+const payWithPaystack = compiledAmount => {
   var handler = window.PaystackPop.setup({
     key: "pk_test_c3b1a4bd70c7c501aa2222ea03648beccbc0c97e",
     email: "customer@email.com",
-    amount: 10000,
+    amount: compiledAmount ? compiledAmount * 100 : 10000,
     currency: "NGN",
     ref: "" + Math.floor(Math.random() * 1000000000 + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
     firstname: "Stephen",

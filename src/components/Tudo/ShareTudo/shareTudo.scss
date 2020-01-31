@@ -79,11 +79,9 @@
       margin: 15px auto 0;
     }
 
-    &-body-form input[type=textarea] {
+    &-body-form input[type=text] {
       width: 100%;
-      height: 100px;
-      padding: 12px 20px;
-      resize: vertical;
+      padding: 0 20px;
       outline: none;
     }
 
@@ -106,6 +104,18 @@
     height: 100%;
   }
 
+  &-bottombar {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    margin: 0;
+    background-color: #ffffff;
+    z-index: 1;
+    display: none;
+  }
+
   &-body {
     display: flex;
     flex-direction: column;
@@ -118,10 +128,14 @@
     &-content button {
       width: 100%;
       background-color: $base-color;
-      border-color: $base-color;
+      border-color: transparent;
       color: #ffffff;
-      border-radius: 5px;
+      border-radius: 3px;
       outline: none !important;
+    }
+
+    &-content button:disabled {
+      background-color: #a0a1a2;
     }
 
     &-content h2 {
@@ -153,28 +167,77 @@
     }
 
     &-content-left label {
-      display: block;
-    }
-
-    &-content-left-upload {
-      width: 80%;
-      height: 300px;
-      padding: 100px 0;
-      background-color: rgba(227, 231, 255, 0.8);
-      border-radius: 5px;
+      width: 130px;
+      margin: 10px 0;
+      padding: 10px 0;
+      background-color: #687dc3;
+      border-color: transparent;
+      color: #ffffff;
+      border-radius: 3px;
+      text-align: center;
       cursor: pointer;
     }
 
-    &-content-left-upload-icon {
+    &-content-left-preview {
+      width: 80%;
+      height: 300px;
+      background-color: rgba(227, 231, 255, 0.8);
+      border-radius: 5px;
+    }
+
+    &-content-left-preview-disabled {
+      display: none;
+    }
+
+    &-content-left-preview-error {
+      margin: 0;
+    }
+
+    &-content-left-preview-error p {
+      margin: 0;
+      color: red;
+    }
+
+    &-content-left-preview-image {
+      width: 100%;
+      height: 300px;
+      overflow: scroll;
+    }
+
+    &-content-left-preview-image img {
+      width: 100%;
+    }
+
+    &-content-left-preview-image video {
+      width: 100%;
+      height: 100%;
+    }
+
+    &-content-left-preview-icon {
       width: 200px;
       margin: 0 auto;
+      padding: 100px 0;
       text-align: center;
       color: $base-color;
     }
 
-    &-content-left-upload-icon i {
+    &-content-left-preview-icon i {
       font-size: 40px;
       color: #7792FB4D;
+    }
+
+    &-content-left-upload {
+      width: 80%;
+      margin: 30px 0;
+    }
+
+    &-content-left-limit {
+      font-size: small;
+      color: #717BA0;
+    }
+
+    &-content-left-limit span {
+      color: red;
     }
 
     &-content-left-goal {
@@ -206,16 +269,28 @@
       padding: 10px 0;
     }
 
+    &-content-left-goal-text textarea {
+      width: 100%;
+      border: none;
+      color: #AEB2C4;
+    }
+
+    &-content-left-save {
+      width: 100px;
+    }
+
     &-content-right {
       display: flex;
+      flex-direction: column;
       justify-content: flex-end;
-      padding: 10px;
+      padding: 10px 40px;
     }
 
     &-content-right-card {
-      width: 280px;
+      max-width: 280px;
+      width: 100%;
       height: 170px;
-      margin: 0 0 40px;
+      margin: 0 auto 40px;
       border: 1px solid #E3E9FF;
       border-radius: 10px;
     }
@@ -238,6 +313,146 @@
       color: $base-color;
     }
 
-  }
+    &-content-right-card-text {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 10px 25px;
+    }
 
+    &-content-right-card-text p span {
+      color: $base-color;
+      font-size: 20px;
+    }
+
+    &-content-right-card-text-progress-bar {
+      margin: 10px 0;
+      padding: 0;
+    }
+
+    &-content-right-card-text-progress-bar p {
+      font-size: small;
+    }
+
+    &-content-right-card-text-progress-bar .progress {
+      height: 0.5rem;
+    }
+
+    &-content-right-card-text-progress-bar .progress-bar {
+      background-color: #56cd59 !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 1200px) {
+  .share-tudo {
+    &-body-content-right {
+      padding: 0 0 10px 15px;
+    }
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .share-tudo {
+    &-body-content-right {
+      justify-content: flex-start;
+      max-width: 400px;
+      width: 100%;
+      padding: 0;
+      margin: 0 0 40px;
+    }
+
+    &-body-content-right-card {
+      max-width: 100%;
+      width: 100%;
+      margin: 20px 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 738px) {
+  .share-tudo {
+    &-body-content-right {
+      justify-content: flex-start;
+      max-width: 400px;
+      width: 100%;
+      padding: 0;
+      margin: 0 0 40px;
+    }
+
+    &-body-content-right-card {
+      width: 100%;
+      margin: 20px 0;
+    }
+
+    &-body-content-back {
+      margin: 0 0 30px;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .share-tudo {
+    &-sidebar {
+      display: none;
+    }
+
+    &-bottombar {
+      display: flex;
+      flex-direction: row;
+    }
+
+    &-modal {
+      padding: 30px 10px 40px;
+    }
+
+    &-modal-body-form input[type=text] {
+      padding: 0;
+    }
+
+    &-modal-body-socials {
+      width: 100%;
+      margin: 30px auto 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 414px) {
+  .share-tudo {
+    &-body-content {
+      padding: 40px 20px;
+    }
+
+    &-body-content-left-goal {
+      width: 100%;
+    }
+
+    &-body-content-left-upload {
+      width: 100%;
+    }
+
+    &-body-content-right {
+      justify-content: flex-start;
+      margin: 30px 0 60px;
+      padding: 0;
+    }
+
+    &-body-content-right-card {
+      width: 100%;
+    }
+
+    &-modal {
+      padding: 30px 10px 40px;
+    }
+
+    &-modal-body-form input[type=text] {
+      padding: 0;
+    }
+
+    &-modal-body-socials {
+      flex-direction: column;
+      width: 100%;
+      margin: 30px auto 0;
+    }
+  }
 }

@@ -1,0 +1,35 @@
+@import '../../../../partials/colors';
+@import '../../../../partials/font-size';
+
+.form-three {
+  &-bank {
+    max-width: 360px;
+  }
+
+  &-label {
+    margin: 50px 0 0;
+  }
+
+  &-label h4 {
+    font-size: 16px;
+    color: #AEB2C4;
+  }
+
+  &-interest .form-check {
+    margin: 25px 0;
+  }
+
+  &-interest .form-check-label {
+    color: #717BA0;
+  }
+
+  &-continue {
+    margin: 50px 0 10px;
+    padding: 0;
+  }
+
+  &-continue button:disabled {
+    background-color: #7594fb;
+    border-color: #7594fb;
+}
+}

@@ -30,6 +30,14 @@
 	color: #7594FB
 }
 
+.form-login .form-control:-webkit-autofill,
+.form-login .form-control:-webkit-autofill:hover,
+.form-login .form-control:-webkit-autofill:focus,
+.form-login .form-control:-webkit-autofill:active {
+    // transition: background-color 5000s ease-in-out 0s;
+    // -webkit-text-fill-color: #fff !important;
+}
+
 .got-invite-code a{
 text-decoration: none !important;
 }
@@ -114,7 +122,7 @@ img {
 	}
 	.right-side-verify-main-container{
 		margin: 0px auto;
-		width: 80%;
+		width: 100%;
 	}
 
 	.pincode-input-text{

@@ -1,0 +1,64 @@
+.modalPopUp{
+  background-color: #00000080;
+  position: absolute;
+  z-index: 1000;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+
+  &-container {
+    background-color: white;
+    border: 1px solid #707070;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    margin: 25vh auto;
+    padding: 25px;
+
+    &-title{
+      h3{
+        color: #7792FB;
+      }
+      p{
+        color: #717BA0;
+      }
+      border-bottom: 1px solid #AEB2C4;
+
+      &-disabled-buttons {
+        border-bottom: none;
+        margin-top: 100px;
+      }
+    }
+
+    &-buttons{
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      button{
+        background-color: white;
+        color: #7792FB;
+        border: none;
+        width: 120px;
+        height: 45px;
+      }
+
+      input{
+        color: white;
+        margin-left: 30px;
+        background-color: #7792FB;
+        border-radius: 5px;
+        border: 1px solid #7792FB;
+        width: 120px;
+        height: 45px;
+      }
+    }
+
+    &-submit_loading {
+      background-color: rgba(119, 145, 251, 0.548) !important;
+      cursor: not-allowed !important;
+      border: none !important;
+    }
+  }
+}

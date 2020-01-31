@@ -1,26 +1,53 @@
-.savings {
+.saving {
+  a, a h3, a p {
+    color: #ffffff;
+  }
+
   a:hover {
+    color: #ffffff;
     text-decoration: none;
   }
   
-  &-card {
-    width: 230px;
-    height: 240px;
-    margin: 0;
-    padding: 30px 0 0;
+  &-card-target, &-card-periodic, &-card-locked {
+    display: flex;
+    flex-direction: row;
+    width: 315px;
+    height: 180px;
+    margin: 0 0 30px;
+    padding: 0;
     background-color: #ffffff;
-    box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.0);
     border-radius: 10px;
-    text-align: center;
-    
-    &-icon {
-      width: 120px;
-      height: 120px;
-      margin: 0 auto 20px;
-      padding: 2px 0;
-    }
+    text-align: left;
+    background-repeat: no-repeat;
+    background-size: 100% 180px;
+  }
 
-    &-icon img {
+  &-card-target {
+    background-image: url(https://res.cloudinary.com/xerdetech/image/upload/v1578472616/fkawwsvmxzfxyvhk0ubd.png);
+  }
+
+  &-card-periodic {
+    background-image: url(https://res.cloudinary.com/xerdetech/image/upload/v1578472618/etu6pxd087wuqvro69a2.png);
+  }
+
+  &-card-locked {
+    background-image: url(https://res.cloudinary.com/xerdetech/image/upload/v1578472618/ult1gmvm0obhvw7kp9k7.png);
+  }
+
+  &-card-target-left, &-card-periodic-left, &-card-locked-left {
+    width: 90%;
+    padding: 90px 0 0 20px;
+  }
+
+  &-card-target-right, &-card-periodic-right, &-card-locked-right {
+    width: 10%;
+    padding: 90px 0 0;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .saving {
+    &-card-target, &-card-periodic, &-card-locked {
       width: 100%;
     }
   }

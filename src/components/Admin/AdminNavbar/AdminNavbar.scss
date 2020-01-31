@@ -1,0 +1,45 @@
+.admin-navbar {
+  display: flex;
+  border-bottom: 1px solid #D6E1FF;
+  width: 100%;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1;
+
+  &-container {
+    display: flex;
+    max-width: 90%;
+    height: 75px;
+    margin: auto;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &-title {
+    color: #000D37B5;
+
+    h3 {
+    font-weight: bold;
+    }
+  }
+
+  &-profile {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    max-width: 240px;
+    width: 100%;
+    justify-content: space-between;
+
+    img{
+      width: 54px;
+    }
+
+    p{
+      margin: 0;
+      color: #000D3799;
+    }
+  }
+}

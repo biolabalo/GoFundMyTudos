@@ -42,6 +42,8 @@ const PaymentComponent = ({ setIsCardHovered, isCardHovered, history }) => {
     })();
   }, [dispatch, history]);
 
+
+
   const showSweetAlert = () => {
     Swal.fire({
       html:
@@ -127,7 +129,7 @@ const PaymentComponent = ({ setIsCardHovered, isCardHovered, history }) => {
           </>
         ) : (
           <div className="add-new-bank-box shadow text-center">
-            <span className="dot">
+            <span className="dot" onClick={() => showSweetAlert()}>
               <span className="plus-symbol-add-card">&#43;</span>
             </span>
             <br />

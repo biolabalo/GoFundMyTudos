@@ -57,7 +57,7 @@ const Display = () => {
   return (
     <div className="tudu">
       <div className="tudu-body">
-        <div className="settings-body-content">
+        <div className="settings">
           <div className="tudu-body-content-image">
             <img
               src="https://res.cloudinary.com/xerdetech/image/upload/v1574816688/Layer_2_eresxf.png"

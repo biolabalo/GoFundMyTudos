@@ -1,6 +1,7 @@
 import React from "react";
 
 import Sidebar from "../../Sidebar/";
+import Bottombar from "../../Bottombar";
 import AuthNavBar from "../../commons/AuthNavBar";
 import TransactionHistory from "../../TransactionHistory";
 
@@ -11,6 +12,9 @@ const HistoryComponent = () => {
     <div className="tudu">
       <div className="tudu-sidebar">
         <Sidebar path={history} />
+      </div>
+      <div className="tudu-bottombar">
+        <Bottombar path={history} />
       </div>
       <div className="tudu-body">
         <AuthNavBar />

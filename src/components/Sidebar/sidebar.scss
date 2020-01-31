@@ -1,18 +1,11 @@
 @import '../partials/colors';
 @import '../partials/font-size';
 
-
-// .dashboard-sidebar .logo{
-//   width: 100px;
-//   height: 47px;
-//   padding: 20px;
-// }
-
 .sidebar {
   width: 100%;
   min-height: 800px;
   height: 100%;
-  padding: 63px 0 0;
+  padding: 0;
 
   span {
     padding: 0 10px;
@@ -30,6 +23,23 @@
   a:hover {
     color: $base-color;
     text-decoration: none;
+  }
+  
+  &-logo {
+    width: 100px;
+    height: 63px;
+    padding: 20px;
+
+    a {
+      width: 100%;
+      margin: 10px 0;
+      padding: 14px 10px;
+      font-size: 16px;
+    }
+  }
+
+  &-nav {
+    padding: 20px 0 0;
   }
 
   .nav-pills .nav-link.active, .nav-pills .show>.nav-link {

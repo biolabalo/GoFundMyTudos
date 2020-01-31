@@ -9,6 +9,18 @@
     width: 170px;
     height: 100%;
   }
+  
+  &-bottombar {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    margin: 0;
+    background-color: #ffffff;
+    z-index: 10;
+    display: none;
+  }
 
   &-body {
     position: relative;
@@ -83,8 +95,8 @@
     }
 
     &-content-sect1-friends-card {
-      width: 320px;
-      height: 320px;
+      max-width: 320px;
+      width: 100%;
       margin: 0;
       padding: 15px;
       border: 1px solid #e3e9ff;
@@ -212,7 +224,9 @@
     }
 
     &-content-sect2-tudufeed {
-      padding: 20px 0 0;
+      padding: 10px;
+      display: flex;
+      flex-wrap: wrap;
     }
 
     &-content-sect2-emptyfeed {
@@ -279,7 +293,6 @@
   }
 }
 
-
 .suspense-spinner{
   position: absolute;
   left: 50%;
@@ -290,4 +303,157 @@
   width: 20rem !important;
   height: 20rem !important;
   margin-top: 1% !important;
+}
+
+@media only screen and (max-width: 992px) {
+  .dashboard {
+    &-body-content {
+      padding: 35px 10px;
+    }
+
+    &-body-content-sect1-savings-cards {
+      flex-direction: column;
+    }
+
+    &-body-content-sect1-tudo-card, &-body-content-sect1-savings-card {
+      margin: 0 auto 15px;
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .dashboard {
+    &-sidebar {
+      display: none;
+    }
+
+    &-bottombar {
+      display: flex;
+      flex-direction: row;
+    }
+
+    &-body-content {
+      width: 100%;
+      padding: 20px;
+    }
+
+    &-body-content-sect1-welcome {
+      height: 130px;
+      background-size: 100% 140px;
+      padding: 20px;
+    }
+
+    &-body-content-sect1-welcome h2 {
+      margin: 0 0 35px;
+    }
+
+    &-body-content-sect1-savings {
+      display: block;
+    }
+
+    &-body-content-sect1-savings-cards {
+      flex-direction: row;
+      justify-content: space-around;
+      width: 100%;
+      margin: 15px 0;
+      padding: 0;
+    }
+
+    &-body-content-sect1-tudo-card p, &-body-content-sect1-savings-card p {
+      width: 100%;
+    }
+
+    &-body-content-sect1-tudo-card, &-body-content-sect1-savings-card {
+      max-width: 300px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    &-body-content-sect1-friends {
+      flex-direction: column;
+    }
+
+    &-body-content-sect1-friends-card {
+      max-width: 100%;
+      width: 100%;
+      margin-bottom: 70px;
+    }
+    
+  }
+}
+
+@media only screen and (max-width: 414px) {
+  .dashboard {
+    &-sidebar {
+      display: none;
+    }
+
+    &-body-content {
+      width: 100%;
+      padding: 20px;
+    }
+
+    &-body-content-sect1-welcome {
+      height: 80px;
+      background-size: 100% 80px;
+      padding: 5px 10px;
+    }
+
+    &-body-content-sect1-welcome h2 {
+      margin: 0 0 15px;
+    }
+
+    &-body-content-sect1-savings {
+      display: block;
+    }
+
+    &-body-content-sect1-savings-cards {
+      flex-direction: column;
+      width: 100%;
+      margin: 45px 0;
+      padding: 0;
+    }
+
+    &-body-content-sect1-savings-cards a {
+      width: 100%;
+    }
+
+    &-body-content-sect1-tudo-card p, &-body-content-sect1-savings-card p {
+      width: 100%;
+    }
+
+    &-body-content-sect1-tudo-card, &-body-content-sect1-savings-card {
+      max-width: 100%;
+      width: 100%;
+      margin: 0 auto 15px;
+    }
+
+    &-body-content-sect1-friends {
+      flex-direction: column;
+    }
+
+    &-body-content-sect1-friends-card {
+      width: 100%;
+      margin-bottom: 70px;
+    }
+  }
+}
+
+.notifi-img{
+height: 30px;
+width: 30px;
+}
+
+.list-group-flush .notifi-list-grp:hover{
+  cursor: pointer;
+  background: #edf2fa !important;
+}
+
+@media only screen and (max-width: 480px) {
+  .tlf {
+    display: block !important;
+  }
+  .tuduz-feed .dropdown-menu{
+    left: -50px !important;
+    }
 }

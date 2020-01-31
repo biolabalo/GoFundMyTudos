@@ -3,6 +3,8 @@ import { Form, Row, Col, Spinner } from "react-bootstrap";
 import useForm from "react-hook-form";
 import SubmitButton from "../commons/styledComponents/SubmitButton";
 import { useSelector } from "react-redux";
+import axios from "../../axios-instance";
+import { toast } from "react-toastify";
 import "./profile.scss";
 
 const NextOfKin = () => {
@@ -14,7 +16,51 @@ const NextOfKin = () => {
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
+    setIsloading(true)
+    try {
+      const result = await axios.post('/next-of-kin', data);
+      console.log(result)
+      setIsloading(false)
+      toast.success("Your Next of kin added succesfully");
+    } catch (err) {
+      setIsloading(false);
+      if(err.response.data.error && err.response.data.error.mobile_number){
+        return toast.error("Phone number is invalid");
+      }
+      toast.error('failed to update details');
+    }
+
   };
+
+  // useEffect(() => {
+  //   (async function() {
+     
+
+  //     setFecthedDetails({
+  //       isFetchedError: false,
+  //       isLoading: true
+  //     });
+
+  //     try {
+  //       const response = await axios.get(`/user-profile`);
+  //       const {
+  //         data: { data }
+  //       } = response;
+
+  //       console.log(data)
+  //       setFecthedDetails({
+  //         isFetchedError: false,
+  //         isLoading: false
+  //       });
+  //       setContributionDetails(data);
+  //     } catch (err) {
+  //       setFecthedDetails({
+  //         isFetchedError: true,
+  //         isLoading: false
+  //       });
+  //     }
+  //   })();
+  // }, []);
 
   return (
     <section className="profile-section">
@@ -26,19 +72,12 @@ const NextOfKin = () => {
           <Col sm="9">
             <Form.Control
               type="text"
-              className={`form-control ${errors.fullname && "is-invalid"}`}
+              className={`form-control ${errors.name && "is-invalid"}`}
               required
-              name="fullname"
-              ref={register({ required: true, minLength: 2, maxLength: 100 })}
-              onKeyDown={e =>
-                (e.keyCode === 32 ||
-                  e.keyCode === 160 ||
-                  e.keyCode === 5760 ||
-                  e.keyCode === 8192) &&
-                e.preventDefault()
-              }
+              name="name"
+              ref={register({ required: true, minLength: 1, maxLength: 100 })}
             />
-            {errors.fullname && (
+            {errors.name && (
               <small className="text-danger">Fullname is required</small>
             )}
           </Col>
@@ -49,12 +88,11 @@ const NextOfKin = () => {
             Relationship
           </Form.Label>
           <Col sm="9">
-            <Form.Control as="select">
-              <option value="mum">Mum</option>
-              <option>Father</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
+            <Form.Control as="select" name="relationship" ref={register}>
+              <option value="mother">Mother</option>
+              <option value="father">Father</option>
+              <option value="sibling">Sibling</option>
+              <option value="child">Child</option>
             </Form.Control>
           </Col>
         </Form.Group>
@@ -86,14 +124,12 @@ const NextOfKin = () => {
           </Form.Label>
           <Col sm="9">
             <Form.Control
-              type="number"
+              type="text"
               required
               name="mobile_number"
               onKeyDown={e =>
-                (e.keyCode === 69 ||
-                  e.keyCode === 190 ||
-                  e.keyCode === 187 ||
-                  e.keyCode === 189) &&
+                e.keyCode > 32 &&
+                (e.keyCode < 48 || e.keyCode > 57) &&
                 e.preventDefault()
               }
               className={`form-control ${errors.mobile_number && "is-invalid"}`}
@@ -104,7 +140,25 @@ const NextOfKin = () => {
               })}
             />
             {errors.mobile_number && (
-              <small className="text-danger">invalid Phone Number</small>
+              <small className="text-danger"> Phone Number should be 11 digits</small>
+            )}
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Row} className="mt-5 mb-5">
+          <Form.Label column sm="3">
+            Address
+          </Form.Label>
+          <Col sm="9">
+            <Form.Control
+              type="text"
+              className={`form-control ${errors.address && "is-invalid"}`}
+              required
+              name="address"
+              ref={register({ required: true, minLength: 2, maxLength: 100 })}
+            />
+            {errors.address && (
+              <small className="text-danger">Address is required</small>
             )}
           </Col>
         </Form.Group>

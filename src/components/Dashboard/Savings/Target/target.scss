@@ -9,6 +9,44 @@
     width: 170px;
     height: 100%;
   }
+
+  &-bottombar {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    margin: 0;
+    background-color: #ffffff;
+    z-index: 1;
+    display: none;
+  }
+
+  &-modal {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 0 20px;
+
+    &-body {
+      margin: 110px 0 0;
+      text-align: center;
+    }
+
+    &-image {
+      position: absolute;
+      top: -70px;
+      left: 320px;
+      width: 165px;
+    }
+
+    &-image img {
+      max-width: 100%;
+      height: 160px;
+      border-radius: 50%;
+    }
+  }
   
   &-body {
     display: flex;
@@ -28,16 +66,24 @@
     }
 
     &-content {
+      position: relative;
       width: 100%;
       min-height: 750px;
       padding: 40px 40px 40px 70px;
       background-color: #ffffff;
     }
 
+    &-content-image {
+      position: absolute;
+      top: 440px;
+      right: 0;
+      width: 120px;
+    }
+
     &-content-header {
       display: flex;
       flex-direction: row;
-      margin: 10px 0 30px;
+      margin: 10px 0;
     }
 
     &-content-header-back {
@@ -55,15 +101,17 @@
     }
 
     &-content-header h3 {
-      margin: 0 0 0 20px;
+      margin: 0;
       font-size: 27px;
-      color: #9c9c9c;
-      font-weight: 300;
+      color: #000D37B5;
+      font-weight: 500;
     }
 
     &-content-progress {
+      max-width: 550px;
+      width: 100%;
       margin: 20px 0 30px;
-      padding: 0 0 0 120px;
+      padding: 0;
     }
 
     .progress {
@@ -71,8 +119,52 @@
       border-radius: 0;
     }
 
-    &-content-progress .progress-bar {
+    &-content-progress .progress-bar, .cxsa .progress-bar{
       background-color: $base-color !important;
+    }
+
+    &-content-right {
+      display: block;
+      margin: 75px 0 0;
+    }
+
+    &-content-right img {
+      width: 100%;
+    }
+  }
+}
+
+.nnjbjb .btn-outline-primary:hover{
+  color: white !important;
+  cursor: pointer;
+  }
+
+@media only screen and (max-width: 736px) {
+  .target {
+    &-body-content-right {
+      display: none;
+    }
+  }
+}
+
+@media only screen and (max-width: 414px) {
+  .target {
+    &-sidebar {
+      display: none;
+    }
+
+    &-bottombar {
+      display: flex;
+      flex-direction: row;
+    }
+    
+    &-body-content {
+      min-height: 620px;
+      padding: 20px 20px 40px;
+    }
+
+    &-body-content-right {
+      display: none;
     }
   }
 }

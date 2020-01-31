@@ -6,6 +6,7 @@ import Sidebar from "../Sidebar";
 import AuthNavBar from "../commons/AuthNavBar";
 
 import TuduFeedCard from "../Dashboard/TuduFeedCard";
+import Bottombar from "../Bottombar";
 
 import "./tudu.scss";
 
@@ -16,6 +17,17 @@ class TuduPage extends Component {
     getTudos();
   }
 
+  toggleVisibility = status => e => {
+    e.preventDefault();
+    const { updateTudoVisibility } = this.props;
+    const id = e.target.id;
+    const bool = !status;
+
+    updateTudoVisibility(id, bool);
+
+    window.location.reload();
+  };
+
   render() {
     const history = window;
 
@@ -24,6 +36,14 @@ class TuduPage extends Component {
         tudo: { tudos, isLoading }
       }
     } = this.props;
+
+    const completedTudos = tudos.map(tudo => {
+      return tudo.status === "TudoStatus.completed" && tudo;
+    });
+
+    const runningTudos = tudos.map(tudo => {
+      return tudo.status === "TudoStatus.running" && tudo;
+    });
 
     return (
       <div className="tudu">
@@ -39,27 +59,33 @@ class TuduPage extends Component {
                 alt=""
               />
             </div>
+            <div className="tudu-bottombar">
+              <Bottombar path={history} />
+            </div>
             <div className="tudu-body-content-row">
               <div className="row">
-                <div className="col-sm-12 col-md-8">
+                <div className="col-md-12 col-lg-8">
                   <div className="tudu-body-content-header">
                     <h2>My Tudo</h2>
                     <p>Let’s get to work and smash some goals.</p>
                   </div>
                   <div className="tudu-body-content-create">
-                    <div className="tudu-body-content-create-dashboard-tab">
+                    <div className="tudu-body-content-dashboard-tab">
                       <Tabs>
                         <Tab
                           eventKey={1}
                           title="Running goals"
-                          tabClassName="dashboard-tab-all"
+                          tabClassName="tudu-body-content-dashboard-tab-all"
                         >
                           {isLoading ? (
                             <div className="tudu-body-content-create-dashboard-tab-spinner">
                               <Spinner animation="border" size="lg" />
                             </div>
                           ) : tudos.length > 0 ? (
-                            <TuduFeedCard tudos={tudos} />
+                            <TuduFeedCard
+                              tudos={runningTudos}
+                              toggleVisibility={this.toggleVisibility}
+                            />
                           ) : (
                             <div className="tudu-body-content-create-card">
                               <div className="tudu-body-content-create-card-icon">
@@ -72,23 +98,34 @@ class TuduPage extends Component {
                         <Tab
                           eventKey={2}
                           title="Completed goals"
-                          tabClassName="dashboard-tab-savings"
+                          tabClassName="tudu-body-content-dashboard-tab-all"
                         >
-                          <div className="tudu-body-content-create-empty">
-                            <div className="tudu-body-content-create-empty-image">
-                              <img
-                                src="https://res.cloudinary.com/xerdetech/image/upload/v1574862978/empty_3x_xsyqki.png"
-                                alt=""
-                              />
-                            </div>
-                            <p>You have not completed any goals yet.</p>
+                          <div className="">
+                            {completedTudos ? (
+                              <div className="">
+                                <TuduFeedCard
+                                  tudos={completedTudos}
+                                  toggleVisibility={this.toggleVisibility}
+                                />
+                              </div>
+                            ) : (
+                              <div className="tudu-body-content-create-empty">
+                                <div className="tudu-body-content-create-empty-image">
+                                  <img
+                                    src="https://res.cloudinary.com/xerdetech/image/upload/v1574862978/empty_3x_xsyqki.png"
+                                    alt=""
+                                  />
+                                </div>
+                                <p>You have not completed any goals yet.</p>
+                              </div>
+                            )}
                           </div>
                         </Tab>
                       </Tabs>
                     </div>
                   </div>
                 </div>
-                <div className="col-sm-12 col-md-4">
+                <div className="col-md-12 col-lg-4">
                   <div className="tudu-body-content-overview">
                     <div className="tudu-body-content-overview-card">
                       <div className="tudu-body-content-overview-card-header">
@@ -109,13 +146,15 @@ class TuduPage extends Component {
                         ) : (
                           tudos.map((tudo, index) => {
                             return (
-                              <div
-                                key={index}
-                                className="tudu-body-content-overview-card-body-row"
-                              >
-                                <div className="tudu-body-content-overview-card-body-check"></div>
-                                <p>{tudo.goal_name}</p>
-                              </div>
+                              tudo.status !== "TudoStatus.completed" && (
+                                <div
+                                  key={index}
+                                  className="tudu-body-content-overview-card-body-row"
+                                >
+                                  <div className="tudu-body-content-overview-card-body-check"></div>
+                                  <p>{tudo.goal_name}</p>
+                                </div>
+                              )
                             );
                           })
                         )}

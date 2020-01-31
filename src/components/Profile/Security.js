@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import { Form, Row, Col, Spinner } from "react-bootstrap";
 import useForm from "react-hook-form";
 import { useSelector } from "react-redux";
 import SubmitButton from "../commons/styledComponents/SubmitButton";
+import { toast } from "react-toastify";
+import axios from "../../axios-instance";
 import "./profile.scss";
 
 const Security = () => {
-  const [isLoading, setIsloading] = useState(false);
+   const [isLoading, setIsloading] = useState(false);
   const { register, errors, handleSubmit, watch } = useForm({
     mode: "onBlur"
   });
@@ -14,6 +16,18 @@ const Security = () => {
 
   const onSubmit = async (data, e) => {
     e.preventDefault();
+    setIsloading(true)
+    try {
+     await axios.patch('/user-profile', data);
+      setIsloading(false)
+      toast.success("Successfully updated password");
+    } catch (err) {
+      setIsloading(false)
+      toast.error("Failed to updated password");
+    }
+
+
+
   };
 
   return (
@@ -27,7 +41,14 @@ const Security = () => {
             Old Password
           </Form.Label>
           <Col sm="9">
-            <Form.Control type="password" name="old-password" required />
+            <Form.Control
+             type="password" 
+             name="old_password" 
+             required 
+             ref={register({
+              required: "Password Field is empty"
+            })}
+             />
           </Col>
         </Form.Group>
 
@@ -36,20 +57,22 @@ const Security = () => {
             New Password
           </Form.Label>
           <Col sm="9">
-            <Form.Control
-              type="password"
-              name="password"
-              required
-              ref={register({
-                required: "Password Field is empty",
-                minLength: {
-                  value: 8,
-                  message: "Password must be at least 8 characters"
-                }
-              })}
-              className={`form-control ${errors.password && "is-invalid"}`}
-            />
-            {errors.password && (
+          <Form.Control
+                type="password"
+                name="password"
+                required
+                ref={register({
+                  required: "Password Field is empty",
+                  minLength: {
+                    value: 8,
+                    message: "Password must be at least 8 characters"
+                  }
+                })}
+                style={{ borderRight: "none", backgroundImage: "none" }}
+                className={`password form-control ${errors.password &&
+                  "is-invalid"}  `}
+              />
+              {errors.password && (
               <small className="text-danger password-error-mssg">
                 {errors.password.message}
               </small>

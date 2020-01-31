@@ -7,17 +7,21 @@ import { Redirect } from "react-router-dom";
 import "./contribute.scss";
 import { ProgressBar } from "react-bootstrap";
 import SubmitButton from "../commons/styledComponents/SubmitButton";
-import userAvatar from "../../images/avatar-png.png";
 import PayModal from "./paymentModal";
+import { Navbar, Nav, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import NavBarButton from "../commons/styledComponents/NavBarButton";
+import { logout } from "../../redux/auth/authAction";
 
-const Contribute = ({ match: { params } }) => {
+const Contribute = ({ history, match: { params } }) => {
   const [ContributionDetails, setContributionDetails] = useState(null);
   const [isFecthedDetails, setFecthedDetails] = useState({
     isFetchedError: false,
     isLoading: false
   });
   const [showPaymentModal, setPaymentModal] = useState(false);
-
+  const { isAuthenticated } = useSelector(state => state.auth);
   const { isFetchedError, isLoading } = isFecthedDetails;
 
   const { todoID } = params;
@@ -49,6 +53,15 @@ const Contribute = ({ match: { params } }) => {
       }
     })();
   }, [todoID]);
+
+  const dispatch = useDispatch();
+
+  const logoutUser = () => {
+    logout(history, dispatch);
+  };
+
+  const numberWithCommas = number =>
+    number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   if (!ContributionDetails && !isFetchedError && !isLoading) {
     return (
@@ -129,7 +142,60 @@ const Contribute = ({ match: { params } }) => {
   return (
     <>
       <main className="contribute">
-        <NavBar isAuthenticated={false} />
+        <Navbar expand="lg" variant="light" className="navbar navbar-404">
+          <Container>
+            <Navbar.Brand>
+              <Link to={isAuthenticated ? "/dashboard" : "/"}>
+                <div className="logo">
+                  <img
+                    src="https://res.cloudinary.com/xerdetech/image/upload/v1576741967/tudo_logo_jtzeop.png"
+                    alt="notFound"
+                  />
+                </div>
+              </Link>
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+              {isAuthenticated ? (
+                <Nav className="ml-auto">
+                  <Link to="/">
+                    <SubmitButton
+                      className="font-weight-lighter sign-up-btn-landing"
+                      boxShadow="0 5px 10px 0 rgba(165, 186, 255, 0.48);"
+                      backgroundColor="#7594FB"
+                      borderColor="transparent"
+                      width="150px"
+                      Height="45px"
+                      onClick={() => {
+                        logoutUser();
+                      }}
+                    >
+                      Log out
+                    </SubmitButton>
+                  </Link>
+                </Nav>
+              ) : (
+                <Nav className="ml-auto">
+                  <Link to="/login">
+                    <NavBarButton>LOGIN</NavBarButton>
+                  </Link>
+                  <Link to="/signup">
+                    <SubmitButton
+                      className="font-weight-lighter sign-up-btn-landing"
+                      boxShadow="0 5px 10px 0 rgba(165, 186, 255, 0.48);"
+                      backgroundColor="#7594FB"
+                      borderColor="transparent"
+                      width="150px"
+                      Height="45px"
+                    >
+                      Sign Up
+                    </SubmitButton>
+                  </Link>
+                </Nav>
+              )}
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
         <div className="contribute-tudu-details  clearfix">
           <div className="tudu-body-content-image">
             <img
@@ -140,27 +206,43 @@ const Contribute = ({ match: { params } }) => {
 
           <section className="float-left left-wing-contribute">
             <h3 className="bold-otouke mb-4">
+              Contribute to {ContributionDetails.user.first_name}'s{" "}
               {ContributionDetails.goal_name}
             </h3>
-            <div className="todo-image-holder">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcT7dDvpTRKTH8jO3dYKySJxDA_5Omjnx1IfZeJjO7rM4NTLA8Hm"
-                className="auto"
-                alt="Todo-pic"
-              />
-              {/* <img src={ContributionDetails.tudo_media} alt="Todo-pic" /> */}
-            </div>
+
+            {ContributionDetails.tudo_media ? (
+              <div className="todo-image-holder">
+                {ContributionDetails.tudo_media.endsWith(".mp4") ||
+                ContributionDetails.tudo_media.endsWith(".avi") ||
+                ContributionDetails.tudo_media.endsWith(".ogg") ? (
+                  <video src={ContributionDetails.tudo_media} controls></video>
+                ) : (
+                  <img
+                    src={ContributionDetails.tudo_media}
+                    className="auto"
+                    alt="tudo-pic"
+                  />
+                )}
+              </div>
+            ) : (
+              ""
+            )}
 
             <div className="font-weight-lighter mt-4 jkdnsf ">
-              <div className="row no-gutters mb-4 mt-2">
-                <div className="col-md-2">
+              <div className="mb-4 mt-2">
+                <div className="col-1-vsdk float-left mr-2">
                   {" "}
-                  <img src={userAvatar} alt="Todo-pic" />
+                  <img
+                    src={ContributionDetails.user.profile_image}
+                    alt="Todo-pic"
+                  />
                 </div>
-                <div className="col-md-10">
-                  Abiola Balogun started this todo <br />
+                <div className="col-11-vsdk">
+                  {ContributionDetails.user.first_name}
+                  &nbsp; {ContributionDetails.user.last_name}
+                  &nbsp; started this tudo <br />
                   <small>
-                    {moment(`${ContributionDetails.start_date}`).fromNow()}
+                    {moment(`${ContributionDetails.created_at}`).fromNow()}
                   </small>
                 </div>
               </div>
@@ -172,9 +254,22 @@ const Contribute = ({ match: { params } }) => {
                   <small>{ContributionDetails.goal_description}</small>
                 </p>
               </div>
+
+              <span className="btn-for-smaller-screen mt-4 mb-4">
+                <SubmitButton
+                  backgroundColor="#7594FB"
+                  borderColor="transparent"
+                  boxShadow="0 5px 10px 0 rgba(165, 186, 255, 0.48)"
+                  width="350px"
+                  Height="45px"
+                  onClick={() => setPaymentModal(true)}
+                >
+                  Contribute
+                </SubmitButton>
+              </span>
             </div>
           </section>
-          <section className="float-right mt-5 right-wing-contribute">
+          <section className="float-right">
             <div className="amount-raised-card mb-3">
               <p className="font-weight-bo text-left dsefwe mt-0 mb-0 p-3">
                 <span className="bold-otouke">Amount raised</span>
@@ -184,45 +279,51 @@ const Contribute = ({ match: { params } }) => {
                 <p className="mt-2 mb-2">
                   {" "}
                   <span className="bold-otouke">
-                    N {ContributionDetails.amount_generated}
+                    N{" "}
+                    {numberWithCommas(
+                      ContributionDetails.amount_generated / 100
+                    )}
                   </span>{" "}
                   /
                   <span className="dfdiosfsxz">
                     {" "}
-                    {ContributionDetails.amount}
+                    {numberWithCommas(ContributionDetails.amount / 100)}
                   </span>
                 </p>
                 <hr className="mt-3 mb-3" />
                 <p className="mt-2 mb-2">
                   {" "}
-                  {(ContributionDetails.amount_generated * 100) /
-                    ContributionDetails.amount}
-                  % achieved
+                  {ContributionDetails.contributions_percentage}% achieved
                 </p>
                 <ProgressBar
-                  now={
-                    (ContributionDetails.amount_generated * 100) /
-                    ContributionDetails.amount
-                  }
+                  now={ContributionDetails.contributions_percentage}
                   variant="success"
                   className="mt-3"
                 />
               </div>
 
               <p className="text-left dsefwe mt-0 mb-0 p-3">
-                <span className="bold-otouke">3 </span>contributions made so far
+                <span className="bold-otouke">
+                  {" "}
+                  {ContributionDetails.contributions}{" "}
+                </span>{" "}
+                {ContributionDetails.contributions
+                  ? "contributions made so far"
+                  : "contribution made so far"}
               </p>
             </div>
-            <SubmitButton
-              backgroundColor="#7594FB"
-              borderColor="transparent"
-              boxShadow="0 5px 10px 0 rgba(165, 186, 255, 0.48)"
-              width="350px"
-              Height="45px"
-              onClick={() => setPaymentModal(true)}
-            >
-              Contribute
-            </SubmitButton>
+            <span className="btn-for-larger-screen">
+              <SubmitButton
+                backgroundColor="#7594FB"
+                borderColor="transparent"
+                boxShadow="0 5px 10px 0 rgba(165, 186, 255, 0.48)"
+                width="350px"
+                Height="45px"
+                onClick={() => setPaymentModal(true)}
+              >
+                Contribute
+              </SubmitButton>
+            </span>
           </section>
         </div>
         <Footer />

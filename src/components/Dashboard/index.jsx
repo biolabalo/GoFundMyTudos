@@ -1,22 +1,75 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Sidebar from "../Sidebar";
-import { useSelector } from "react-redux";
+import Bottombar from "../Bottombar";
+import axios from "../../axios-instance";
+import { useSelector, useDispatch } from "react-redux";
 import "./dashboard.scss";
 import AuthNavBar from "../commons/AuthNavBar";
+import TuduFeedCard2 from "./TuduFeedCard/tuduFeedCard";
 
 const Dashboard = () => {
+
+  const [isContactSynced, setContactSynced] = useState("initial");
+  const [contactDetails, setContactDetails] = useState(null);
+  const dispatch = useDispatch();
+
   const history = window;
 
-  const { backgroundColor, color } = useSelector(
-    state => state.auth.userThemePrefrences
+  const { userThemePrefrences, userFeed } = useSelector(
+    state => state.auth
   );
+
+  const { backgroundColor, color } = userThemePrefrences
+  
 
   const {
     userProfile,
     isUserProfileEmpty,
     isFetchUserProfileError
   } = useSelector(state => state.loggedInUserProfile);
+
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src = "https://js.paystack.co/v1/inline.js";
+    document.body.appendChild(script);
+  });
+
+  useEffect(() => {
+    (async function() {
+
+      if(userFeed.length){
+        setContactSynced("synced");
+        return setContactDetails(userFeed);
+      } 
+
+      try {
+        const response = await axios.get("/my-tudo-feed");
+
+        const {
+          data: { message, status, data }
+        } = response;
+
+        if (status === 200 && message === "You have not sync contact") {
+          return setContactSynced("not synced");
+        }
+
+        if (status === 200 && message === "Tudo Feeds retrieved successfully") {
+           setContactSynced("synced");
+           setContactDetails(data);
+
+           if(data.length > 2){
+             return dispatch({type: "ADD_TODO_FEEDS", payload: data})
+           }
+          return;
+        }
+
+      } catch (err) {
+        setContactDetails([]);
+      }
+    })();
+  }, [dispatch, userFeed]);
 
   return (
     <div className="dashboard" style={{ backgroundColor, color }}>
@@ -34,6 +87,9 @@ const Dashboard = () => {
               src="https://res.cloudinary.com/xerdetech/image/upload/v1574816688/Layer_2_eresxf.png"
               alt=""
             />
+          </div>
+          <div className="dashboard-bottombar">
+            <Bottombar path={history} />
           </div>
           <div className="dashboard-body-content-row">
             <div className="row">
@@ -83,26 +139,33 @@ const Dashboard = () => {
                 <div className="dashboard-body-content-sect2">
                   <div className="dashboard-body-content-sect2-header">
                     <h5>Tudo list Feed</h5>
-                    <Link to="#">View All</Link>
+                    {isContactSynced === "synced" &&
+                    contactDetails &&
+                    contactDetails.length > 2
+                      ? <Link to = "/dashboard/tudoFeeds">View All</Link>
+                      : ""}
                   </div>
                   <div className="dashboard-body-content-sect2-tudufeed">
-                    <div className="dashboard-body-content-sect2-emptyfeed">
-                      <p>
-                        Link your social media accounts to your tudo account so
-                        you can see what your friends are up to
-                      </p>
-                      <Link
-                        to="#"
-                        className="dashboard-body-content-sect2-emptyfeed-link"
-                      >
-                        Link Account
-                      </Link>
-                    </div>
+                    {isContactSynced === "not synced" ? (
+                      <div className="dashboard-body-content-sect2-emptyfeed">
+                        <p>
+                          Sync Your contacts via our mobile app to see what your
+                        </p>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+
+                    {isContactSynced === "synced" &&
+                    contactDetails &&
+                    contactDetails.length > 0
+                      ? contactDetails.slice(0, 2).map((eachFeed, index) => <TuduFeedCard2 key={index} eachFeed={eachFeed}/>)
+                      : ""}
                   </div>
                 </div>
               </div>
               <div className="col-md-4">
-                <div className="dashboard-body-content-sect1-friends">
+                {/* <div className="dashboard-body-content-sect1-friends">
                   <div className="dashboard-body-content-sect1-friends-card">
                     <div className="dashboard-body-content-sect1-friends-card-header">
                       <h5>Updates</h5>
@@ -114,7 +177,7 @@ const Dashboard = () => {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

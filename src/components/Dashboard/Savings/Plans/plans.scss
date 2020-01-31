@@ -5,6 +5,23 @@
   display: flex;
   flex-direction: row;
 
+  &-sidebar {
+    width: 170px;
+    height: 100%;
+  }
+
+  &-bottombar {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 70px;
+    margin: 0;
+    background-color: #ffffff;
+    z-index: 1;
+    display: none;
+  }
+
   &-body {
     display: flex;
     flex-direction: column;
@@ -22,22 +39,24 @@
       font-weight: 300;
     }
 
-    &-sidebar {
-      width: 170px;
-      height: 100%;
-    }
-
     &-content {
+      position: relative;
       width: 100%;
       min-height: 750px;
-      padding: 40px 40px 40px 70px;
-      background-color: #f5f5f5;
+      padding: 40px 20px;
+    }
+
+    &-content-image {
+      position: absolute;
+      top: 440px;
+      right: 0;
+      width: 120px;
     }
 
     &-content-plans-header {
       display: flex;
       flex-direction: row;
-      margin: 10px 0 30px;
+      margin: 10px 0;
     }
 
     &-content-plans-header i {
@@ -51,16 +70,55 @@
     }
 
     &-content-plans-header h3 {
-      margin: 0 0 0 20px;
+      margin: 0;
       font-size: 27px;
       color: #9c9c9c;
       font-weight: 300;
+    }
+
+    &-content-progress {
+      max-width: 550px;
+      margin: 10px 0 40px;
+      padding: 0;
+    }
+
+    &-content-progress .progress {
+      height: 0.5rem;
+      border-radius: 0;
+    }
+
+    &-content-progress .progress-bar {
+      background-color: $base-color !important;
     }
 
     &-content-plans-card {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      flex-wrap: wrap;
+      max-width: 1000px;
+      margin: 10px 0 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 414px) {
+  .plans {
+    &-sidebar {
+      display: none;
+    }
+
+    &-bottombar {
+      display: flex;
+      flex-direction: row;
+    }
+
+    &-body-content {
+      padding: 20px 20px 40px;
+    }
+
+    &-body-content-plans-card {
+      flex-direction: column;
     }
   }
 }

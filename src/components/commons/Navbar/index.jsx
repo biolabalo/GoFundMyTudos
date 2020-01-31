@@ -1,5 +1,5 @@
 import React from "react";
-import { Navbar, Nav, Container } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 import { withRouter, Link } from "react-router-dom";
 import NavBarButton from "../styledComponents/NavBarButton";
 import SignUpButton from "../../commons/styledComponents/SubmitButton";
@@ -8,7 +8,7 @@ import "./navbar.scss";
 const NavBar = ({ match: { url, path } }) => {
   let navLinks;
 
-  if (url === "/") {
+  if (url === "/" || url.includes("learnMore")) {
     navLinks = (
       <>
         <Link to="/login">
@@ -34,7 +34,7 @@ const NavBar = ({ match: { url, path } }) => {
     if (localStorage.TUDU_token) {
       return (
         <Navbar expand="lg" variant="light" className="navbar">
-          <Container>
+          <div className="tudobar">
             <Navbar.Brand>
               <Link to="/dasboard">
                 <div className="logo">
@@ -46,13 +46,13 @@ const NavBar = ({ match: { url, path } }) => {
             <Navbar.Collapse id="responsive-navbar-nav">
               <Nav className="ml-auto"> </Nav>
             </Navbar.Collapse>
-          </Container>
+          </div>
         </Navbar>
       );
     } else {
       return (
         <Navbar expand="lg" variant="light" className="navbar">
-          <Container>
+          <div className="tudobar">
             <Navbar.Brand>
               <Link to="/">
                 <div className="logo">
@@ -80,15 +80,64 @@ const NavBar = ({ match: { url, path } }) => {
                 </Link>
               </Nav>
             </Navbar.Collapse>
-          </Container>
+          </div>
         </Navbar>
       );
     }
   }
 
   // Login Page
-  if (url === "/login" || url === "/verify" || url === "/signup") {
-    navLinks = "";
+  if (url === "/login") {
+    navLinks = (
+      <>
+        <Link to="/signup">
+          <SignUpButton
+            className="font-weight-lighter sign-up-btn-landing"
+            boxShadow="0 5px 10px 0 rgba(165, 186, 255, 0.48);"
+            backgroundColor="#7594FB"
+            borderColor="transparent"
+            width="150px"
+            Height="45px"
+          >
+            Sign Up
+          </SignUpButton>
+        </Link>
+      </>
+    );
+  }
+
+  // Signup Page
+  if (url === "/signup") {
+    navLinks = (
+      <>
+        <Link to="/login">
+          <NavBarButton>Login Here</NavBarButton>
+        </Link>
+      </>
+    );
+  }
+
+  // Verify Page
+  if (url === "/verify") {
+    navLinks = (
+      <>
+        <Link to="/login">
+          <NavBarButton>Login Here</NavBarButton>
+        </Link>
+        <Link to="/signup">
+          <SignUpButton
+            className="font-weight-lighter sign-up-btn-landing"
+            boxShadow="0 5px 10px 0 rgba(165, 186, 255, 0.48);"
+            backgroundColor="#7594FB"
+            borderColor="transparent"
+            width="150px"
+            Height="45px"
+          >
+            Sign Up
+          </SignUpButton>
+        </Link>
+      </>
+    );
   }
 
   if (
@@ -110,7 +159,7 @@ const NavBar = ({ match: { url, path } }) => {
 
   return (
     <Navbar expand="lg" variant="light" className="navbar">
-      <Container>
+      <div className="tudobar">
         <Navbar.Brand>
           <Link to="/">
             <div className="logo">
@@ -125,7 +174,7 @@ const NavBar = ({ match: { url, path } }) => {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="ml-auto">{navLinks}</Nav>
         </Navbar.Collapse>
-      </Container>
+      </div>
     </Navbar>
   );
 };

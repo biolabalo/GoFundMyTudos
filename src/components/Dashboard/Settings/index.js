@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Tab, Tabs } from "react-bootstrap";
+
 import Sidebar from "../../Sidebar/";
+import Bottombar from "../../Bottombar/";
 import AuthNavBar from "../../commons/AuthNavBar";
 import WalletImage from "../../../images/wallet.png";
 import Display from "../Display";
 import PaymentTab from "../Payment";
+
+import "./settings.scss";
 
 const Settings = ({ history }) => {
   const [isTabOneActive, setActiveTab] = useState({ tab_one_Active: true });
@@ -40,24 +44,19 @@ const Settings = ({ history }) => {
     return () => {};
   }, [tab_one_Active, colorPalete]);
 
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src = "https://js.paystack.co/v1/inline.js";
-    document.body.appendChild(script);
-    // eslint-disable-next-line no-console
-    script.onload = () => console.log("paystack loaded");
-  });
 
   return (
-    <div className="tudu">
-      <div className="tudu-sidebar">
+    <div className="settings">
+      <div className="settings-sidebar">
         <Sidebar path={history} />
       </div>
-      <div className="tudu-body">
+      <div className="settings-body">
         <AuthNavBar />
-        <div className="display-body-content">
-          <div className="tudu-body-content-image">
+        <div className="settings-body-content">
+          <div className="settings-bottombar">
+            <Bottombar path={history} />
+          </div>
+          <div className="settings-body-content-image">
             <img
               src="https://res.cloudinary.com/xerdetech/image/upload/v1574816688/Layer_2_eresxf.png"
               alt=""

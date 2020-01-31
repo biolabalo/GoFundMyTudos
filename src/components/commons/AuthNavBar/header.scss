@@ -136,3 +136,35 @@
     }
   }
 }
+
+@media only screen and (max-width: 320px) {
+  .auth-header {
+    &-profile-name {
+      display: none;
+    }
+  }
+}
+
+
+.bell-icon{
+  color: rgb(4,14,55);
+  padding-top: 10px;
+  font-size: 20px;
+}
+
+
+.badgecount {
+  display: inline-block;
+  padding: 3.5px;
+  font-size: 48%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 50%;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  background: red;
+  position: absolute;
+  color: white
+}

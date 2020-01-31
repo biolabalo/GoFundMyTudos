@@ -5,11 +5,8 @@ import SubmitButton from "../commons/styledComponents/SubmitButton";
 import NavBarButton from "../commons/styledComponents/NavBarButton";
 import apple from "../../images/app-store.png";
 import google from "../../images/google-play.png";
-import facebook from "../../images/facebook.png";
-import instagram from "../../images/instagram.png";
-import linkedin from "../../images/linkedin.png";
-import twitter from "../../images/twitter.png";
 import { useSelector } from "react-redux";
+import Footer from "./Footer";
 
 import { Navbar, Nav, Container } from "react-bootstrap";
 const NotFoundPage = ({ history }) => {
@@ -22,7 +19,7 @@ const NotFoundPage = ({ history }) => {
             <Navbar.Brand>
               <Link to={isAuthenticated ? "/dashboard" : "/"}>
                 <div className="logo">
-                  <img src="https://res.cloudinary.com/xerdetech/image/upload/v1576741967/tudo_logo_jtzeop.png" />
+                  <img src="https://res.cloudinary.com/xerdetech/image/upload/v1576741967/tudo_logo_jtzeop.png" alt="notFound"/>
                 </div>
               </Link>
             </Navbar.Brand>
@@ -87,56 +84,7 @@ const NotFoundPage = ({ history }) => {
           </div>
         </section>
 
-        <div className="footer-404">
-          <div className="footer-container-404">
-            <div className="row">
-              <div className="col-md-8 col-sm-12">
-                <div className="footer-container-left">
-                  <div className="footer-container-left-logo">
-                    <h2>
-                      <span>Tudo.</span>
-                    </h2>
-                  </div>
-                  <p>
-                    Cras gravida bibendum dolor eu varius. Morbi fermentum velit
-                    nisl, eget vehicula lorem sodales eget. Donec quis volutpat
-                    orci. Sed ipsum felis, tristique id egestas et, convallis ac
-                    velit.
-                  </p>
-                </div>
-              </div>
-              <div className="col-md-4 col-sm-12">
-                <div className="footer-container-right">
-                  {/* <div className="footer-container-right-download">
-                    <div>
-                      <img src={google} alt="" />
-                    </div>
-                    <div>
-                      <img src={apple} alt="" />
-                    </div>
-                  </div> */}
-                  <div className="footer-container-right-socials footer-container-right-socials-404">
-                    <div>
-                      <img src={facebook} alt="" />
-                    </div>
-                    <div>
-                      <img src={instagram} alt="" />
-                    </div>
-                    <div>
-                      <img src={linkedin} alt="" />
-                    </div>
-                    <div>
-                      <img src={twitter} alt="" />
-                    </div>
-                  </div>
-                  <div className="footer-container-right-contact">
-                    <p>(409)388-4384 | (977)778-3805</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+       <Footer/>
       </main>
     </>
   );

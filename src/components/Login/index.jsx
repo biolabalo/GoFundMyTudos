@@ -132,7 +132,7 @@ const Login = ({ history }) => {
                 <small>
                   <span className="in-just-few ">Don't have an account? </span>
                   <span className="got-invite-code font-weight-bold">
-                    <Link to="/signup">signup </Link>
+                    <Link to="/signup">Signup </Link>
                   </span>
                 </small>
               </div>

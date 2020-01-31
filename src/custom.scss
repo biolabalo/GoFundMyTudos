@@ -1,0 +1,35 @@
+/* color variables */
+$blue: #7594FB;
+$red: #FC6969;
+$gray: #717BA0;
+$gray-light: #AEB2C4;
+
+/* overide bootstrap colors */
+$colors: (
+    "blue": $blue,
+    "red": $red,
+    "gray": $gray,
+    "gray-light": $gray-light
+);
+
+/* overide bootstrap theme colors */
+$theme-colors: (
+    "primary": $blue,
+    "danger": $red
+);
+
+/* import bootstrap sass */
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+/* overide boostrap classes */
+
+/* button */
+.btn {
+    color: #fff;
+    font-size: 14px;
+    border-radius: 3px;
+}
+
+.btn:disabled {
+    color: #fff;
+}

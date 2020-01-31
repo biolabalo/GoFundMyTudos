@@ -19,7 +19,8 @@ const initialState = {
     titleColor: "#717ba0",
     cardHeaderBackgroundColor: "#FAFAFC",
     cardBackgroundColor: "#fffff"
-  }
+  },
+  userFeed: [],
 };
 
 export default function(state = initialState, action) {
@@ -102,6 +103,11 @@ export default function(state = initialState, action) {
           colorPalete: payload
         }
       };
+      case "ADD_TODO_FEEDS":
+        return {
+          ...state,
+          userFeed: payload
+        };
     default:
       return state;
   }

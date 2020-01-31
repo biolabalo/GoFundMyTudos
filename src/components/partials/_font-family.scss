@@ -1,0 +1,220 @@
+@font-face {
+  font-family: 'Axiforma';
+  src: url('./Axiforma/Axiforma-BlackItalic.eot');
+  src: local('Axiforma Black Italic'), local('Axiforma-BlackItalic'),
+  url('./Axiforma/Axiforma-BlackItalic.eot?#iefix') format('embedded-opentype'),
+  url('./Axiforma/Axiforma-BlackItalic.woff') format('woff'),
+  url('./Axiforma/Axiforma-BlackItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Axiforma';
+  src: url('./Axiforma/Axiforma-Bold.eot');
+  src: local('Axiforma Bold'), local('Axiforma-Bold'),
+  url('./Axiforma/Axiforma-Bold.eot?#iefix') format('embedded-opentype'),
+  url('./Axiforma/Axiforma-Bold.woff') format('woff'),
+  url('./Axiforma/Axiforma-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Axiforma';
+  src: url('./Axiforma/Axiforma-ThinItalic.eot');
+  src: local('Axiforma Thin Italic'), local('Axiforma-ThinItalic'),
+  url('./Axiforma/Axiforma-ThinItalic.eot?#iefix') format('embedded-opentype'),
+  url('./Axiforma/Axiforma-ThinItalic.woff') format('woff'),
+  url('./Axiforma/Axiforma-ThinItalic.ttf') format('truetype');
+  font-weight: 100;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Axiforma';
+  src: url('./Axiforma/Axiforma-Heavy.eot');
+  src: local('Axiforma Heavy'), local('Axiforma-Heavy'),
+  url('./Axiforma/Axiforma-Heavy.eot?#iefix') format('embedded-opentype'),
+  url('./Axiforma/Axiforma-Heavy.woff') format('woff'),
+  url('./Axiforma/Axiforma-Heavy.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Axiforma';
+  src: url('./Axiforma/Axiforma-Medium.eot');
+  src: local('Axiforma Medium'), local('Axiforma-Medium'),
+  url('./Axiforma/Axiforma-Medium.eot?#iefix') format('embedded-opentype'),
+  url('./Axiforma/Axiforma-Medium.woff') format('woff'),
+  url('./Axiforma/Axiforma-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Axiforma';
+  src: url('./Axiforma/Axiforma-LightItalic.eot');
+  src: local('Axiforma Light Italic'), local('Axiforma-LightItalic'),
+  url('./Axiforma/Axiforma-LightItalic.eot?#iefix') format('embedded-opentype'),
+  url('./Axiforma/Axiforma-LightItalic.woff') format('woff'),
+  url('./Axiforma/Axiforma-LightItalic.ttf') format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Axiforma';
+  src: url('./Axiforma/Axiforma-BoldItalic.eot');
+  src: local('Axiforma Bold Italic'), local('Axiforma-BoldItalic'),
+  url('./Axiforma/Axiforma-BoldItalic.eot?#iefix') format('embedded-opentype'),
+  url('./Axiforma/Axiforma-BoldItalic.woff') format('woff'),
+  url('./Axiforma/Axiforma-BoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Axiforma';
+  src: url('./Axiforma/Axiforma-BookItalic.eot');
+  src: local('Axiforma Book Italic'), local('Axiforma-BookItalic'),
+  url('./Axiforma/Axiforma-BookItalic.eot?#iefix') format('embedded-opentype'),
+  url('./Axiforma/Axiforma-BookItalic.woff') format('woff'),
+  url('./Axiforma/Axiforma-BookItalic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Axiforma';
+  src: url('./Axiforma/Axiforma-SemiBold.eot');
+  src: local('Axiforma SemiBold'), local('Axiforma-SemiBold'),
+  url('./Axiforma/Axiforma-SemiBold.eot?#iefix') format('embedded-opentype'),
+  url('./Axiforma/Axiforma-SemiBold.woff') format('woff'),
+  url('./Axiforma/Axiforma-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Axiforma';
+  src: url('./Axiforma/Axiforma-Black.eot');
+  src: local('Axiforma Black'), local('Axiforma-Black'),
+  url('./Axiforma/Axiforma-Black.eot?#iefix') format('embedded-opentype'),
+  url('./Axiforma/Axiforma-Black.woff') format('woff'),
+  url('./Axiforma/Axiforma-Black.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Axiforma';
+  src: url('./Axiforma/Axiforma-Thin.eot');
+  src: local('Axiforma Thin'), local('Axiforma-Thin'),
+  url('./Axiforma/Axiforma-Thin.eot?#iefix') format('embedded-opentype'),
+  url('./Axiforma/Axiforma-Thin.woff') format('woff'),
+  url('./Axiforma/Axiforma-Thin.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Axiforma';
+  src: url('./Axiforma/Axiforma-Book.eot');
+  src: local('Axiforma Book'), local('Axiforma-Book'),
+  url('./Axiforma/Axiforma-Book.eot?#iefix') format('embedded-opentype'),
+  url('./Axiforma/Axiforma-Book.woff') format('woff'),
+  url('./Axiforma/Axiforma-Book.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Axiforma';
+  src: url('./Axiforma/Axiforma-ExtraBold.eot');
+  src: local('Axiforma ExtraBold'), local('Axiforma-ExtraBold'),
+  url('./Axiforma/Axiforma-ExtraBold.eot?#iefix') format('embedded-opentype'),
+  url('./Axiforma/Axiforma-ExtraBold.woff') format('woff'),
+  url('./Axiforma/Axiforma-ExtraBold.ttf') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Axiforma';
+  src: url('./Axiforma/Axiforma-HeavyItalic.eot');
+  src: local('Axiforma Heavy Italic'), local('Axiforma-HeavyItalic'),
+  url('./Axiforma/Axiforma-HeavyItalic.eot?#iefix') format('embedded-opentype'),
+  url('./Axiforma/Axiforma-HeavyItalic.woff') format('woff'),
+  url('./Axiforma/Axiforma-HeavyItalic.ttf') format('truetype');
+  font-weight: 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Axiforma';
+  src: url('./Axiforma/Axiforma-MediumItalic.eot');
+  src: local('Axiforma Medium Italic'), local('Axiforma-MediumItalic'),
+  url('./Axiforma/Axiforma-MediumItalic.eot?#iefix') format('embedded-opentype'),
+  url('./Axiforma/Axiforma-MediumItalic.woff') format('woff'),
+  url('./Axiforma/Axiforma-MediumItalic.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Axiforma';
+  src: url('./Axiforma/Axiforma-Italic.eot');
+  src: local('Axiforma Italic'), local('Axiforma-Italic'),
+  url('./Axiforma/Axiforma-Italic.eot?#iefix') format('embedded-opentype'),
+  url('./Axiforma/Axiforma-Italic.woff') format('woff'),
+  url('./Axiforma/Axiforma-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Axiforma';
+  src: url('./Axiforma/Axiforma-SemiBoldItalic.eot');
+  src: local('Axiforma SemiBold Italic'), local('Axiforma-SemiBoldItalic'),
+  url('./Axiforma/Axiforma-SemiBoldItalic.eot?#iefix') format('embedded-opentype'),
+  url('./Axiforma/Axiforma-SemiBoldItalic.woff') format('woff'),
+  url('./Axiforma/Axiforma-SemiBoldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Axiforma';
+  src: url('./Axiforma/Axiforma-Regular.eot');
+  src: local('Axiforma Regular'), local('Axiforma-Regular'),
+  url('./Axiforma/Axiforma-Regular.eot?#iefix') format('embedded-opentype'),
+  url('./Axiforma/Axiforma-Regular.woff') format('woff'),
+  url('./Axiforma/Axiforma-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Axiforma';
+  src: url('./Axiforma/Axiforma-Light.eot');
+  src: local('Axiforma Light'), local('Axiforma-Light'),
+  url('./Axiforma/Axiforma-Light.eot?#iefix') format('embedded-opentype'),
+  url('./Axiforma/Axiforma-Light.woff') format('woff'),
+  url('./Axiforma/Axiforma-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Axiforma';
+  src: url('./Axiforma/Axiforma-ExtraBoldItalic.eot');
+  src: local('Axiforma ExtraBold Italic'), local('Axiforma-ExtraBoldItalic'),
+  url('./Axiforma/Axiforma-ExtraBoldItalic.eot?#iefix') format('embedded-opentype'),
+  url('./Axiforma/Axiforma-ExtraBoldItalic.woff') format('woff'),
+  url('./Axiforma/Axiforma-ExtraBoldItalic.ttf') format('truetype');
+  font-weight: 800;
+  font-style: italic;
+}
+

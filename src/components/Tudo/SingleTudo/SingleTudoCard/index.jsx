@@ -1,10 +1,21 @@
 import React from "react";
 import { ProgressBar } from "react-bootstrap";
 
+import toggleOn from "../../../../images/toggle_on.png";
+import toggleOff from "../../../../images/toggle_off.png";
+
 import "./singleTudoCard.scss";
 
 const SingleTudoCard = props => {
-  const { achieved, duration, interest, privacy, tudo, days } = props;
+  const {
+    achieved,
+    duration,
+    interest,
+    privacy,
+    tudo,
+    days,
+    visibility
+  } = props;
   return (
     <div className="singleTudoCard">
       <div className="singleTudoCard-header">
@@ -16,21 +27,9 @@ const SingleTudoCard = props => {
       <div className="singleTudoCard-body">
         {achieved && (
           <div className="">
-            <p>
-              {tudo.generated_amount * 100 > 0
-                ? (tudo.generated_amount * 100) / tudo.amount
-                : 0}
-              % achieved
-            </p>
+            <p>{tudo.contributions_percentage}% achieved</p>
             <div className="singleTudoCard-body-progress-bar">
-              <ProgressBar
-                variant="info"
-                now={
-                  tudo.generated_amount * 100 > 0
-                    ? (tudo.generated_amount * 100) / tudo.amount
-                    : 0
-                }
-              />
+              <ProgressBar variant="info" now={tudo.contributions_percentage} />
             </div>
           </div>
         )}
@@ -43,12 +42,15 @@ const SingleTudoCard = props => {
         )}
         {interest && (
           <div className="">
-            <p>16%</p>
+            <p>11%</p>
           </div>
         )}
         {privacy && (
-          <div className="singleTudoCard-body-public">
-            <p>Make Goal Public</p>
+          <div className="singleTudoCard-body-privacy">
+            <p>{visibility ? "Make Goal Private" : "Make Goal Public"}</p>
+            <div className="singleTudoCard-body-privacy-image">
+              <img src={visibility ? toggleOn : toggleOff} alt="" />
+            </div>
           </div>
         )}
       </div>

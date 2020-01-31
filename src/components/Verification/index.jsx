@@ -27,7 +27,7 @@ const Verify = ({ history }) => {
       window.sessionStorage.removeItem(
         "registered_unverifiedUser_TUDU_password"
       );
-      window.sessionStorage.removeItem("registered_unverifiedUser_TUDU");
+      window.sessionStorage.removeItem("registered_unverifiedUser_TUDU_password");
     };
   }, []);
 
@@ -131,7 +131,7 @@ const Verify = ({ history }) => {
             />
             <SubmitButton
               onClick={verifyUser}
-              className="mt-5 mb-5"
+              className="mt-5 mb-5 verify-btn"
               backgroundColor="#7594FB"
               boxShadow="0 5px 10px 0 rgba(165, 186, 255, 0.48)"
               borderColor="transparent"

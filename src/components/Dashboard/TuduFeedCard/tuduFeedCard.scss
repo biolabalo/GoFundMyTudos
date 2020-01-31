@@ -6,6 +6,10 @@
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
+  max-width: 780px;
+
+
+
 
   &-card {
     display: flex;
@@ -69,37 +73,107 @@
       margin-top: 20px;
       padding: 20px 20px 0;
       border-top: 1px solid #e0e0e0;
+    }
 
-      &-image {
-        width: 45px;
-      }
-      p {
-        margin: 4px 0;
-        color: #717BA0;
-      }
+    &-user-image {
+      width: 45px;
+      cursor: pointer;
+    }
     
-      &-image img {
-        width: 100%;
-        margin: 5px 0;
-      }
-    
-      &-link {
-        width: 130px;
-        height: 32px;
-        padding: 4px 10px;
-        background-color: $base-color;
-        border: 1px solid $base-color;
-        border-radius: 5px;
-        text-align: center;
-        font-size: 14px;
-        color: #ffffff;
-      }
-    
-      &-link:hover {
-        background-color: $base-color;
-        color: #ffffff;
-        text-decoration: none;
-      }
+    &-user p {
+      margin: 4px 0;
+      color: #717BA0;
+    }
+  
+    &-user-image img {
+      width: 100%;
+      margin: 5px 0;
+    }
+  
+    &-user-link {
+      width: 130px;
+      height: 32px;
+      padding: 4px 10px;
+      background-color: $base-color;
+      border: 1px solid $base-color;
+      border-radius: 5px;
+      text-align: center;
+      font-size: 14px;
+      color: #ffffff;
+    }
+  
+    &-user-link:hover {
+      background-color: $base-color;
+      color: #ffffff;
+      text-decoration: none;
     }
   }
+}
+
+.tuduz-feed {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 760px;
+  width: 50%;
+}
+
+.title-on-card{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 205px;
+}	
+
+.tuduz-feed .dropdown-menu{
+  background: #FFFFFF 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #7792FB40;
+  border-radius: 5px;
+  opacity: 1;
+}
+
+@media only screen and (max-width: 600px) {
+
+  .tlf {
+    display: block !important;
+  }
+
+  .tuduz-feed {
+    &-card {
+      justify-content: center;
+      max-width: 100%;
+      margin: 0 0 20px;
+    }
+  }
+}
+.jkdnsf img{
+  height: 50px;
+  width: 50px;
+  border-radius: 50px;
+}
+
+@media only screen and (max-width: 1199px) {
+  .tuduz-feed {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 850px;
+     width: 100%;  
+  }
+
+  .tudu-feed-card {
+    max-width: 445px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+.Todu-List-Feed{
+  text-align: center;
+}
+.dashboard-body-content-sect2-tudufeed {
+  padding-top: 30px;
+}
+
+
 }

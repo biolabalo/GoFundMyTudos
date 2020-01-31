@@ -10,22 +10,71 @@
     font-weight: 400;
   }
 
+  &-modal {
+    padding: 20px;
+
+    &-header {
+      padding: 10px 0;
+      border-bottom: 1px solid #AEB2C4;
+    }
+
+    &-header h3 {
+      color: $base-color;
+    }
+
+    &-body {
+      padding: 20px 0;
+    }
+
+    &-body p {
+      margin: 0 0 30px;
+      font-size: small;
+      color: #717BA0;
+    }
+
+    &-footer {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-end;
+      margin: 50px 0 25px;
+    }
+
+    &-footer button {
+      width: 110px;
+      padding: 4px 0;
+    }
+
+    &-footer-cancel {
+      width: 100px;
+      color: $base-color;
+      background-color: #ffffff;
+      border-color: #ffffff;
+    }
+
+    &-footer-confirm {
+      color: #ffffff;
+      background-color: $base-color;
+      border-color: $base-color;
+      border-radius: 5px;
+    }
+  }
+
   &-summary {
-    padding: 0 0 0 120px;
+    padding: 0;
 
     &-card {
       width: 400px;
       min-height: 400px;
       padding: 40px 20px;
       border-radius: 5px;
-      background-color: #ffffff;
-      box-shadow: 0 6px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0);
+      background-color: rgba(255, 255, 255, 0.6);
+      border: 1px solid #E3E9FF;
     }
 
     &-card h5 {
       margin-bottom: 0;
       font-size: 15px;
-      color: #9c9c9c;
+      color: #000D3799;
       font-weight: 200;
     }
 
@@ -49,11 +98,15 @@
       justify-content: space-between;
       margin: 35px 0;
     }
+
+    &-card-body-row-right {
+      text-align: right;
+    }
   }
 
   &-continue {
-    margin: 80px 0;
-    padding: 0 0 0 120px;
+    margin: 45px 0 30px;
+    padding: 0;
 
     button {
       color: #fff;
@@ -62,9 +115,57 @@
       text-transform: uppercase;
     }
 
+    button:disabled {
+      background-color: $base-color;
+      border-color: $base-color;
+    }
+
     button:hover {
       background-color: $base-color;
       border-color: $base-color;
     }
+  }
+
+  &-agree {
+    margin: 45px 0 0;
+  }
+
+  &-agree p {
+    font-size: 14px !important;
+  }
+}
+
+@media only screen and (max-width: 740px) {
+  .confirmation-modal-image {
+    left: 170px;
+  }
+}
+
+@media only screen and (max-width: 414px) {
+  .confirmation {
+    &-summary-card {
+      width: 100%;
+      padding: 20px;
+    }
+
+    &-continue {
+      margin: 40px 0 30px;
+    }
+
+    &-modal-image {
+      left: 117px;
+    }
+  }
+}
+
+@media only screen and (max-width: 380px) {
+  .confirmation-modal-image {
+    left: 100px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .confirmation-modal-image {
+    left: 70px;
   }
 }

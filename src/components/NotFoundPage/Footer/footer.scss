@@ -1,0 +1,148 @@
+@import '../../partials/colors';
+@import '../../partials/font-size';
+
+.footer2 {
+ 
+  &-container {
+
+    width: 100%;
+    margin: 0 auto 63px;
+    margin-bottom: 0px;
+    padding: 80px;
+    background-color: $base-color;
+    
+    p, h2, h3, h5 {
+      color: #ffffff;
+    }
+
+    p {
+      margin: 0;
+      font-weight: 200;
+    }
+
+    &-left {
+      width: 340px;
+    }
+
+    &-left-logo {
+      margin: 0 0 80px;
+    }
+
+    &-left-logo h2 span::before {
+      content: "";
+      display: block;
+      width: 18px;
+      padding-bottom: 0;
+      border-bottom: 3px solid #ffffff;
+    }
+
+    &-left-logo h2 span::after {
+      content: "";
+      display: block;
+      width: 0;
+    }
+
+    &-left-links {
+      display: flex;
+      flex-direction: row;
+      margin: 20px 0;
+    }
+
+    &-left-links a {
+      margin: 0 10px 0 0;
+      color: #ffffff;
+    }
+
+    &-left-links a:hover {
+      color: #ffffff;
+    }
+
+    &-right {
+      display: flex;
+      flex-direction: column;
+      max-width: 300px;
+      width: 100%;
+    }
+
+    &-right-download {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    &-right-download div {
+      padding: 0 20px 0 0;
+    }
+
+    &-right-download img {
+      width: 100%;
+    }
+
+    &-right-socials {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 155px;
+      margin: 30px 0 20px;
+    }
+
+    &-right-socials div {
+      width: 25px;
+    }
+
+    &-right-socials img {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .footer2 {
+    &-container {
+      padding: 20px;
+    }
+  
+    &-container p {
+      text-align: left;
+    }
+  
+    &-container-right {
+      max-width: 100%;
+      padding: 20px 0 0;
+    }
+  
+    &-container-right-download {
+      width: 90%;
+      margin: 0 auto;
+    }
+  
+    &-container-left{
+      width:100%;
+    }
+
+    &-container-left-links {
+      flex-direction: column;
+    }
+  
+    &-container-right-download div {
+      padding: 0;
+    }
+
+    &-container-right-socials {
+       margin-left: 0px !important; 
+  }
+  
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .footer2-container-left {
+    width: 400px;
+    margin: 0 auto;
+}
+
+.footer2-container-right {
+  margin: 0 auto;
+  max-width: 400px;
+}
+}

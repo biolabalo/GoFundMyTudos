@@ -1,7 +1,7 @@
 # XerdeX-frontend
 
 To setup this project: 
- - clone it `(git clone https://github.com/biolabalo/GoFundMyTudos.git)`
+ - clone it `(git clone https://github.com/xerde/xerdex-frontend.git)`
  - change directory into xerdex-frontend, `cd xerdex-frontend`
  - run `npm i` to install all the dependencies
 

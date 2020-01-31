@@ -4,16 +4,22 @@ import { Popover, OverlayTrigger } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../../redux/auth/authAction";
 import { fetchUserData } from "../../../redux/userProfile/userProfileAction";
+import { ADD_USER_NOTIFICATION } from "../../../redux/notification/notificationTypes";
 import axios from "../../../axios-instance";
 import "./header.scss";
 
 const DashboardHeader = ({ history }) => {
   const { colorPalete } = useSelector(state => state.auth.userThemePrefrences);
+
   const dispatch = useDispatch();
 
-  const logoutUser = () => {
-    logout(history, dispatch);
-  };
+  const {
+    notification,
+    isUserNotificationsloaded,
+    notification_count
+  } = useSelector(state => state.userNotication);
+
+  const logoutUser = () => logout(history, dispatch);
 
   const {
     userProfile,
@@ -26,6 +32,26 @@ const DashboardHeader = ({ history }) => {
       fetchUserData(logout, history, dispatch);
     }
   }, [dispatch, history, isFetchUserProfileError, isUserProfileEmpty]);
+
+  useEffect(() => {
+    if (isUserNotificationsloaded) return;
+    (async function() {
+      try {
+        const response = await axios.get("/user-notification");
+        const { data } = response;
+
+        dispatch({
+          type: ADD_USER_NOTIFICATION,
+          payload: data
+        });
+      } catch (err) {
+        dispatch({
+          type: ADD_USER_NOTIFICATION,
+          payload: []
+        });
+      }
+    })();
+  }, [dispatch, isUserNotificationsloaded]);
 
   const popover = (
     <Popover id="popover-basic" className="auth-header-profile-popover">
@@ -60,6 +86,19 @@ const DashboardHeader = ({ history }) => {
         <div className="auth-header-logo"></div>
         <div className="auth-header-right">
           <div className="auth-header-profile">
+            <Link to="/user/notifications">
+              {isUserNotificationsloaded &&
+              notification &&
+              notification_count ? (
+                <div className="auth-header-profile-image float-left">
+                  <i className="fas fa-bell bell-icon"></i>
+                  <span className="badgecount">{notification_count}</span>
+                </div>
+              ) : (
+                ""
+              )}
+            </Link>
+
             <div className="auth-header-profile-image">
               <img src={userProfile.profile_image} alt="user" />
             </div>

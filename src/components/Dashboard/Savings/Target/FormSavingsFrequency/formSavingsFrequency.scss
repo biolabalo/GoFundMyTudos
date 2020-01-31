@@ -1,0 +1,110 @@
+@import '../../../../partials/colors';
+@import '../../../../partials/font-size';
+
+.frequency {
+  margin: 20px 0;
+  
+  h1 {
+    font-size: 29px;
+    color: #9c9c9c;
+    font-weight: 400;
+  }
+  
+  .form-control {
+    padding: 10px;
+  }
+
+  .btn-outline-secondary {
+    width: 115px;
+    background-color: #ffffff;
+    border: 1px solid $base-color;
+    color: $base-color;
+  }
+
+  .btn-outline-secondary:hover {
+    color: #fff;
+    background-color: $base-color;
+    border-color: $base-color;
+  }
+
+  .active {
+    background-color: $base-color !important;
+    color: #ffffff;
+    border-color: $base-color !important;
+  }
+
+  &-row {
+    margin: 0 0 100px;
+
+    h4 {
+      font-size: 16px;
+      color: #AEB2C4;
+    }
+
+    &-name {
+      width: 400px;
+      padding: 0;
+    }
+  
+    &-name-label {
+      padding: 0;
+    }
+  }
+  
+
+  &-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 400px;
+    width: 100%;
+    margin: 20px 0 90px;
+    padding: 0;
+  }
+
+  &-buttons-label {
+    margin: 100px 0;
+  }
+
+  &-continue {
+    margin: 10px 0;
+    padding: 0;
+
+    button {
+      color: #fff;
+      background-color: $base-color;
+      border-color: $base-color;
+    }
+
+    button:disabled {
+      background-color: $base-color;
+      border-color: $base-color;
+    }
+
+    button:hover {
+      background-color: $base-color;
+      border-color: $base-color;
+    }
+  }
+}
+
+@media only screen and (max-width: 414px) {
+  .frequency {
+
+    .btn-outline-secondary {
+      width: 85px;
+    }
+
+    &-row {
+      margin: 0 0 50px;
+    }
+
+    &-row-name {
+      width: 100%;
+    }
+
+    &-buttons {
+      margin: 20px 0 30px;
+    }
+  }
+}

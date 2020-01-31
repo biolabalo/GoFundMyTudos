@@ -1,19 +1,78 @@
 import React, { useState } from "react";
 import { Form, Row, Col, Spinner } from "react-bootstrap";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import useForm from "react-hook-form";
 import SubmitButton from "../commons/styledComponents/SubmitButton";
+import { toast } from "react-toastify";
+import axios from "../../axios-instance";
 import "./profile.scss";
 
 const PersonalInfo = () => {
   const [isLoading, setIsloading] = useState(false);
+  const [file, setFile] = useState("");
+  const [fileUrl, setFileUrl] = useState("");
+  const [fileName, setFileName] = useState("");
   const { register, errors, handleSubmit } = useForm({
     mode: "onBlur"
   });
   const { titleColor } = useSelector(state => state.auth.userThemePrefrences);
 
+  const { userProfile } = useSelector(state => state.loggedInUserProfile);
+
+  const dispatch = useDispatch();
+
+  const changeHandler = event => {
+    if (event.target.files[0]) {
+      const cloudinaryUrl =
+        "https://api.cloudinary.com/v1_1/xerdetech/image/upload/";
+      const cloudinaryUploadPreset = "oqa5drmx";
+
+      const file = event.target.files[0];
+
+      const imageFormData = new FormData();
+
+      imageFormData.append("file", file);
+      imageFormData.append("upload_preset", cloudinaryUploadPreset);
+
+      fetch(cloudinaryUrl, {
+        method: "POST",
+        body: imageFormData
+      })
+        .then(response => response.json())
+        .then(response => {
+          setFile(response.url);
+        })
+        .catch(error => error);
+
+      const fileType = file.type;
+
+      if (fileType.match(/image/)) {
+        setFileUrl(URL.createObjectURL(event.target.files[0]));
+      } else {
+        const fileName = file.name;
+        setFileName(fileName);
+      }
+    }
+  };
+
   const onSubmit = async (data, e) => {
     e.preventDefault();
+    setIsloading(true);
+    const newData = file ? { ...data, profile_image: file } : data;
+    try {
+      const result = await axios.patch("/user-profile", newData);
+      setIsloading(false);
+
+      dispatch({
+        type: "UPDATE_PERSONAL_INFO",
+        payload: newData
+      });
+      
+      toast.success("Profile Updated successfully");
+    } catch (err) {
+      setIsloading(false);
+      toast.error("Failed to updated Profile");
+    }
   };
 
   return (
@@ -21,103 +80,33 @@ const PersonalInfo = () => {
       <Form onSubmit={handleSubmit(onSubmit)} style={{ color: titleColor }}>
         <Form.Group as={Row} className="mt-5 mb-5">
           <Form.Label column sm="3">
-            First Name
+            Upload your image profile
           </Form.Label>
           <Col sm="9">
-            <Form.Control
-              type="text"
-              className={`form-control ${errors.firstname && "is-invalid"}`}
-              required
-              name="firstname"
-              ref={register({ required: true, minLength: 2, maxLength: 100 })}
-              onKeyDown={e =>
-                (e.keyCode === 32 ||
-                  e.keyCode === 160 ||
-                  e.keyCode === 5760 ||
-                  e.keyCode === 8192) &&
-                e.preventDefault()
-              }
+            <label htmlFor="tudo-share-image">
+              {userProfile && userProfile.profile_image ? (
+                <img
+                  src={fileUrl ? fileUrl : userProfile.profile_image}
+                  alt=""
+                />
+              ) : (
+                <>
+                  <i className="material-icons">flip_camera_ios</i>
+                  <p>Add Image</p>
+                </>
+              )}
+            </label>
+            <input
+              hidden
+              type="file"
+              id="tudo-share-image"
+              onChange={changeHandler}
+              accept="image/x-png,image/gif,image/jpeg"
             />
-            {errors.firstname && (
-              <small className="text-danger">First name is required</small>
-            )}
           </Col>
         </Form.Group>
-
-        <Form.Group as={Row} className="mt-5 mb-5">
-          <Form.Label column sm="3">
-            Last Name
-          </Form.Label>
-          <Col sm="9">
-            <Form.Control
-              type="text"
-              name="lastname"
-              required
-              ref={register({ required: true, minLength: 2, maxLength: 100 })}
-              onKeyDown={e =>
-                (e.keyCode === 32 ||
-                  e.keyCode === 160 ||
-                  e.keyCode === 5760 ||
-                  e.keyCode === 8192) &&
-                e.preventDefault()
-              }
-            />
-            {errors.lastname && (
-              <small className="text-danger">Lastname is required</small>
-            )}
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Row} className="mt-5 mb-5">
-          <Form.Label column sm="3">
-            Email
-          </Form.Label>
-          <Col sm="9">
-            <Form.Control
-              type="email"
-              name="email"
-              className={`form-control ${errors.email && "is-invalid"}`}
-              ref={register({
-                required: true,
-                pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
-                maxLength: 100
-              })}
-            />
-            {errors.email && (
-              <small className="text-danger">email is required</small>
-            )}
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Row} className="mt-5 mb-5">
-          <Form.Label column sm="3">
-            Phone Number
-          </Form.Label>
-          <Col sm="9">
-            <Form.Control
-              type="number"
-              required
-              name="mobile_number"
-              onKeyDown={e =>
-                (e.keyCode === 69 ||
-                  e.keyCode === 190 ||
-                  e.keyCode === 187 ||
-                  e.keyCode === 189) &&
-                e.preventDefault()
-              }
-              className={`form-control ${errors.mobile_number && "is-invalid"}`}
-              ref={register({
-                required: true,
-                minLength: 11,
-                maxLength: 11
-              })}
-            />
-            {errors.mobile_number && (
-              <small className="text-danger">invalid Phone Number</small>
-            )}
-          </Col>
-        </Form.Group>
-
+{
+  userProfile  ? 
         <Form.Group as={Row} className="mt-5 mb-5">
           <Form.Label column sm="3">
             Date of Birth
@@ -125,15 +114,17 @@ const PersonalInfo = () => {
           <Col sm="9">
             <Form.Control
               type="date"
-              required
               name="date_of_birth"
               className={`date_of_birth form-control ${errors.date_of_birth &&
                 "is-invalid"}   `}
-              ref={register({ required: true })}
+              ref={register}
+              defaultValue={userProfile.birthday ? userProfile.birthday : ""}
             />
           </Col>
-        </Form.Group>
-
+        </Form.Group> : ""
+}
+{
+userProfile && userProfile.gender ? 
         <Form.Group as={Row} className="mt-5 mb-5">
           <Form.Label column sm="3">
             Gender
@@ -142,23 +133,27 @@ const PersonalInfo = () => {
             <Form.Check
               inline
               label="Male"
-              value="Male"
+              value="male"
               name="gender"
               type="radio"
-              required
               ref={register}
+              defaultChecked={userProfile.gender === "male" ? true : false}
             />
             <Form.Check
               inline
               label="Female"
-              value="Female"
+              value="female"
               name="gender"
               type="radio"
-              required
               ref={register}
+              defaultChecked={userProfile.gender === "female" ? true : false}
             />
           </Col>
         </Form.Group>
+        :
+        ""
+
+}
 
         <SubmitButton
           className="mt-4 mb-4"

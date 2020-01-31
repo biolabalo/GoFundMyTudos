@@ -11,7 +11,7 @@
   }
   
   .form-control {
-    padding: 1.8rem .75rem;
+    padding: 10px;
   }
 
   .btn-outline-secondary {
@@ -30,13 +30,24 @@
     border-color: $base-color !important;
   }
 
-  &-name {
-    padding: 0 0 0 120px;
+  &-row {
+    margin: 0 0 100px;
 
-    &-label {
-      padding: 0 0 0 30px;
+    h4 {
+      font-size: 16px;
+      color: #AEB2C4;
+    }
+
+    &-name {
+      width: 400px;
+      padding: 0;
+    }
+  
+    &-name-label {
+      padding: 0;
     }
   }
+  
 
   &-frequency {
     display: flex;
@@ -54,7 +65,7 @@
 
   &-continue {
     margin: 10px 0;
-    padding: 0 0 0 120px;
+    padding: 0;
 
     button {
       color: #fff;
@@ -70,6 +81,19 @@
     button:hover {
       background-color: $base-color;
       border-color: $base-color;
+    }
+  }
+}
+
+@media only screen and (max-width: 414px) {
+  .goal {
+
+    &-row {
+      margin: 0 0 50px;
+    }
+
+    &-row-name {
+      width: 100%;
     }
   }
 }

@@ -1,57 +1,108 @@
 import React, { useState, useEffect } from "react";
-import { Tab, Tabs } from "react-bootstrap";
-import { useSelector } from "react-redux";
-import { ReactComponent as Logo } from "../../images/empty.svg";
+import { useHistory, useLocation, Link } from "react-router-dom";
+import { Tab, Nav, NavItem } from "react-bootstrap";
+import classNames from "classnames";
 
-import "../Dashboard/dashboard.scss";
+import RecordList from "./RecordList";
+import axios from "../../axios-instance";
 import "./transactionHistory.scss";
 
-const noTransactionView = () => (
-  <div className="no-transaction-component">
-    <Logo />
-    <p className="mb-0 text-center">
-      <small>Nothing to see here. You haven’t carried out</small>
-    </p>
-    <p className="mt-0 any-transactions-yet">
-      <small>any transactions yet</small>
-    </p>
-  </div>
-);
+const useQuery = () => new URLSearchParams(useLocation().search);
 
 const TransactionHistory = () => {
-  const [isTabOneActive, setActiveTab] = useState({ tab_one_Active: true });
-  const { tab_one_Active } = isTabOneActive;
-  const { colorPalete } = useSelector(state => state.auth.userThemePrefrences);
+  const history = useHistory();
+  const query = useQuery().get("type");
+
+  const [loading, setLoading] = useState(true);
+  const [records, setRecords] = useState([]);
 
   useEffect(() => {
-    Array.from(
-      document.querySelectorAll(".history-body-content .nav-item.nav-link")
-    ).forEach(eachTab => {
-      eachTab.setAttribute("style", `color:#aeb2c4 !important`);
-    });
+    const validQueries = ["savings", "tudo", "all"];
+    if (!validQueries.includes(query)) {
+      // redirect to type=all if query is not valid or no query at all
+      history.push(`${history.location.pathname}?type=all`);
+    }
+  }, [query, history]);
 
-    document
-      .querySelector(".history-body-content .active")
-      .setAttribute(
-        "style",
-        `border-bottom: 4px solid ${colorPalete} !important;color:${colorPalete} !important`
+  useEffect(() => {
+    setLoading(true);
+
+    const _allEndpointQueryParams = {
+      credit: ["tudo-top-ups", "tudo-contributions", "savings-credited"], // creditBased
+      debit: ["tudo-withdrawal", "savings-withdrawal"] // debitBased
+    };
+
+    const makeRequest = (param, cb) =>
+      new Promise(resolve => {
+        axios
+          .get(`/transaction-history?type=${param}`)
+          .then(({ data }) => resolve(cb(data.data)));
+      });
+
+    const requests = [];
+    for (let category in _allEndpointQueryParams) {
+      const requestsByCategory = _allEndpointQueryParams[category].map(
+        param => {
+          return makeRequest(param, function(data) {
+            const type = param.split("-")[0];
+            return data.map(record => ({ ...record, category, type }));
+          });
+        }
       );
-  }, [tab_one_Active, colorPalete]);
+      requests.push(...requestsByCategory);
+    }
+
+    Promise.all(requests).then(responses => {
+      setLoading(false);
+      setRecords(responses.flatMap(response => response));
+    });
+  }, []);
 
   return (
-    <Tabs onSelect={() => setActiveTab({ tab_one_Active: !tab_one_Active })}>
-      <Tab eventKey={1} title="All" tabClassName="dashboard-tab-all">
-        {noTransactionView()}
-      </Tab>
-      <Tab eventKey={2} title="Savings" tabClassName="dashboard-tab-savings">
-        {noTransactionView()}
-      </Tab>
-      <Tab
-        eventKey={3}
-        title="Withdrawals"
-        tabClassName="dashboard-tab-withdrawals"
-      ></Tab>
-    </Tabs>
+    <Tab.Container>
+      <Nav as="nav" variant="tabs">
+        <NavItem>
+          <Link
+            to="/dashboard/history?type=all"
+            className={classNames("nav-link", { active: query === "all" })}
+          >
+            All
+          </Link>
+        </NavItem>
+
+        <NavItem>
+          <Link
+            to="/dashboard/history?type=tudo"
+            className={classNames("nav-link", { active: query === "tudo" })}
+          >
+            Tudo
+          </Link>
+        </NavItem>
+
+        <NavItem>
+          <Link
+            to="/dashboard/history?type=savings"
+            className={classNames("nav-link", {
+              active: query === "savings"
+            })}
+          >
+            savings
+          </Link>
+        </NavItem>
+      </Nav>
+
+      <Tab.Content>
+        <RecordList
+          loading={loading}
+          records={
+            query === "all"
+              ? records
+              : records.filter(record => record.type === query)
+          }
+          key={query}
+        />
+      </Tab.Content>
+    </Tab.Container>
   );
 };
 

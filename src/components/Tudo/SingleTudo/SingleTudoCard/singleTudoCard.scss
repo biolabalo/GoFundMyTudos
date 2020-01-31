@@ -43,10 +43,24 @@
       background-color: #56cd59 !important;
     }
 
-    &-public {
+    &-privacy {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
     }
+
+    &-privacy-image {
+      width: 55px;
+    }
+
+    &-privacy img {
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and (max-width: 414px) {
+  .singleTudoCard {
+    width: 100%;
   }
 }

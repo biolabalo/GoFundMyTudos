@@ -1,0 +1,12 @@
+@import "../../partials/font-family";
+
+.admin-layout {
+  display: flex;
+  font-family: Axiforma, serif;
+
+  &-central {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}
