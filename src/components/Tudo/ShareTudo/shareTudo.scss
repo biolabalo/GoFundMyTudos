@@ -60,12 +60,22 @@
       margin: 0 auto;
     }
 
+    &-body-socials-link-img.messenger i {
+      font-size: 40px;
+      color: #0084FF;
+    }
+
     &-body-socials-link-img.twitter {
       padding: 5px 0;
     }
 
     &-body-socials-link-img.email {
       padding: 7px 0;
+    }
+
+    &-body-socials-link-img.whatsapp i {
+      font-size: 40px;
+      color: #25D366;
     }
 
     &-body-socials-link-img img {

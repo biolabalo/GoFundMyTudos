@@ -142,7 +142,7 @@ const NavBar = ({ match: { url, path } }) => {
 
   if (
     url === "/password-reset-request" ||
-    url === "/password-reset-change/:uiid/:token"
+    url.startsWith("/password-reset-change")
   ) {
     navLinks = (
       <>

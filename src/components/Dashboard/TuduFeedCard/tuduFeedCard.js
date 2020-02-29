@@ -74,12 +74,12 @@ const TuduFeedCard2 = ({ eachFeed, history }) => {
             </div>
           </div>
 
-          <div className="tudu-feed-card-progress">
+          <div className="tudu-feed-card-progress ">
             <p> {eachFeed.contributions_percentage}% achieved</p>
             <p>
-              N {new Intl.NumberFormat().format(eachFeed.amount_generated)} /
+              N {new Intl.NumberFormat().format(eachFeed.amount_generated / 100)} /
               &nbsp;
-              <span>{new Intl.NumberFormat().format(eachFeed.amount)}</span>
+              <span>{new Intl.NumberFormat().format(eachFeed.amount / 100)} </span>
             </p>
           </div>
           <div className="tudu-feed-card-progress-bar">

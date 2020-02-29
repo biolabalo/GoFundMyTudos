@@ -1,6 +1,8 @@
 import React from "react";
 import Moment from "moment";
 
+const toNaira = amount => amount / 100;
+
 // represent a single transaction record
 const Record = props => {
   const timestamp = props.created_at || props.contributed_at;
@@ -17,10 +19,10 @@ const Record = props => {
       <div className="record-details">
         <h6 className="record-category">{props.category}</h6>
         <time className="record-timestamp" datatime={timestamp}>
-          {Moment(props.timestamp).format("dddd Do, MMMM YYYY [at] hh:mm a")}
+          {Moment(timestamp).format("dddd Do, MMMM YYYY [at] hh:mm a")}
         </time>
       </div>
-      <div className="record-amount">₦{amount.toLocaleString()}</div>
+      <div className="record-amount">₦{toNaira(amount).toLocaleString()}</div>
     </div>
   );
 };

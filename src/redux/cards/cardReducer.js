@@ -1,11 +1,15 @@
 import {
   FETCH_BANK_CARDS,
   FLIP_BANK_CARD,
-  UNFLIP_BANK_CARD
+  UNFLIP_BANK_CARD,
+  GET_DEBIT_CARDS_FAILED,
+  GET_DEBIT_CARDS
 } from "./cardTypes";
 
 const initialState = {
-  userCards: []
+  userCards: [],
+  debitCards: [],
+  debitCardError: false
 };
 
 export default function(state = initialState, action) {
@@ -34,6 +38,16 @@ export default function(state = initialState, action) {
             ? { ...eachAccount, isFlipped: false }
             : eachAccount
         )
+      };
+    case GET_DEBIT_CARDS:
+      return {
+        ...state,
+        debitCards: payload
+      };
+    case GET_DEBIT_CARDS_FAILED:
+      return {
+        ...state,
+        debitCardError: true
       };
     default:
       return state;

@@ -2,14 +2,14 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import axioz from "../../../axios-instance";
 
+
 const addCard = async refrence => {
   try {
     const result = await axios.get(
       `https://api.paystack.co/transaction/verify/${refrence}`,
       {
         headers: {
-          Authorization:
-            "Bearer sk_test_32339a96e3d16058cb85661fb40bf9603cbfce98"
+          Authorization: `Bearer ${process.env.REACT_APP_PAYSTACK_SECRET_KEY}`
         }
       }
     );
@@ -45,15 +45,15 @@ const addCard = async refrence => {
   }
 };
 
-const payWithPaystack = compiledAmount => {
+const payWithPaystack = (email, compiledAmount) => {
   var handler = window.PaystackPop.setup({
-    key: "pk_test_c3b1a4bd70c7c501aa2222ea03648beccbc0c97e",
-    email: "customer@email.com",
+    key: process.env.REACT_APP_PAYSTACK_PUBLIC_KEY,
+    email,
     amount: compiledAmount ? compiledAmount * 100 : 10000,
     currency: "NGN",
     ref: "" + Math.floor(Math.random() * 1000000000 + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-    firstname: "Stephen",
-    lastname: "King",
+    firstname: "xerde",
+    lastname: "xerde",
     // label: "Optional string that replaces customer email"
     metadata: {
       custom_fields: [

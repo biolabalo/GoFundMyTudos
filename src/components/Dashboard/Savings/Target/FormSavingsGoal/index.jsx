@@ -16,6 +16,8 @@ export class FormSavingsGoal extends Component {
       handleAmountChange
     } = this.props;
 
+    const amount = targetAmount ? parseInt(targetAmount.replace(/,/g, "")) : 0;
+
     return (
       <div className="goal">
         <Form>
@@ -39,7 +41,13 @@ export class FormSavingsGoal extends Component {
               </div>
               <div className="goal-row">
                 <h4>How much is your target amount?</h4>
-                <div className="goal-row-name">
+                <div
+                  className={
+                    amount < 100 && amount !== 0
+                      ? "goal-row-name error"
+                      : "goal-row-name"
+                  }
+                >
                   <Form.Group controlId="formAmount">
                     <Form.Control
                       type="text"
@@ -47,6 +55,9 @@ export class FormSavingsGoal extends Component {
                       onChange={handleAmountChange("targetAmount")}
                       value={targetAmount}
                     />
+                    <Form.Text className="text-muted">
+                      You cannot save an amount less than 100 naira
+                    </Form.Text>
                   </Form.Group>
                   <div className="goal-row-name-label">
                     <p>This is the amount you need to reach your goal</p>
@@ -59,7 +70,9 @@ export class FormSavingsGoal extends Component {
                 <Button
                   onClick={this.continue}
                   disabled={
-                    targetAmount === "" || goalName === "" ? true : false
+                    targetAmount === "" || amount < 100 || goalName === ""
+                      ? true
+                      : false
                   }
                 >
                   Continue

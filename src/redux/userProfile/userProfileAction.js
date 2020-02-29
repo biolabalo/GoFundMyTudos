@@ -3,6 +3,13 @@ import checkTokenValidityAndLogout from "../../checkTokenValidityAndLogout";
 import { FETCH_USER_FAILURE, FETCH_USER_SUCCESS } from "./userProfileType";
 
 export const fetchUserData = async (logout, history, dispatch) => {
+  if (
+    !axios.defaults.headers.common["Authorization"] &&
+    localStorage.TUDU_token
+  ) {
+    const token = localStorage.TUDU_token;
+    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  }
   try {
     const response = await axios.get("/user-profile");
     const {

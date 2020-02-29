@@ -165,13 +165,13 @@
       text-decoration: none;
     }
 
-    &-content-sect1-tudo-card, &-content-sect1-savings-card {
+    &-content-sect1-tudo-card, &-content-sect1-savings-card, &-content-sect1-market-card {
       display: flex;
       flex-direction: row;
       max-width: 360px;
       width: 100%;
       height: 200px;
-      margin: 0;
+      margin: 0 0 55px;
       padding: 10px 20px;
       background-image: url(https://res.cloudinary.com/xerdetech/image/upload/v1575992659/Banners_2_dgfqwu.png);
       background-repeat: no-repeat;
@@ -183,21 +183,26 @@
       background-image: url(https://res.cloudinary.com/xerdetech/image/upload/v1575992772/Banners_3_ktl5n7.png);
     }
 
-    &-content-sect1-tudo-card h5, &-content-sect1-savings-card h5 {
+    &-content-sect1-market-card {
+      background-image: url(https://res.cloudinary.com/xerdetech/image/upload/v1581345148/wtqo238yxtb0n9bbay8t.png);
+    }
+
+    &-content-sect1-tudo-card h5, &-content-sect1-savings-card h5, &-content-sect1-market-card h5 {
       margin: 0;
     }
 
-    &-content-sect1-tudo-card p, &-content-sect1-savings-card p {
+    &-content-sect1-tudo-card p, &-content-sect1-savings-card p, &-content-sect1-market-card p {
       width: 245px;
       padding: 0;
       font-size: small;
     }
 
-    &-content-sect1-tudo-card-text, &-content-sect1-savings-card-text {
+    &-content-sect1-tudo-card-text, &-content-sect1-savings-card-text, &-content-sect1-market-card-text {
+      width: 300px;
       padding: 80px 0 0;
     }
 
-    &-content-sect1-tudo-card-icon, &-content-sect1-savings-card-icon {
+    &-content-sect1-tudo-card-icon, &-content-sect1-savings-card-icon, &-content-sect1-market-card-icon {
       width: 55px;
       padding: 80px 0 0;
       text-align: right;
@@ -315,7 +320,7 @@
       flex-direction: column;
     }
 
-    &-body-content-sect1-tudo-card, &-body-content-sect1-savings-card {
+    &-body-content-sect1-tudo-card, &-body-content-sect1-savings-card, &-body-content-sect1-market-card {
       margin: 0 auto 15px;
     }
   }
@@ -359,12 +364,12 @@
       padding: 0;
     }
 
-    &-body-content-sect1-tudo-card p, &-body-content-sect1-savings-card p {
+    &-body-content-sect1-tudo-card p, &-body-content-sect1-savings-card p, &-body-content-sect1-market-card p {
       width: 100%;
     }
 
-    &-body-content-sect1-tudo-card, &-body-content-sect1-savings-card {
-      max-width: 300px;
+    &-body-content-sect1-tudo-card, &-body-content-sect1-savings-card, &-body-content-sect1-market-card {
+      max-width: 380px;
       width: 100%;
       margin: 0 auto;
     }

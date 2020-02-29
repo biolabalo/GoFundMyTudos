@@ -1,0 +1,112 @@
+@import '../../../partials/colors';
+
+a:hover {
+  text-decoration: none;
+}
+
+.active-card {
+  width: 350px;
+  height: 200px;
+  margin: 0 0 40px;
+  padding: 10px 15px;
+  border-radius: 10px;
+  box-shadow: 0px 3px 12px #00000019;
+
+  &-header {
+    display: flex;
+    flex-direction: row;
+
+    &-title {
+      width: 200px;
+      height: 25px;
+      overflow: hidden;
+    }
+
+    &-title h5 {
+      height: 25px;
+      margin: 0;
+      padding: 2px 0;
+      font-size: 17px;
+      color: #717BA0;
+    }
+
+    &-type {
+      width: 115px;
+      height: 25px;
+      overflow: hidden;
+    }
+
+    &-type p {
+      color: #AEB2C4;
+    }
+  }
+
+  &-progress {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 20px;
+
+    p {
+      margin: 5px 0;
+      font-size: 14px;
+      font-weight: 300;
+      color: #717BA0;
+    }
+
+    p span {
+      margin: 5px 0;
+      font-size: 14px;
+      font-weight: 400;
+      color: $base-color;
+    }
+  }
+
+  &-progress-bar {
+    margin: 35px 0;
+    padding: 0;
+
+    p {
+      margin: 0 0 5px 0;
+      color: #717BA0;
+    }
+
+    .progress {
+      height: 0.5rem;
+    }
+
+    .progress-bar {
+      background-color: #56cd59 !important;
+    }
+  }
+
+  &-balance {
+    padding: 10px 0 0;
+    border-top: 1px solid #eeeeee;
+
+    p {
+      margin: 0;
+      color: #717BA0;
+    }
+
+    p span {
+      font-size: 18px;
+      font-weight: 600;
+      color: $base-color;
+    }
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .active-card {
+    width: 100%;
+
+    &-header {
+      flex-direction: column;
+    }
+
+    &-progress-bar {
+      margin: 25px 0;
+    }
+  }
+}

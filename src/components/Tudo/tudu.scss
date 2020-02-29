@@ -177,6 +177,13 @@
       }
     }
 
+    &-content-dashboard-isloading {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
     &-content-create-dashboard-tab-spinner {
       width: 100px;
       margin: 150px auto;

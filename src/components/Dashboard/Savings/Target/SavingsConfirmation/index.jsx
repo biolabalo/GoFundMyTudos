@@ -66,7 +66,6 @@ export class SavingsConfirmation extends Component {
   };
 
   getNumberOfDays = (frequency, target, saving) => {
-
     if (frequency === "Daily") {
       const numberOfDays = target / saving;
       const date = new Date();
@@ -139,9 +138,9 @@ export class SavingsConfirmation extends Component {
 
     const { values, handleSave } = this.props;
 
-    const targetAmount = parseFloat(values.targetAmount.replace(",", ""));
+    const targetAmount = parseFloat(values.targetAmount.replace(/,/g, ""));
 
-    const savingAmount = parseFloat(values.savingAmount.replace(",", ""));
+    const savingAmount = parseFloat(values.savingAmount.replace(/,/g, ""));
 
     const expectedDate = this.getNumberOfDays(
       values.frequency,

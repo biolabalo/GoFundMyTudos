@@ -28,7 +28,7 @@ const Sidebar = ({ path }) => {
             <NavLink
               to="/dashboard"
               style={
-                pageURL === "/dashboard"
+                pageURL === "/dashboard" || pageURL === "/dashboard/market"
                   ? { color: "#ffff", background: colorPalete }
                   : { color: "#717ba0" }
               }

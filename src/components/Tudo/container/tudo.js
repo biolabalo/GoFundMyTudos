@@ -1,14 +1,17 @@
 import { connect } from "react-redux";
 import TuduPage from "..";
-import { getTudos, updateTudoVisibility } from "../../../redux/tudo/tudoAction";
+import {
+  getRunningTudos,
+  updateTudoVisibility
+} from "../../../redux/tudo/tudoAction";
 
 const mapStateToProps = state => ({
   data: state
 });
 
 const mapDispatchToProps = dispatch => ({
-  getTudos: () => {
-    dispatch(getTudos());
+  getRunningTudos: () => {
+    dispatch(getRunningTudos());
   },
   updateTudoVisibility: (id, bool) => {
     dispatch(updateTudoVisibility(id, bool));

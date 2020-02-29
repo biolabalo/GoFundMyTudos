@@ -4,12 +4,21 @@ import Modal from "react-responsive-modal";
 import axios from "axios";
 import axioz from "../../../axios-instance";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
+
+
 
 const PayStackModal = ({ openPayStackModal, onClosePayStackModal }) => {
+
+  const {
+    email
+  } = useSelector(state => state.loggedInUserProfile.userProfile);
+
   const [closeOnOverlayClick, setCloseOnOverlayClick] = useState(false);
+
   const state = {
-    key: "pk_test_c3b1a4bd70c7c501aa2222ea03648beccbc0c97e", //PAYSTACK PUBLIC KEY
-    email: "foobar@example.com",
+    key: process.env.REACT_APP_PAYSTACK_PUBLIC_KEY, //PAYSTACK PUBLIC KEY
+    email,
     amount: 10000
   };
 
@@ -21,8 +30,7 @@ const PayStackModal = ({ openPayStackModal, onClosePayStackModal }) => {
         `https://api.paystack.co/transaction/verify/${response.reference}`,
         {
           headers: {
-            Authorization:
-              "Bearer sk_test_32339a96e3d16058cb85661fb40bf9603cbfce98"
+            Authorization: `Bearer ${process.env.REACT_APP_PAYSTACK_SECRET_KEY}`
           }
         }
       );

@@ -101,7 +101,13 @@ const Landing = () => {
                       </a>
                     </div>
                     <div className="landing-sect-1-bottom-download-icon">
-                      <img src={apple} alt="" />
+                      <a
+                        href="https://apps.apple.com/ng/app/my-tudo/id1498060586"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <img src={apple} alt="apple" />
+                      </a>
                     </div>
                   </div>
                 </div>

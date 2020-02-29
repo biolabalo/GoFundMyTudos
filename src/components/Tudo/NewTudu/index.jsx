@@ -243,24 +243,16 @@ export class NewTudu extends Component {
 
   doneClickHandler = () => {
     const tudoArray = [];
-    const {
-      tudoList,
-      tudosPair,
-      tudosAmount,
-      tudosDuration,
-      tudosInterest
-    } = this.state;
+    const { tudoList, tudosPair, tudosAmount, tudosDuration } = this.state;
     const tudos = this.state.tudos;
 
     tudos.map(tudo => {
-      const amountInKobo = parseInt(tudosAmount[tudo].replace(/,/g, "")) * 100;
       return (
         tudoList[tudo] &&
         tudoArray.push({
           goal_name: tudosPair[tudo],
-          amount: amountInKobo,
-          tudo_duration: tudosDuration[tudo],
-          allow_interest: tudosInterest[tudo] === "yes" ? true : false
+          amount: parseInt(tudosAmount[tudo].replace(/,/g, "")) * 100,
+          tudo_duration: tudosDuration[tudo]
         })
       );
     });
@@ -904,13 +896,13 @@ export class NewTudu extends Component {
                             className="new-tudu-modal-body-share"
                             key={index}
                           >
-                            <p>{tudo.goal_name}</p>
+                            {/* <p>{tudo.goal_name}</p>
                             <Link
                               to={`/dashboard/tudo/share/${tudo.id}`}
-                              target="_blank"
+                              // target="_blank"
                             >
                               Share Tudo
-                            </Link>
+                            </Link> */}
                           </div>
                         );
                       })}

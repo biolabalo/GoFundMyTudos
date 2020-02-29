@@ -47,14 +47,10 @@
 
   &-date {
     &-picker {
-      padding: 0;
-      
       display: flex;
       flex-direction: row;
-    }
-
-    &-disable {
-      display: none;
+      margin: 0 0 100px;
+      padding: 0;
     }
   }
 

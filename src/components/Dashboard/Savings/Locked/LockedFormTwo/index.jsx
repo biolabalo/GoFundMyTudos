@@ -1,6 +1,7 @@
 import React from "react";
 import { Form, Button } from "react-bootstrap";
 import DatePicker from "react-datepicker";
+import moment from "moment";
 
 import "react-datepicker/dist/react-datepicker.css";
 import "./lockedFormTwo.scss";
@@ -8,7 +9,7 @@ import "./lockedFormTwo.scss";
 const LockedFormTwo = props => {
   const {
     handleChange,
-    values: { dateSelected, startDate, frequency },
+    values: { startDate, frequency },
     handleDate,
     nextStep
   } = props;
@@ -23,40 +24,11 @@ const LockedFormTwo = props => {
             </div>
           </div>
           <div className="col-md-12">
-            <fieldset>
-              <Form.Group>
-                <div className="form-two-startDate">
-                  <Form.Check
-                    type="radio"
-                    label="Today"
-                    name="startDate"
-                    value="today"
-                    id="startDate1"
-                    onChange={handleChange("dateSelected")}
-                    checked={dateSelected === "today" ? true : false}
-                  />
-                  <Form.Check
-                    type="radio"
-                    label="I want to pick a date myself"
-                    name="startDate"
-                    value="choose date"
-                    id="startDate2"
-                    onChange={handleChange("dateSelected")}
-                    checked={dateSelected === "choose date" ? true : false}
-                  />
-                </div>
-              </Form.Group>
-            </fieldset>
-            <div
-              className={
-                dateSelected === "choose date"
-                  ? "form-two-date-picker"
-                  : "form-two-date-disable"
-              }
-            >
+            <div className="form-two-date-picker">
               <DatePicker
                 selected={startDate}
                 onChange={handleDate}
+                minDate={moment().toDate()}
                 name="chooseDate"
               />
             </div>
@@ -114,9 +86,7 @@ const LockedFormTwo = props => {
             <div className="form-two-continue">
               <Button
                 onClick={nextStep}
-                disabled={
-                  dateSelected === "" || frequency === "" ? true : false
-                }
+                disabled={startDate === null || frequency === "" ? true : false}
               >
                 Continue
               </Button>

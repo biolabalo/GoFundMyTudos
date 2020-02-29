@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Tab, Tabs, Spinner } from "react-bootstrap";
+import { Tab, Tabs } from "react-bootstrap";
 
+import axios from "../../axios-instance";
 import Sidebar from "../Sidebar";
 import AuthNavBar from "../commons/AuthNavBar";
 
@@ -11,10 +12,24 @@ import Bottombar from "../Bottombar";
 import "./tudu.scss";
 
 class TuduPage extends Component {
-  componentDidMount() {
-    const { getTudos } = this.props;
+  constructor(props) {
+    super(props);
 
-    getTudos();
+    this.state = {
+      completedTudos: [],
+      runningTudos: [],
+      loading: false,
+      tudoPrev: "",
+      tudoNext: "",
+      completedTudoPrev: "",
+      completedTudoNext: "",
+      page: 1,
+      completedPage: 1
+    };
+  }
+  componentDidMount() {
+    this.getCompletedTudos();
+    this.getRunningTudos();
   }
 
   toggleVisibility = status => e => {
@@ -28,22 +43,139 @@ class TuduPage extends Component {
     window.location.reload();
   };
 
+  getCompletedTudos = async () => {
+    const token = localStorage.getItem("TUDU_token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      }
+    };
+    try {
+      const tudos = await axios.get("tudo?type=completed", config);
+      this.setState({
+        completedTudos: tudos.data.data,
+        completedTudoPrev: tudos.data.previous,
+        completedTudoNext: tudos.data.next
+      });
+    } catch (err) {
+      return err.response;
+    }
+  };
+
+  getRunningTudos = async () => {
+    const token = localStorage.getItem("TUDU_token");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      }
+    };
+    this.setState({
+      loading: true
+    });
+    try {
+      const tudos = await axios.get("tudo?type=running", config);
+      this.setState({
+        runningTudos: tudos.data.data,
+        tudoNext: tudos.data.next,
+        loading: false
+      });
+    } catch (err) {
+      return err.response;
+    }
+  };
+
+  getRunningPrevPage = query => async e => {
+    e.preventDefault();
+
+    const url = `tudo?${query}`;
+
+    this.setState({
+      loading: true
+    });
+    try {
+      const tudos = await axios.get(url);
+
+      if (query.split("&")[1] === "type=running") {
+        this.setState({
+          runningTudos: tudos.data.data,
+          tudoNext: tudos.data.next,
+          tudoPrev: tudos.data.previous,
+          page: this.state.page - 1,
+          loading: false
+        });
+      } else {
+        this.setState({
+          completedTudos: tudos.data.data,
+          completedTudoPrev: tudos.data.previous,
+          completedTudoNext: tudos.data.next,
+          completedPage: this.state.completedPage - 1,
+          loading: false
+        });
+      }
+    } catch (err) {
+      return err.response;
+    }
+  };
+
+  getRunningNextPage = query => async e => {
+    e.preventDefault();
+
+    const url = `tudo?${query}`;
+
+    this.setState({
+      loading: true
+    });
+    try {
+      const tudos = await axios.get(url);
+
+      if (query.split("&")[1] === "type=running") {
+        this.setState({
+          runningTudos: tudos.data.data,
+          tudoNext: tudos.data.next,
+          tudoPrev: tudos.data.previous,
+          page: this.state.page + 1,
+          loading: false
+        });
+      } else {
+        this.setState({
+          completedTudos: tudos.data.data,
+          completedTudoPrev: tudos.data.previous,
+          completedTudoNext: tudos.data.next,
+          completedPage: this.state.completedPage + 1,
+          loading: false
+        });
+      }
+    } catch (err) {
+      return err.response;
+    }
+  };
+
   render() {
     const history = window;
 
     const {
-      data: {
-        tudo: { tudos, isLoading }
-      }
-    } = this.props;
+      completedTudos,
+      runningTudos,
+      tudoNext,
+      tudoPrev,
+      loading,
+      page,
+      completedPage,
+      completedTudoNext,
+      completedTudoPrev
+    } = this.state;
 
-    const completedTudos = tudos.map(tudo => {
-      return tudo.status === "TudoStatus.completed" && tudo;
-    });
+    const next = tudoNext ? tudoNext.split("?")[1] : "";
+    const previous = tudoPrev ? tudoPrev.split("?")[1] : "";
 
-    const runningTudos = tudos.map(tudo => {
-      return tudo.status === "TudoStatus.running" && tudo;
-    });
+    const nextCompleted = completedTudoNext
+      ? completedTudoNext.split("?")[1]
+      : "";
+    const prevCompleted = completedTudoPrev
+      ? completedTudoPrev.split("?")[1]
+      : "";
 
     return (
       <div className="tudu">
@@ -77,15 +209,43 @@ class TuduPage extends Component {
                           title="Running goals"
                           tabClassName="tudu-body-content-dashboard-tab-all"
                         >
-                          {isLoading ? (
-                            <div className="tudu-body-content-create-dashboard-tab-spinner">
-                              <Spinner animation="border" size="lg" />
+                          {loading ? (
+                            <div className="tudu-body-content-dashboard-isloading">
+                              <div className="savings-body-content-isLoading-card"></div>
+                              <div className="savings-body-content-isLoading-card"></div>
+                              <div className="savings-body-content-isLoading-card"></div>
+                              <div className="savings-body-content-isLoading-card"></div>
+                              <div className="savings-body-content-isLoading-card"></div>
+                              <div className="savings-body-content-isLoading-card"></div>
                             </div>
-                          ) : tudos.length > 0 ? (
-                            <TuduFeedCard
-                              tudos={runningTudos}
-                              toggleVisibility={this.toggleVisibility}
-                            />
+                          ) : runningTudos.length > 0 ? (
+                            <>
+                              <TuduFeedCard
+                                tudos={runningTudos}
+                                toggleVisibility={this.toggleVisibility}
+                              />
+                              <div
+                                className={
+                                  next || previous
+                                    ? "savings-body-content-pagination"
+                                    : "savings-body-content-no-display"
+                                }
+                              >
+                                <button
+                                  disabled={previous ? false : true}
+                                  onClick={this.getRunningPrevPage(previous)}
+                                >
+                                  {`<< previous`}
+                                </button>
+                                <p>Page {page}</p>
+                                <button
+                                  disabled={next ? false : true}
+                                  onClick={this.getRunningNextPage(next)}
+                                >
+                                  {`next >>`}
+                                </button>
+                              </div>
+                            </>
                           ) : (
                             <div className="tudu-body-content-create-card">
                               <div className="tudu-body-content-create-card-icon">
@@ -101,13 +261,47 @@ class TuduPage extends Component {
                           tabClassName="tudu-body-content-dashboard-tab-all"
                         >
                           <div className="">
-                            {completedTudos ? (
-                              <div className="">
+                            {loading ? (
+                              <div className="tudu-body-content-dashboard-isloading">
+                                <div className="savings-body-content-isLoading-card"></div>
+                                <div className="savings-body-content-isLoading-card"></div>
+                                <div className="savings-body-content-isLoading-card"></div>
+                                <div className="savings-body-content-isLoading-card"></div>
+                                <div className="savings-body-content-isLoading-card"></div>
+                                <div className="savings-body-content-isLoading-card"></div>
+                              </div>
+                            ) : completedTudos.length > 0 ? (
+                              <>
                                 <TuduFeedCard
                                   tudos={completedTudos}
                                   toggleVisibility={this.toggleVisibility}
                                 />
-                              </div>
+                                <div
+                                  className={
+                                    nextCompleted || prevCompleted
+                                      ? "savings-body-content-pagination"
+                                      : "savings-body-content-no-display"
+                                  }
+                                >
+                                  <button
+                                    disabled={prevCompleted ? false : true}
+                                    onClick={this.getRunningPrevPage(
+                                      prevCompleted
+                                    )}
+                                  >
+                                    {`<< previous`}
+                                  </button>
+                                  <p>Page {completedPage}</p>
+                                  <button
+                                    disabled={nextCompleted ? false : true}
+                                    onClick={this.getRunningNextPage(
+                                      nextCompleted
+                                    )}
+                                  >
+                                    {`next >>`}
+                                  </button>
+                                </div>
+                              </>
                             ) : (
                               <div className="tudu-body-content-create-empty">
                                 <div className="tudu-body-content-create-empty-image">
@@ -135,16 +329,16 @@ class TuduPage extends Component {
                       <hr className="hr-my-tudo" />
                       <div
                         style={
-                          tudos.length < 3
+                          runningTudos.length < 3
                             ? { overflow: "hidden" }
                             : { overflowY: "scroll" }
                         }
                         className="tudu-body-content-overview-card-body"
                       >
-                        {tudos.length === 0 ? (
+                        {runningTudos.length === 0 ? (
                           <p>You have no goals yet</p>
                         ) : (
-                          tudos.map((tudo, index) => {
+                          runningTudos.map((tudo, index) => {
                             return (
                               tudo.status !== "TudoStatus.completed" && (
                                 <div

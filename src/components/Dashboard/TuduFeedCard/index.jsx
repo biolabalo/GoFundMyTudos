@@ -19,7 +19,7 @@ const TuduFeedCard = props => {
           return (
             <div key={index} className="tudu-feed-card">
               <Link to={`/dashboard/tudo-single/${tudo.id}`}>
-                <h6>{tudo.goal_name}</h6>
+                <h6 className="eclipse-goal-name">{tudo.goal_name}</h6>
                 <div className="tudu-feed-card-progress">
                   <p>{tudo.contributions_percentage}% achieved</p>
                   <p>
@@ -39,14 +39,16 @@ const TuduFeedCard = props => {
                 </div>
               </Link>
               <div className="tudu-feed-card-user">
-                <p>{tudo.is_visible ? "Make Private" : "Make Public"}</p>
-                <div className="tudu-feed-card-user-image">
-                  <img
-                    src={tudo.is_visible ? toggleOn : toggleOff}
-                    alt={`toggle-${tudo.id}`}
-                    id={tudo.id}
-                    onClick={toggleVisibility(tudo.is_visible)}
-                  />
+                <div className="tudu-feed-card-user-toggler">
+                  <p>{tudo.is_visible ? "Make Private" : "Make Public"}</p>
+                  <div className="tudu-feed-card-user-image">
+                    <img
+                      src={tudo.is_visible ? toggleOn : toggleOff}
+                      alt={`toggle-${tudo.id}`}
+                      id={tudo.id}
+                      onClick={toggleVisibility(tudo.is_visible)}
+                    />
+                  </div>
                 </div>
                 <Link
                   to={`/dashboard/tudo/share/${tudo.share_code}`}
@@ -80,10 +82,7 @@ const TuduFeedCard = props => {
             </div>
           );
         }
-
-      }
-      
-      )}
+      })}
     </div>
   );
 };

@@ -3,7 +3,12 @@ import { Link } from "react-router-dom";
 import { Modal, ProgressBar, Spinner } from "react-bootstrap";
 import Clipboard from "react-clipboard.js";
 import { toast } from "react-toastify";
-import { FacebookShareButton, TwitterShareButton } from "react-share";
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+  FacebookMessengerShareButton
+} from "react-share";
 
 import axios from "../../../axios-instance";
 
@@ -255,6 +260,14 @@ class ShareTudo extends Component {
                     <p>Facebook</p>
                   </div>
                 </FacebookShareButton>
+                <FacebookMessengerShareButton url={host} quote={description}>
+                  <div className="share-tudo-modal-body-socials-link">
+                    <div className="share-tudo-modal-body-socials-link-img messenger">
+                      <i className="fab fa-facebook-messenger"></i>
+                    </div>
+                    <p>Facebook</p>
+                  </div>
+                </FacebookMessengerShareButton>
                 <TwitterShareButton url={host} quote={description}>
                   <div className="share-tudo-modal-body-socials-link">
                     <div className="share-tudo-modal-body-socials-link-img twitter">
@@ -263,6 +276,18 @@ class ShareTudo extends Component {
                     <p>Twitter</p>
                   </div>
                 </TwitterShareButton>
+                <WhatsappShareButton
+                  title={description}
+                  url={host}
+                  separator={" "}
+                >
+                  <div className="share-tudo-modal-body-socials-link">
+                    <div className="share-tudo-modal-body-socials-link-img whatsapp">
+                      <i className="fab fa-whatsapp-square"></i>
+                    </div>
+                    <p>Whatsapp</p>
+                  </div>
+                </WhatsappShareButton>
                 <a
                   href={`mailto:?subject=Help me meet my goal, &body=${emailBody}`}
                 >

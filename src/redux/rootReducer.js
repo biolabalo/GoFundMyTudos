@@ -6,6 +6,7 @@ import tudo from "./tudo/tudoReducer";
 import loggedInUserProfile from "./userProfile/userProfileReducer";
 import admin from "./admin/adminReducer";
 import userNotication from "./notification/notificationReducer";
+import savings from "./savings/reducer";
 
 export default combineReducers({
   auth,
@@ -14,5 +15,6 @@ export default combineReducers({
   cards,
   loggedInUserProfile,
   admin,
-  userNotication
+  userNotication,
+  savings
 });

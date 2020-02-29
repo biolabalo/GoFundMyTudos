@@ -1,75 +1,58 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import moment from "moment";
 import { Form, Button } from "react-bootstrap";
-
-import axios from "../../../../../axios-instance";
 
 import "./lockedFormThree.scss";
 
 const LockedFormThree = props => {
-  const [banks, setbanks] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      const token = localStorage.getItem("TUDU_token");
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        }
-      };
-
-      try {
-        const retrievedBank = await axios.get(`bank-details`, config);
-
-        setbanks(retrievedBank.data.data);
-      } catch (e) {
-        return e.response;
-      }
-    })();
-  }, []);
-
   const {
     handleChange,
     handleSourceChange,
-    values: { bankAccount, interest },
+    values: { interest, selectedCard, debitCards, startDate },
     nextStep
   } = props;
+
+  const today = new Date();
+
+  const formatedToday = moment(today).format("YYYY-MM-DD");
+  const formatedDateSelected = moment(startDate).format("YYYY-MM-DD");
 
   return (
     <div className="form-three">
       <Form>
         <div className="row no-gutters">
-          <div className="col-md-12">
-            <div className="form-three-label">
-              <h4>Add your bank account</h4>
-            </div>
-          </div>
-          <div className="col-md-12">
-            <div className="form-three-bank">
-              <Form.Group controlId="exampleForm.ControlSelect1">
-                <Form.Control
-                  as="select"
-                  onChange={handleSourceChange}
-                  value={bankAccount}
-                >
-                  <option value="">Select Bank</option>
-                  {banks.length > 0 &&
-                    banks.map((bank, index) => {
-                      return (
-                        <option
-                          key={index}
-                          value={`${bank.account_number}`}
-                        >{`${bank.account_number} - ${bank.bank_name} (${bank.account_name})`}</option>
-                      );
-                    })}
-                  <option value="Add Bank">Add Bank</option>
-                </Form.Control>
-              </Form.Group>
-              <p>
-                This is where your savings will be sent to when it is unlocked
-              </p>
-            </div>
-          </div>
+          {formatedToday !== formatedDateSelected && (
+            <>
+              <div className="col-md-12">
+                <div className="form-three-label">
+                  <h4>Add your bank card</h4>
+                </div>
+              </div>
+              <div className="col-md-12">
+                <div className="form-three-bank">
+                  <Form.Group controlId="exampleForm.ControlSelect1">
+                    <Form.Control
+                      as="select"
+                      onChange={handleSourceChange}
+                      value={selectedCard}
+                    >
+                      <option value="">Select Card</option>
+                      {debitCards.length > 0 &&
+                        debitCards.map((card, index) => {
+                          return (
+                            <option
+                              key={index}
+                              value={`${card.id}`}
+                            >{`${card.first_six}******${card.last_four}`}</option>
+                          );
+                        })}
+                    </Form.Control>
+                  </Form.Group>
+                  <p>This is where your savings amount will be deducted from</p>
+                </div>
+              </div>
+            </>
+          )}
           <div className="col-md-12">
             <div className="form-three-label">
               <h4>Do you want interest on your savings?</h4>
@@ -105,7 +88,15 @@ const LockedFormThree = props => {
             <div className="form-two-continue">
               <Button
                 onClick={nextStep}
-                disabled={interest === "" ? true : false}
+                disabled={
+                  formatedToday !== formatedDateSelected
+                    ? interest === "" || selectedCard === ""
+                      ? true
+                      : false
+                    : interest === ""
+                    ? true
+                    : false
+                }
               >
                 Continue
               </Button>

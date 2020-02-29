@@ -75,20 +75,13 @@ class LockedFormFour extends Component {
 
   render() {
     const {
-      values: {
-        bankAccount,
-        goalName,
-        lockedAmount,
-        dateSelected,
-        startDate,
-        frequency
-      },
+      values: { goalName, lockedAmount, dateSelected, startDate, frequency },
       handleSave
     } = this.props;
 
     const { checked, debitSource, cards, showModal } = this.state;
 
-    const amount = parseInt(lockedAmount.replace(",", ""));
+    const amount = parseInt(lockedAmount.replace(/,/g, ""));
 
     return (
       <div className="form-four">
@@ -171,12 +164,6 @@ class LockedFormFour extends Component {
                   <div className="form-four-summary-body-row-right">
                     <h6>Savings Unlock Date</h6>
                     <p>{this.getUnlockDate(frequency)}</p>
-                  </div>
-                </div>
-                <div className="form-four-summary-body-row">
-                  <div className="form-four-summary-body-row-left">
-                    <h6>Withdrawal Account</h6>
-                    <p>{bankAccount}</p>
                   </div>
                 </div>
               </div>

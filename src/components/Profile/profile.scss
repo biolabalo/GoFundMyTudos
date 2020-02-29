@@ -4,6 +4,26 @@ a.profile-tab-link.nav-item.nav-link {
 	border-bottom: none !important;
 }
 
+.main-profile-container{
+	
+	&-sidebar {
+		width: 170px;
+		height: 100%;
+	  }
+	  
+	  &-bottombar {
+		position: fixed;
+		right: 0;
+		bottom: 0;
+		width: 100%;
+		height: 70px;
+		margin: 0;
+		background-color: #ffffff;
+		z-index: 10;
+		display: none;
+	  }
+}
+
 a.profile-tab-link.nav-item.nav-link:hover {
 	border-color: transparent !important;
 }
@@ -41,9 +61,17 @@ a.profile-tab-link.nav-item.nav-link:hover {
 
 
 @media only screen and (max-width: 807px) {
+
+	.profile-tab-link{
+	 width: 100% !important;
+	}
+
+	.profile-body-content  .nav-tabs{
+	  flex-wrap: wrap;
+	}
+
 	a.profile-tab-link.nav-item.nav-link {
-	max-width: 100%;
-	width:300px;
+    display: block;
 	text-align: center;
 	display: block;
 	border: 4px solid  #7594fb !important;
@@ -53,5 +81,14 @@ a.profile-tab-link.nav-item.nav-link:hover {
 	a.profile-tab-link.nav-item.nav-link:hover {
 		border-color: #7594fb  !important;
 	}
-
+	.main-profile-container {
+		&-sidebar {
+		  display: none;
+		}
+	
+		&-bottombar {
+		  display: flex;
+		  flex-direction: row;
+		}
+	}
   }

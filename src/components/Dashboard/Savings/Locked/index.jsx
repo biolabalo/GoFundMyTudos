@@ -1,10 +1,13 @@
 /* eslint-disable no-useless-escape */
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { ProgressBar, Modal } from "react-bootstrap";
 import moment from "moment";
 
+import { getCard } from "../../../../redux/cards/cardAction";
 import axios from "../../../../axios-instance";
+
 import Sidebar from "../../../Sidebar";
 import Bottombar from "../../../Bottombar";
 import AuthNavBar from "../../../commons/AuthNavBar";
@@ -30,13 +33,13 @@ class Locked extends Component {
       duration: "",
       dateSelected: "",
       interest: "",
-      bankAccount: "",
+      selectedCard: "",
       checked: false
     };
   }
 
   componentDidMount() {
-    this.getCard();
+    this.props.getCard();
   }
 
   handleSave = () => {
@@ -45,10 +48,18 @@ class Locked extends Component {
       startDate,
       lockedAmount,
       interest,
-      frequency
+      frequency,
+      selectedCard
     } = this.state;
 
-    this.submitSavings(goalName, startDate, lockedAmount, interest, frequency);
+    this.submitSavings(
+      goalName,
+      startDate,
+      lockedAmount,
+      interest,
+      frequency,
+      selectedCard
+    );
   };
 
   submitSavings = async (
@@ -56,7 +67,9 @@ class Locked extends Component {
     startDate,
     lockedAmount,
     interest,
-    frequency
+    frequency,
+    dateSelected,
+    selectedCard
   ) => {
     const token = localStorage.getItem("TUDU_token");
     const config = {
@@ -66,27 +79,48 @@ class Locked extends Component {
       }
     };
 
-    const target = parseInt(lockedAmount.replace(",", "")) * 100;
+    const target = parseInt(lockedAmount.replace(/,/g, "")) * 100;
     const date = moment(startDate).format("YYYY-MM-DD HH:mm:ss");
 
-    const data = JSON.stringify({
-      purpose: goalName,
-      target_amount: target,
-      start_date: date,
-      maturity_date: this.getMaturityDate(frequency),
-      allow_interest: interest
-    });
+    const today = new Date();
+
+    const formatedToday = moment(today).format("YYYY-MM-DD");
+    const formatedDateSelected = moment(startDate).format("YYYY-MM-DD");
+
+    const data =
+      selectedCard && formatedToday !== formatedDateSelected
+        ? JSON.stringify({
+            purpose: goalName,
+            target_amount: target,
+            start_date: date,
+            maturity_date: this.getMaturityDate(frequency),
+            allow_interest: interest,
+            card_id: selectedCard
+          })
+        : JSON.stringify({
+            purpose: goalName,
+            target_amount: target,
+            start_date: date,
+            maturity_date: this.getMaturityDate(frequency),
+            allow_interest: interest
+          });
 
     try {
       const response = await axios.post("savings/locked", data, config);
       const {
         data: {
-          status,
           data: { authorization_url }
         }
       } = response;
 
-      if (status === 200) window.location = authorization_url;
+      if (authorization_url) {
+        window.location = authorization_url;
+        return;
+      }
+
+      const redirectUrl = `${window.location.href}?trxref=123456`;
+
+      window.location = redirectUrl;
     } catch (e) {
       return e.response;
     }
@@ -113,27 +147,6 @@ class Locked extends Component {
 
     expectedDate.setDate(expectedDate.getDate() + 365);
     return moment(expectedDate).format("YYYY-MM-DD HH:mm:ss");
-  };
-
-  getCard = async () => {
-    const token = localStorage.getItem("TUDU_token");
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`
-      }
-    };
-
-    try {
-      const retrievedCard = await axios.get(`card-details`, config);
-
-      this.setState({
-        ...this.state,
-        cards: retrievedCard.data.data
-      });
-    } catch (e) {
-      return e.response;
-    }
   };
 
   nextStep = () => {
@@ -192,7 +205,7 @@ class Locked extends Component {
 
   handleSourceChange = e => {
     this.setState({
-      bankAccount: e.target.value
+      selectedCard: e.target.value
     });
   };
 
@@ -210,11 +223,14 @@ class Locked extends Component {
       savingAmount,
       startDate,
       endDate,
-      dateSelected,
       interest,
-      bankAccount,
-      checked
+      checked,
+      selectedCard
     } = this.state;
+
+    const {
+      cards: { debitCards }
+    } = this.props;
 
     const values = {
       goalName,
@@ -223,9 +239,9 @@ class Locked extends Component {
       endDate,
       lockedAmount,
       savingAmount,
-      dateSelected,
       interest,
-      bankAccount
+      selectedCard,
+      debitCards
     };
 
     const reference = history.location.search.split("?trxref=")[1];
@@ -505,4 +521,19 @@ class Locked extends Component {
   }
 }
 
-export default Locked;
+const mapStateToProps = ({ cards }) => {
+  return {
+    cards
+  };
+};
+
+const mapDispatchToProps = dispatch => ({
+  getCard: () => {
+    dispatch(getCard());
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Locked);

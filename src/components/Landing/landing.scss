@@ -525,6 +525,12 @@
       width: 100%;
     }
   }
+
+  .policy-container {
+    padding: 0 40px;
+    line-height: 1.9;
+    text-align: justify;
+  }
 }
 
 @media only screen and (max-width: 1024px) {
@@ -1337,6 +1343,10 @@
     }
 
     &-sect-7-container-holder-image1 {
+      padding: 0 20px;
+    }
+
+    .policy-container {
       padding: 0 20px;
     }
   }

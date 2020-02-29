@@ -222,6 +222,12 @@ class PasswordResetChange extends Component {
               </Form>
             </div>
           </div>
+          <div className="password-reset-change-bottom">
+            <div className="password-reset-change-bottom-background"></div>
+            <div className="password-reset-change-bottom-image">
+              <img src={footerImage} alt="" />
+            </div>
+          </div>
         </div>
       </>
     );

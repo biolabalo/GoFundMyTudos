@@ -114,6 +114,12 @@ class PasswordResetRequest extends Component {
               </Form>
             </div>
           </div>
+          <div className="password-reset-request-bottom">
+            <div className="password-reset-request-bottom-background"></div>
+            <div className="password-reset-request-bottom-image">
+              <img src={footerImage} alt="" />
+            </div>
+          </div>
         </div>
       </>
     );

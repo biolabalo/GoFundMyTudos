@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Axiforma Regular';
+  src: url('Axiforma-Regular.woff');
+}
+
+body {
+  font-family: 'Axiforma Regular';
+}

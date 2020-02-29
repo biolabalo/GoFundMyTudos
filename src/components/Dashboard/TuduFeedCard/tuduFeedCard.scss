@@ -8,9 +8,6 @@
   flex-wrap: wrap;
   max-width: 780px;
 
-
-
-
   &-card {
     display: flex;
     flex-direction: column;
@@ -22,6 +19,11 @@
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     box-shadow: 0px 3px 12px #7792FB33;
+
+    &-user-toggler {
+      display: flex;
+      flex-direction: row;
+    }
 
     a:hover {
       text-decoration: none;
@@ -119,6 +121,12 @@
   width: 50%;
 }
 
+.eclipse-goal-name{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .title-on-card{
   white-space: nowrap;
   overflow: hidden;
@@ -131,10 +139,10 @@
   box-shadow: 0px 3px 6px #7792FB40;
   border-radius: 5px;
   opacity: 1;
+  z-index: 2;
 }
 
 @media only screen and (max-width: 600px) {
-
   .tlf {
     display: block !important;
   }
@@ -153,7 +161,27 @@
   border-radius: 50px;
 }
 
-@media only screen and (max-width: 1199px) {
+@media only screen and (max-width: 372px) {
+  .tudu-feed-card h6 {
+    color: #7594fb;
+    padding: 0px;
+  }
+
+  .title-on-card {
+    width: auto;
+  }
+
+  .tudu-feed-card-progress {
+    display: block;
+    padding: 0 20px;
+  }
+
+  .jkdnsf {
+    padding: 0px !important;
+  }
+}
+
+@media only screen and (max-width: 1362px) {
   .tuduz-feed {
     display: flex;
     flex-direction: row;
@@ -163,17 +191,51 @@
      width: 100%;  
   }
 
+  .dashboard-body-content-sect2-tudufeed {
+    padding-top: 30px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
   .tudu-feed-card {
-    max-width: 445px;
+    max-width: 100%;
+    height: auto;
     margin: 0 auto;
     margin-bottom: 20px;
-}
-.Todu-List-Feed{
-  text-align: center;
-}
-.dashboard-body-content-sect2-tudufeed {
-  padding-top: 30px;
-}
 
+    a {
+      padding: 0 20px;
+    }
 
+    &-progress, &-progress-bar {
+      padding: 0;
+    }
+
+    &-user {
+      flex-direction: column;
+    }
+
+    &-user-link {
+      margin: 15px 0;
+      padding: 4px 0 !important;
+    }
+  }
+
+  .Todu-List-Feed{
+    text-align: center;
+  }
+
+  .tuduz-feed .tudu-feed-card {
+    width: 100%;
+    padding: 10px; 
+  }
+
+  .tuduz-feed {
+    width: 100%;
+    padding: 0; 
+  }
+
+  .dashboard-body-content-sect2-tudufeed {
+    padding: 30px 0 20px;
+  }
 }

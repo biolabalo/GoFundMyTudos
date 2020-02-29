@@ -88,8 +88,8 @@ const PayModal = ({ showPaymentModal, setPaymentModal, todoID, history }) => {
       const {
         data: { message, status }
       } = res;
-
-      if (message === "Authorization URL generated" && status === 201) {
+      
+      if (message && status === 201) {
         setisLoading(false);
         setPaymentModal(false);
         window.location = res.data.data.authorization_url;

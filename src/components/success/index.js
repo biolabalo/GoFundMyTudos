@@ -40,16 +40,18 @@ const SucessPage = ({ history }) => {
   const copyFailure = () => toast.error("Share link failed to copy");
 
   useEffect(() => {
+
     setFecthedDetails({
       isFetchedError: false,
       isLoading: true
     });
-
+ 
     if (!history.location.search) {
       return history.push("/404");
     }
 
     (async function() {
+   
       try {
         const response = await axios.get(`tudo/get-contribution/${refrence}`);
         const {
@@ -62,7 +64,6 @@ const SucessPage = ({ history }) => {
         });
         setContributionDetails(data);
         setTudoDetails(tudoToShare.data.data);
-
         setHost(
           `${window.location.origin}/contribute/${tudoToShare.data.data.share_code}`
         );

@@ -42,6 +42,19 @@
       width: 400px;
       padding: 0;
     }
+
+    &-name .text-muted {
+      display: none;
+    }
+
+    &-name.error .text-muted {
+      display: block;
+      color: red !important;
+    }
+
+    &-name.error input[type=text] {
+      border-color:red;
+    }
   
     &-name-label {
       padding: 0;

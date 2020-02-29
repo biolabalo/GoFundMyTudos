@@ -150,13 +150,13 @@ export const closeModal = () => dispatch => {
   });
 };
 
-export const getTudos = () => async dispatch => {
+export const getRunningTudos = () => async dispatch => {
   dispatch({
     type: GET_TUDO_LOADING
   });
 
   try {
-    const tudos = await axios.get("tudo");
+    const tudos = await axios.get("tudo?type=running");
 
     dispatch({
       type: GET_TUDO_SUCCESS,

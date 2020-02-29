@@ -28,12 +28,18 @@ export const logout = (history, dispatch) => {
 };
 
 export const loadUser = () => dispatch => {
-  if (!localStorage.TUDU_token) return dispatch({ type: LOGOUT });
+  if (!localStorage.TUDU_token){ 
+    return dispatch({ type: LOGOUT });
+ }
 
-  if (localStorage.TUDU_token) {
+if (localStorage.TUDU_token) {
     dispatch({ type: LOGIN_SUCCESS, payload: localStorage.TUDU_token });
     return setAuthToken(localStorage.TUDU_token);
   }
+
+
+
+
 };
 
 // Login User
@@ -43,8 +49,7 @@ export const login = async (data, history, dispatch) => {
     const res = await axios.post("/login", data, config);
 
     if (
-      res.data.status === 200 &&
-      res.data.message === "Your login was successfull"
+      res.data.status === 200 && res.data.message
     ) {
       setAuthToken(res.data.token);
       dispatch({ type: LOGIN_SUCCESS, payload: res.data.token });

@@ -9,7 +9,7 @@ import {
 
 const initialState = {
   token: localStorage.getItem("TUDU_token"),
-  isAuthenticated: false,
+  isAuthenticated: "false",
   isLoading: false,
   isLoginError: false,
   userThemePrefrences: {
@@ -20,7 +20,7 @@ const initialState = {
     cardHeaderBackgroundColor: "#FAFAFC",
     cardBackgroundColor: "#fffff"
   },
-  userFeed: [],
+  userFeed: []
 };
 
 export default function(state = initialState, action) {

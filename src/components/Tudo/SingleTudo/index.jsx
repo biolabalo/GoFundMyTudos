@@ -88,11 +88,6 @@ export class SingleTudo extends Component {
       tudo.amount_generated / 100 > 0
         ? (tudo.amount_generated / 100).toFixed(2)
         : 0;
-    const accruedInterest =
-      tudo.accrued_interest === 0
-        ? tudo.accrued_interest
-        : tudo.accrued_interest / 100;
-
     const transactions = tudo.transactions ? tudo.transactions : [];
 
     return (
@@ -155,13 +150,6 @@ export class SingleTudo extends Component {
                                 )}
                               </h4>
                             </div>
-                          </div>
-                          <div className="single-tudo-body-content-left-amount-column">
-                            <p>Interest Earned</p>
-                            <h4>
-                              <sup>N </sup>
-                              {new Intl.NumberFormat().format(accruedInterest)}
-                            </h4>
                           </div>
                         </div>
                         <div className="single-tudo-body-content-left-actions">

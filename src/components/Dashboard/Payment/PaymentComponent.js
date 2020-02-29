@@ -15,6 +15,13 @@ import { logout } from "../../../redux/auth/authAction";
 const PaymentComponent = ({ setIsCardHovered, isCardHovered, history }) => {
   const dispatch = useDispatch();
   const userCards = useSelector(state => state.cards.userCards);
+  
+  const {
+    email
+  } = useSelector(state => state.loggedInUserProfile.userProfile);
+
+
+
 
   useEffect(() => {
     (async function() {
@@ -54,7 +61,7 @@ const PaymentComponent = ({ setIsCardHovered, isCardHovered, history }) => {
       confirmButtonText: "Yes"
     }).then(result => {
       if (result.value) {
-        payWithPaystack();
+        payWithPaystack(email);
       }
     });
   };

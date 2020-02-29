@@ -3,6 +3,7 @@ import { Tab, Tabs } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import Sidebar from "../Sidebar";
 import "./profile.scss";
+import Bottombar from "../Bottombar";
 import AuthNavBar from "../commons/AuthNavBar";
 import PersonaInfo from "./PersonaInfo";
 import NextOfKin from "./NextOfKin";
@@ -33,10 +34,13 @@ const Profile = ({ history }) => {
   }, [tab_one_Active, colorPalete]);
   return (
     <>
-      <div className="tudu">
-        <div className="tudu-sidebar">
+      <div className="tudu main-profile-container">
+        <div className="main-profile-container-sidebar">
           <Sidebar path={history} />
         </div>
+        <div className="main-profile-container-bottombar">
+        <Bottombar path={history} />
+      </div>
         <div className="tudu-body">
           <AuthNavBar />
           <div className="profile-body-content">

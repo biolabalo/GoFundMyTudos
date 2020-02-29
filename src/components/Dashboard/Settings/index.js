@@ -44,7 +44,6 @@ const Settings = ({ history }) => {
     return () => {};
   }, [tab_one_Active, colorPalete]);
 
-
   return (
     <div className="settings">
       <div className="settings-sidebar">

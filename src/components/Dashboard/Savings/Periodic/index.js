@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import moment from "moment";
 import { Link } from "react-router-dom";
+
+import axios from "../../../../axios-instance";
 import {
   ProgressBar,
   Form,
@@ -28,6 +30,11 @@ const Periodic = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [checked, setChecked] = useState(false);
 
+
+  const formatedToday = moment(new Date()).format("YYYY-MM-DD");
+  const formatedDateSelected = moment(startDate).format("YYYY-MM-DD");
+
+
   const handleAmountChange = e => {
     const {
       target: { value }
@@ -39,33 +46,57 @@ const Periodic = () => {
     setAmount(value ? formatNumber.replace(/[^0-9 \,]/, "") : value);
   };
 
-  const nextSavingDate = date => {
-
-      if (frequency === "Daily") {
-        const expectedDate = new Date(date);
-        expectedDate.setDate(expectedDate.getDate() + 1);
-        return moment(expectedDate).format("DD/MM/YYYY");
-      }
-  
-      if (frequency === "Weekly") {     
-        const expectedDate = new Date(date);
-        expectedDate.setDate(expectedDate.getDate() + 7);
-        return moment(expectedDate).format("DD/MM/YYYY");
-      }
-  
-      if (frequency === "Monthly") {      
-        const expectedDate = new Date(date);
-        expectedDate.setDate(expectedDate.getDate() + 30);
-        return moment(expectedDate).format("DD/MM/YYYY");
-      }
+  const submitPeriodicSavings = async () => {
+    const start_amount = parseInt(amount.replace(",", "")) * 100;
+    const start_date = moment(startDate).format("YYYY-MM-DD HH:mm:ss");
+    const data = {
+      purpose: savingsName,
+      start_amount,
+      start_date,
+      frequency: frequency.toUpperCase(),
+      frequency_amount: start_amount,
+      allow_interest: false
     };
+    try {
+      const response = await axios.post("/savings/periodic", data);
+      const {
+        data: {
+          status,
+          data: { authorization_url }
+        }
+      } = response;
 
-    const nextCheatDate = date => {
+      if (status === 200) return (window.location = authorization_url);
+    } catch (e) {
+      return e.response;
+    }
+  };
+
+  const nextSavingDate = date => {
+    if (frequency === "daily") {
       const expectedDate = new Date(date);
-      expectedDate.setDate(expectedDate.getDate() + 92);
+      expectedDate.setDate(expectedDate.getDate() + 1);
       return moment(expectedDate).format("DD/MM/YYYY");
     }
-  
+
+    if (frequency === "weekly") {
+      const expectedDate = new Date(date);
+      expectedDate.setDate(expectedDate.getDate() + 7);
+      return moment(expectedDate).format("DD/MM/YYYY");
+    }
+
+    if (frequency === "monthly") {
+      const expectedDate = new Date(date);
+      expectedDate.setDate(expectedDate.getDate() + 30);
+      return moment(expectedDate).format("DD/MM/YYYY");
+    }
+  };
+
+  const nextCheatDate = date => {
+    const expectedDate = new Date(date);
+    expectedDate.setDate(expectedDate.getDate() + 92);
+    return moment(expectedDate).format("DD/MM/YYYY");
+  };
 
   const history = window;
   switch (step) {
@@ -106,7 +137,12 @@ const Periodic = () => {
                           <ProgressBar variant="info" now={10} />
                         </div>
                       </div>
-                      <Form className="mt-5" onSubmit={e => { e.preventDefault(); }}>
+                      <Form
+                        className="mt-5"
+                        onSubmit={e => {
+                          e.preventDefault();
+                        }}
+                      >
                         <Form.Group controlId="f" className="mt-4 mb-5">
                           <Form.Label>
                             What do you wish to name this plan?
@@ -150,14 +186,14 @@ const Periodic = () => {
                                 variant="outline-primary"
                                 type="radio"
                                 style={
-                                  frequency === "Daily"
+                                  frequency === "daily"
                                     ? { background: "#007bff", color: "white" }
-                                    : {  color: "#7594FB", borderRadius:"0px"}
+                                    : { color: "#7594FB", borderRadius: "0px" }
                                 }
                                 className="mr-2"
                                 name="radio"
                                 defaultChecked
-                                value="Daily"
+                                value="daily"
                                 onChange={e => setFrequency(e.target.value)}
                               >
                                 Daily
@@ -166,13 +202,13 @@ const Periodic = () => {
                                 variant="outline-primary"
                                 type="radio"
                                 style={
-                                  frequency === "Weekly"
+                                  frequency === "weekly"
                                     ? { background: "#007bff", color: "white" }
-                                    : { color: "#7594FB", borderRadius:"0px" }
+                                    : { color: "#7594FB", borderRadius: "0px" }
                                 }
                                 className="mr-2"
                                 name="radio"
-                                value="Weekly"
+                                value="weekly"
                                 onClick={e => setFrequency(e.target.value)}
                               >
                                 Weekly
@@ -182,11 +218,11 @@ const Periodic = () => {
                                 type="radio"
                                 name="radio"
                                 style={
-                                  frequency === "Monthly"
+                                  frequency === "monthly"
                                     ? { background: "#007bff", color: "white" }
-                                    : {  color: "#7594FB", borderRadius:"0px" }
+                                    : { color: "#7594FB", borderRadius: "0px" }
                                 }
-                                value="Monthly"
+                                value="monthly"
                                 onClick={e => setFrequency(e.target.value)}
                               >
                                 Monthly
@@ -282,7 +318,12 @@ const Periodic = () => {
                           <ProgressBar variant="info" now={40} />
                         </div>
                       </div>
-                      <Form className="mt-5" onSubmit={e => { e.preventDefault(); }}>
+                      <Form
+                        className="mt-5"
+                        onSubmit={e => {
+                          e.preventDefault();
+                        }}
+                      >
                         <Form.Group controlId="f" className="mt-4 mb-5">
                           <Form.Label>
                             How much is your saving amount
@@ -333,10 +374,38 @@ const Periodic = () => {
                               selected={startDate}
                               onChange={date => setStartDate(date)}
                               minDate={new Date()}
+                              maxDate={new Date()}
                               placeholderText="Select a date"
                             />
                           </div>
                         </div>
+
+            {formatedToday !== formatedDateSelected && (
+              <>
+                <div className="col-md-12">
+                  <div className="form-three-label">
+                    <h4>Add your bank card</h4>
+                  </div>
+                </div>
+                <div className="col-md-12">
+                  <div className="amount-card">
+                    <Form.Group controlId="exampleForm.ControlSelect1">
+                      <Form.Control
+                        as="select"
+                        // onChange={handleSourceChange}
+                        // value={selectedCard}
+                      >
+                        <option value="">Select Card</option>
+                 
+                      </Form.Control>
+                    </Form.Group>
+                    <p>
+                      This is where your savings amount will be deducted from
+                    </p>
+                  </div>
+                </div>
+              </>
+            )}
 
                         <SubmitButton
                           type="button"
@@ -510,9 +579,7 @@ const Periodic = () => {
                                   </div>
                                   <div className="confirmation-summary-card-body-row-right">
                                     <p>Next Saving Date</p>
-                                    <h5>
-                                      N{" "}  {nextSavingDate(startDate)}
-                                    </h5>
+                                    <h5>N {nextSavingDate(startDate)}</h5>
                                   </div>
                                 </div>
                                 <div className="confirmation-summary-card-body-row">
@@ -532,8 +599,8 @@ const Periodic = () => {
                         <div className="col-md-12">
                           <div className="confirmation-continue">
                             <Button
-                            
-                             disabled={checked ? false : true}
+                              onClick={() => submitPeriodicSavings()}
+                              disabled={checked ? false : true}
                             >
                               Save Now
                             </Button>
@@ -547,16 +614,18 @@ const Periodic = () => {
                                   type="checkbox"
                                   value={checked}
                                   checked={checked}
-                                  onChange={ () => setChecked(current => !current)}
+                                  onChange={() =>
+                                    setChecked(current => !current)
+                                  }
                                 ></Form.Check>
                               </Form>
                             </div>
                             <div className="col-md-11">
                               <p>
                                 I hereby agree to this: “For every time I
-                                withdraw funds from this Periodic plan before the
-                                expected end date I will be charged a penalty
-                                fee of 5% of the amount withdrawn.
+                                withdraw funds from this Periodic plan before
+                                the expected end date I will be charged a
+                                penalty fee of 5% of the amount withdrawn.
                               </p>
                             </div>
                           </div>

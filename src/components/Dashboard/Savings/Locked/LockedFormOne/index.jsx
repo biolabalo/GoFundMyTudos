@@ -11,6 +11,8 @@ const LockedFormOne = props => {
     nextStep
   } = props;
 
+  const amount = lockedAmount ? parseInt(lockedAmount.replace(/,/g, "")) : 0;
+
   return (
     <div className="form-one">
       <Form>
@@ -34,7 +36,13 @@ const LockedFormOne = props => {
             </div>
             <div className="form-one-row">
               <h4>How much do you want to lock?</h4>
-              <div className="form-one-row-name">
+              <div
+                className={
+                  amount < 100 && amount !== 0
+                    ? "form-one-row-name error"
+                    : "form-one-row-name"
+                }
+              >
                 <Form.Group controlId="formAmount">
                   <Form.Control
                     type="text"
@@ -42,6 +50,9 @@ const LockedFormOne = props => {
                     onChange={handleAmountChange("lockedAmount")}
                     value={lockedAmount}
                   />
+                  <Form.Text className="text-muted">
+                    You cannot save an amount less than 100 naira
+                  </Form.Text>
                 </Form.Group>
                 <div className="form-one-row-name-label">
                   <p>The amount you want to safely lock away e.g N 100,000</p>
@@ -53,7 +64,11 @@ const LockedFormOne = props => {
             <div className="form-one-continue">
               <Button
                 onClick={nextStep}
-                disabled={lockedAmount === "" || goalName === "" ? true : false}
+                disabled={
+                  lockedAmount === "" || amount < 100 || goalName === ""
+                    ? true
+                    : false
+                }
               >
                 Continue
               </Button>

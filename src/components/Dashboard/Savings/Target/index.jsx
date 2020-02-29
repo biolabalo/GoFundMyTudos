@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { ProgressBar, Modal } from "react-bootstrap";
 import moment from "moment";
@@ -7,6 +8,7 @@ import axios from "../../../../axios-instance";
 
 import "react-datepicker/dist/react-datepicker.css";
 
+import { getCard } from "../../../../redux/cards/cardAction";
 import Sidebar from "../../../Sidebar";
 import Bottombar from "../../../Bottombar";
 import AuthNavBar from "../../../commons/AuthNavBar";
@@ -33,8 +35,15 @@ class Target extends Component {
       dateSelected: "",
       interest: "",
       agree: false,
-      checked: false
+      checked: false,
+      selectedCard: ""
     };
+  }
+
+  componentDidMount() {
+    const { getCard } = this.props;
+
+    getCard();
   }
 
   nextStep = () => {
@@ -71,6 +80,12 @@ class Target extends Component {
     });
   };
 
+  handleSourceChange = e => {
+    this.setState({
+      selectedCard: e.target.value
+    });
+  };
+
   toggleCheck = e => {
     e.preventDefault();
 
@@ -96,7 +111,8 @@ class Target extends Component {
     startDate,
     targetAmount,
     savingAmount,
-    interest
+    interest,
+    selectedCard
   ) => {
     const token = localStorage.getItem("TUDU_token");
     const config = {
@@ -110,24 +126,45 @@ class Target extends Component {
     const target = parseInt(targetAmount.replace(",", "")) * 100;
     const date = moment(startDate).format("YYYY-MM-DD HH:mm:ss");
 
-    const data = JSON.stringify({
-      purpose: goalName,
-      start_amount: startAmount,
-      target_amount: target,
-      start_date: date,
-      allow_interest: interest
-    });
+    const today = new Date();
+
+    const formatedToday = moment(today).format("YYYY-MM-DD");
+    const formatedDateSelected = moment(startDate).format("YYYY-MM-DD");
+
+    const data =
+      selectedCard && formatedToday !== formatedDateSelected
+        ? JSON.stringify({
+            purpose: goalName,
+            start_amount: startAmount,
+            target_amount: target,
+            start_date: date,
+            allow_interest: interest,
+            card_id: selectedCard
+          })
+        : JSON.stringify({
+            purpose: goalName,
+            start_amount: startAmount,
+            target_amount: target,
+            start_date: date,
+            allow_interest: interest
+          });
 
     try {
       const response = await axios.post("savings/targeted", data, config);
       const {
         data: {
-          status,
           data: { authorization_url }
         }
       } = response;
 
-      if (status === 200) window.location = authorization_url;
+      if (authorization_url) {
+        window.location = authorization_url;
+        return;
+      }
+
+      const redirectUrl = `${window.location.href}?trxref=123456`;
+
+      window.location = redirectUrl;
     } catch (e) {
       return e.response;
     }
@@ -139,7 +176,8 @@ class Target extends Component {
       startDate,
       targetAmount,
       savingAmount,
-      interest
+      interest,
+      selectedCard
     } = this.state;
 
     this.submitSavings(
@@ -147,7 +185,8 @@ class Target extends Component {
       startDate,
       targetAmount,
       savingAmount,
-      interest
+      interest,
+      selectedCard
     );
   };
 
@@ -157,7 +196,17 @@ class Target extends Component {
 
   render() {
     const history = window;
+
     const { step } = this.state;
+
+    const buffer = {
+      cards: { debitCards: [] }
+    };
+
+    const {
+      cards: { debitCards }
+    } = this.props.cards.debitCards.length > 0 ? this.props : buffer;
+
     const {
       goalName,
       frequency,
@@ -168,7 +217,8 @@ class Target extends Component {
       dateSelected,
       interest,
       agree,
-      checked
+      checked,
+      selectedCard
     } = this.state;
     const values = {
       goalName,
@@ -180,7 +230,9 @@ class Target extends Component {
       dateSelected,
       interest,
       agree,
-      checked
+      checked,
+      debitCards,
+      selectedCard
     };
 
     const reference = history.location.search.split("?trxref=")[1];
@@ -374,6 +426,7 @@ class Target extends Component {
                           nextStep={this.nextStep}
                           handleChange={this.handleChange}
                           handleDate={this.handleDate}
+                          handleSourceChange={this.handleSourceChange}
                           values={values}
                         />
                       </div>
@@ -459,4 +512,19 @@ class Target extends Component {
   }
 }
 
-export default Target;
+const mapStateToProps = ({ cards }) => {
+  return {
+    cards
+  };
+};
+
+const mapDispatchToProps = dispatch => ({
+  getCard: () => {
+    dispatch(getCard());
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Target);

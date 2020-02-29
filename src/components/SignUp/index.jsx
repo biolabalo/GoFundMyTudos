@@ -9,11 +9,15 @@ import SubmitButton from "../commons/styledComponents/SubmitButton";
 import RegisterImage from "../../images/RegisterImage.png";
 import { ReactComponent as PasswordSVG } from "../../images/password.svg";
 import "./signup.scss";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 
 const SignUp = ({ history }) => {
   const [field, updatePasswordField] = useState(true);
   const [showInputFieldVcode, setShowInputFieldVcode] = useState(false);
   const [isLoading, setIsloading] = useState(false);
+  const [password, setPassword] = useState("");
+  const [mobile_number, setMobile_number] = useState();
 
   const { register, errors, handleSubmit } = useForm({
     mode: "onBlur"
@@ -23,9 +27,10 @@ const SignUp = ({ history }) => {
   }, []);
 
   const onSubmit = async (data, e) => {
+    const newData = mobile_number &&  mobile_number.length > 6 ? {...data, mobile_number: mobile_number.replace(/\s+/g, '')} : data;
     e.preventDefault();
     const config = { headers: { "Content-Type": "application/json" } };
-    const body = JSON.stringify(data);
+    const body = JSON.stringify(newData);
     setIsloading(true);
     try {
       const res = await axios.post("/register", body, config);
@@ -61,6 +66,10 @@ const SignUp = ({ history }) => {
   const changePasswordFieldToText = () => {
     field ? updatePasswordField(false) : updatePasswordField(true);
   };
+
+  const onChange = e => setPassword(e.target.value);
+  const passwordRegex = /[A-Z]+/;
+  const numberOrSpecialCharacterRegex = /^(?=.*[\d$@.!%*#<>,?&])[A-Za-z\d$@.~`%^*()<>/!%*#?&]{1,}$/;
 
   return (
     <>
@@ -115,31 +124,13 @@ const SignUp = ({ history }) => {
               </Col>
             </Form.Row>
 
-            <Form.Group controlId="" className="mb-4">
-              <Form.Control
-                placeholder="phone number"
-                type="number"
-                required
-                name="mobile_number"
-                className={` phone_number form-control ${errors.mobile_number &&
-                  "is-invalid"} `}
-                ref={register({
-                  required: true,
-                  minLength: 11,
-                  maxLength: 11
-                })}
-                onKeyDown={e =>
-                  (e.keyCode === 69 ||
-                    e.keyCode === 190 ||
-                    e.keyCode === 187 ||
-                    e.keyCode === 189) &&
-                  e.preventDefault()
-                }
-              />
-              {errors.mobile_number && (
-                <small className="text-danger">Input phone number</small>
-              )}
-            </Form.Group>
+            <PhoneInput
+              country={"ng"}
+              value={mobile_number}
+              onChange={phone => setMobile_number(phone)}
+              ref={register}
+              class="form-control"
+            />
 
             <Form.Group controlId="formBasicEmail" className="mb-4">
               <Form.Control
@@ -162,15 +153,17 @@ const SignUp = ({ history }) => {
 
             <InputGroup className="">
               <Form.Control
+                onChange={e => onChange(e)}
                 placeholder="Password"
+                onKeyDown={e => e.keyCode === 32 && e.preventDefault()}
                 type={field ? "password" : "text"}
                 name="password"
                 required
                 ref={register({
+                  pattern: /^(?=.*[A-Za-z])(?=.*[\d$@.!%*#?&])[A-Za-z\d$@.!%*#?&]{8,}$/,
                   required: "Password Field is empty",
                   minLength: {
-                    value: 8,
-                    message: "Password must be at least 8 characters"
+                    value: 8
                   }
                 })}
                 style={{ borderRight: "none", backgroundImage: "none" }}
@@ -210,7 +203,6 @@ const SignUp = ({ history }) => {
                   className={` referral_code form-control ${errors.referral_code &&
                     "is-invalid"}   `}
                   ref={register({ required: true })}
-                  onKeyDown={e => e.keyCode === 32 && e.preventDefault()}
                 />
                 {errors.referral_code && (
                   <small className="text-danger">Input Referral code</small>
@@ -218,14 +210,55 @@ const SignUp = ({ history }) => {
               </Form.Group>
             ) : (
               <div>
-                <small
+                {/* <small
                   className="mt-3 d-inline-block got-invite-code"
                   onClick={() => setShowInputFieldVcode(true)}
                 >
                   Got Invite code?
-                </small>
+                </small> */}
               </div>
             )}
+
+            <div className="jumbo mt-2 mb-2">
+              <small>
+                {" "}
+                <Form.Check
+                  disabled
+                  checked={passwordRegex.test(password) ? true : false}
+                  className={
+                    passwordRegex.test(password) ? "passwordchecked" : ""
+                  }
+                  type="checkbox"
+                  label="Password must contain capital letter"
+                />
+              </small>
+              <small>
+                {" "}
+                <Form.Check
+                  disabled
+                  checked={password.length > 7 ? true : false}
+                  type="checkbox"
+                  className={password.length > 7 ? "passwordchecked" : ""}
+                  label="At least 8 characters"
+                />
+              </small>
+              <small>
+                {" "}
+                <Form.Check
+                  disabled
+                  checked={
+                    numberOrSpecialCharacterRegex.test(password) ? true : false
+                  }
+                  className={
+                    numberOrSpecialCharacterRegex.test(password)
+                      ? "passwordchecked"
+                      : ""
+                  }
+                  type="checkbox"
+                  label="Contain a Number or special character"
+                />
+              </small>
+            </div>
 
             <div className="login-footer-parent">
               <div className="login-footer-left margin-right-auto">

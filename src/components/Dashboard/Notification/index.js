@@ -35,7 +35,6 @@ class Notification extends Component {
     try {
       const response = await axios.get(url);
       const { data } = response;
-      console.log(data);
       this.props.dispatch({
         type: ADD_ADDITIONAL_NOTIFICATION,
         payload: data
